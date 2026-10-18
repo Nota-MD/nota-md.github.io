@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Nota is a local-first, WYSIWYG Markdown editor with a focused workspace, plain files and Lua extensions.">
+    <meta name="theme-color" content="#e95420">
+    <meta property="og:title" content="Nota — Markdown, in place">
+    <meta property="og:description" content="A local-first Markdown editor for writing, not previewing.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/nota-yaru.png">
+    <title>Nota — Markdown, in place</title>
+    <link rel="icon" href="assets/nota.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Nota home">
+        <img src="assets/nota.svg" alt="" width="34" height="34">
+        <span>Nota</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#features">Features</a>
+        <a href="#themes">Themes</a>
+        <a href="#extensions">Extensions</a>
+        <a href="docs/">Docs</a>
+        <a href="#download">Download</a>
+        <a href="zh-CN.html" lang="zh-CN">中文</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme">
+          <span aria-hidden="true" data-theme-icon>◐</span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Local-first Markdown editor</p>
+          <h1>Write in Markdown.<br><span>See the document.</span></h1>
+          <p class="lead">
+            Nota renders formatting where you type while keeping every note as plain,
+            portable Markdown. A calm workspace, native desktop packages and optional
+            Lua extensions.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/Nota-MD/Nota/releases">Download v0.6.0 beta</a>
+            <a class="button" href="https://github.com/Nota-MD/Nota">View source</a>
+          </div>
+          <p class="release-note">Free and open source · BSD-2-Clause · Linux, Windows and macOS</p>
+        </div>
+        <a class="hero-shot" href="assets/nota-yaru.png" aria-label="Open the Nota screenshot">
+          <img src="assets/nota-yaru.png" alt="Nota showing a Markdown document, outline and formatted text">
+        </a>
+      </section>
+
+      <section class="statement" aria-label="Product statement">
+        <p>Markdown should be readable in Nota, in another editor and in a diff.</p>
+      </section>
+
+      <section class="section" id="features">
+        <div class="section-heading">
+          <p class="eyebrow">The essentials, done well</p>
+          <h2>A writing surface, not a preview workflow.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="feature-index">01</span>
+            <h3>Formatting in place</h3>
+            <p>Headings, emphasis, lists, quotes, code, formulas and diagrams appear where you type.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">02</span>
+            <h3>Files stay plain</h3>
+            <p>Every document is saved as standard Markdown. No database and no private document layer.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">03</span>
+            <h3>A complete workspace</h3>
+            <p>Tabs, folder tree, outline, autosave, external-change detection and writing modes belong together.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">04</span>
+            <h3>Extend with Lua</h3>
+            <p>Install only the capabilities you need. Official AI, Git, presentation and statistics extensions are separate.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">05</span>
+            <h3>Two independent theme axes</h3>
+            <p>Change the application shell and the document independently. Themes can bring their own CSS, icons and fonts.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">06</span>
+            <h3>Native desktop delivery</h3>
+            <p>Packages for Linux, Windows and macOS are built from one Rust and React codebase.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-split" id="themes">
+        <div>
+          <p class="eyebrow">Interface and document themes</p>
+          <h2>Yaru by default. Anything by design.</h2>
+          <p class="section-copy">
+            Nota separates the application shell from the writing surface. Interface themes
+            control controls, spacing, icons and fonts. Document themes control the page
+            without leaking into the workspace.
+          </p>
+          <div class="inline-links">
+            <a href="https://github.com/Nota-MD/Nota-themes">Browse Nota-themes</a>
+            <a href="https://github.com/Nota-MD/Nota/blob/main/docs/04-ui-map.md">Theme architecture</a>
+          </div>
+        </div>
+        <div class="theme-gallery">
+          <figure>
+            <img src="assets/nota-settings.png" alt="Nota settings with the Yaru interface theme" loading="lazy">
+            <figcaption>Yaru</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/nota-cde.png" alt="Nota with the external CDE-inspired theme" loading="lazy">
+            <figcaption>CDE-inspired external theme</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="extensions">
+        <div class="section-heading">
+          <p class="eyebrow">Optional by default</p>
+          <h2>Extensions with explicit boundaries.</h2>
+          <p class="section-copy">
+            Official extensions are installed separately. A Lua extension receives only
+            the capabilities declared in its manifest.
+          </p>
+        </div>
+        <div class="extension-grid">
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>AI</span>
+            <strong>AI assistant</strong>
+            <small>Conversations against the API you configure</small>
+          </a>
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>Git</span>
+            <strong>Version control</strong>
+            <small>Status, history and document diffs</small>
+          </a>
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>Slidev</span>
+            <strong>Presentations</strong>
+            <small>Preview Markdown slides inside the workspace</small>
+          </a>
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>Stats</span>
+            <strong>Writing statistics</strong>
+            <small>Long-term activity and session insights</small>
+          </a>
+        </div>
+      </section>
+
+      <section class="download" id="download">
+        <div>
+          <p class="eyebrow">Nota 0.6.0 beta</p>
+          <h2>Start with a plain Markdown file.</h2>
+          <p class="section-copy">Choose the package for your system from GitHub Releases.</p>
+        </div>
+        <div class="download-actions">
+          <a class="button button-primary" href="https://github.com/Nota-MD/Nota/releases">All downloads</a>
+          <span class="platforms">Linux · Windows · macOS</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <img src="assets/nota.svg" alt="" width="28" height="28">
+        <span>Nota</span>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="https://github.com/Nota-MD/Nota">Source</a>
+        <a href="https://github.com/Nota-MD/Nota-plugins">Extensions</a>
+        <a href="https://github.com/Nota-MD/Nota-themes">Themes</a>
+        <a href="docs/">Documentation</a>
+        <a href="https://github.com/Nota-MD/Nota/blob/main/LICENSE">License</a>
+        <a href="zh-CN.html" lang="zh-CN">简体中文</a>
+      </nav>
+    </footer>
+  </body>
+</html>

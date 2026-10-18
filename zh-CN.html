@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Nota 是一款本地优先、所见即所得，并用 Lua 扩展的 Markdown 编辑器。">
+    <meta name="theme-color" content="#e95420">
+    <meta property="og:title" content="Nota — 写下 Markdown，也看见最终文档">
+    <meta property="og:description" content="一款本地优先、所见即所得的 Markdown 编辑器。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/nota-yaru.png">
+    <title>Nota — 写下 Markdown，也看见最终文档</title>
+    <link rel="icon" href="assets/nota.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="zh-CN.html" aria-label="Nota 首页">
+        <img src="assets/nota.svg" alt="" width="34" height="34">
+        <span>Nota</span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="#features">特性</a>
+        <a href="#themes">主题</a>
+        <a href="#extensions">拓展</a>
+        <a href="docs/">文档</a>
+        <a href="#download">下载</a>
+        <a href="index.html" lang="en">English</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换明暗主题">
+          <span aria-hidden="true" data-theme-icon>◐</span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">本地优先的 Markdown 编辑器</p>
+          <h1>写下 Markdown。<br><span>也看见最终文档。</span></h1>
+          <p class="lead">
+            Nota 在输入位置直接呈现排版，同时把每一份笔记保存为普通、可移植的
+            Markdown。克制的写作界面、原生桌面安装包，以及按需安装的 Lua 拓展。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/Nota-MD/Nota/releases">下载 0.6.0 Beta</a>
+            <a class="button" href="https://github.com/Nota-MD/Nota">查看源码</a>
+          </div>
+          <p class="release-note">免费开源 · BSD-2-Clause · Linux、Windows 与 macOS</p>
+        </div>
+        <a class="hero-shot" href="assets/nota-yaru.png" aria-label="打开 Nota 截图">
+          <img src="assets/nota-yaru.png" alt="展示 Markdown 文档、大纲与排版结果的 Nota">
+        </a>
+      </section>
+
+      <section class="statement" aria-label="产品说明">
+        <p>Markdown 应该在 Nota、别的编辑器，以及 Git diff 里都同样清楚。</p>
+      </section>
+
+      <section class="section" id="features">
+        <div class="section-heading">
+          <p class="eyebrow">把基础能力做好</p>
+          <h2>一个写作界面，不是预览工作流。</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="feature-index">01</span>
+            <h3>原位排版</h3>
+            <p>标题、强调、列表、引用、代码、公式与图表都在输入位置直接呈现。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">02</span>
+            <h3>文件保持纯文本</h3>
+            <p>每份文档都是标准 Markdown。没有数据库，也没有私有文档层。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">03</span>
+            <h3>完整写作工作区</h3>
+            <p>标签页、文件树、大纲、自动保存、外部修改检测与写作模式协同工作。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">04</span>
+            <h3>用 Lua 扩展</h3>
+            <p>只安装需要的能力。官方 AI、Git、演示与统计拓展均独立发布。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">05</span>
+            <h3>两条独立主题轴</h3>
+            <p>界面外壳与正文分别控制。主题可以携带自己的 CSS、图标和字体。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">06</span>
+            <h3>原生桌面分发</h3>
+            <p>Linux、Windows 与 macOS 安装包由同一套 Rust 和 React 代码构建。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-split" id="themes">
+        <div>
+          <p class="eyebrow">界面主题与文档主题</p>
+          <h2>默认 Yaru，也能成为任何样子。</h2>
+          <p class="section-copy">
+            Nota 把应用外壳与写作纸面分开。界面主题控制控件、间距、图标和字体；
+            文档主题只影响正文，不会泄漏到工作区。
+          </p>
+          <div class="inline-links">
+            <a href="https://github.com/Nota-MD/Nota-themes">浏览 Nota-themes</a>
+            <a href="https://github.com/Nota-MD/Nota/blob/main/docs/04-ui-map.md">主题架构</a>
+          </div>
+        </div>
+        <div class="theme-gallery">
+          <figure>
+            <img src="assets/nota-settings.png" alt="Yaru 界面主题下的 Nota 设置" loading="lazy">
+            <figcaption>Yaru</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/nota-cde.png" alt="使用 CDE 风格外置主题的 Nota" loading="lazy">
+            <figcaption>CDE 风格外置主题</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="extensions">
+        <div class="section-heading">
+          <p class="eyebrow">默认保持精简</p>
+          <h2>边界明确的拓展系统。</h2>
+          <p class="section-copy">
+            官方拓展独立安装。Lua 拓展只能获得清单中明确声明并获准的能力。
+          </p>
+        </div>
+        <div class="extension-grid">
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>AI</span>
+            <strong>AI 助手</strong>
+            <small>使用你自行配置的 API 进行对话</small>
+          </a>
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>Git</span>
+            <strong>版本控制</strong>
+            <small>查看状态、历史与文档差异</small>
+          </a>
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>Slidev</span>
+            <strong>演示文稿</strong>
+            <small>在工作区内预览 Markdown 幻灯片</small>
+          </a>
+          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
+            <span>Stats</span>
+            <strong>写作统计</strong>
+            <small>长期活动与本轮写作数据</small>
+          </a>
+        </div>
+      </section>
+
+      <section class="download" id="download">
+        <div>
+          <p class="eyebrow">Nota 0.6.0 Beta</p>
+          <h2>从一份纯 Markdown 文件开始。</h2>
+          <p class="section-copy">从 GitHub Releases 选择适合当前系统的安装包。</p>
+        </div>
+        <div class="download-actions">
+          <a class="button button-primary" href="https://github.com/Nota-MD/Nota/releases">全部下载</a>
+          <span class="platforms">Linux · Windows · macOS</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <img src="assets/nota.svg" alt="" width="28" height="28">
+        <span>Nota</span>
+      </div>
+      <nav aria-label="页脚导航">
+        <a href="https://github.com/Nota-MD/Nota">源码</a>
+        <a href="https://github.com/Nota-MD/Nota-plugins">拓展</a>
+        <a href="https://github.com/Nota-MD/Nota-themes">主题</a>
+        <a href="docs/">文档</a>
+        <a href="https://github.com/Nota-MD/Nota/blob/main/LICENSE">许可证</a>
+        <a href="index.html" lang="en">English</a>
+      </nav>
+    </footer>
+  </body>
+</html>

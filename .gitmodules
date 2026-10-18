@@ -1,0 +1,3 @@
+[submodule "Nota-docs"]
+	path = Nota-docs
+	url = https://github.com/Nota-MD/Nota-docs.git
