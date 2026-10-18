@@ -29,7 +29,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp -a index.html zh-CN.html 404.html styles.css script.js .nojekyll assets marketing _site/
+          cp -a index.html zh-CN.html 404.html styles.css script.js .nojekyll assets _site/
           cp -a Nota-docs _site/docs
 
       - name: Configure Pages
