@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="doc-frame.css">
+  <script>
+    const params = new URLSearchParams(location.search);
+    const theme = params.get("theme") || "adwaita";
+    const language = params.get("lang") === "en" ? "en" : "zh";
+    const compact = params.get("compact") === "1";
+    document.documentElement.lang = language === "en" ? "en" : "zh-CN";
+    document.documentElement.dataset.theme = theme;
+
+    const root = "./themes/document";
+    const sheets = {
+      adwaita: ["adwaita/theme.css"],
+      "adwaita-dark": ["adwaita/theme.css", "adwaita-dark/theme.css"],
+      minimal: ["minimal/theme.css"],
+      "minimal-dark": ["minimal/theme.css", "minimal-dark/theme.css"],
+      latex: ["latex/theme.css"],
+      "latex-dark": ["latex/theme.css", "latex-dark/theme.css"],
+      cde: ["cde/theme.css"],
+      vellum: ["vellum/theme.css"],
+    };
+
+    for (const file of sheets[theme] || sheets.adwaita) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = `${root}/${file}`;
+      document.head.append(link);
+    }
+
+    addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add(compact ? "compact" : "large");
+    });
+  </script>
+</head>
+<body>
+  <main class="ProseMirror">
+    <h1 data-zh="海边的早晨" data-en="Morning by the Sea"></h1>
+    <p data-zh="潮水退下去以后，黑色的礁石一层层露出来。风比昨天轻，适合沿着海岸慢慢走。远处有人收起昨夜留下的渔网，白色的绳结在晨光里一闪一闪。" data-en="After the tide went out, the dark rocks appeared one layer at a time. The wind was lighter than yesterday. In the distance, someone gathered the nets left out overnight; their white knots caught the morning light."></p>
+    <p data-zh="我把书翻到折角的那一页，又合上。此刻并不急着读什么，只是想让这句话留在纸上。" data-en="I opened the book to the folded page, then closed it again. I was in no hurry to read; I only wanted this sentence to stay on the page."></p>
+    <h2 data-zh="潮声从远处回来" data-en="The tide returns from afar"></h2>
+    <blockquote data-zh="把重要的句子留下来，其余交给空白。" data-en="Keep the sentences that matter; leave the rest to whitespace."></blockquote>
+    <p data-zh="回程时经过旧书店。门还没有开，窗台上放着一小盆薄荷，叶子上都是昨夜的水。" data-en="On the way back I passed the old bookshop. It was not open yet; a pot of mint stood on the sill, leaves still wet from the night. "><strong data-zh="今天的计划只有一件：在日落前写完这一页。" data-en="There is only one plan today: finish this page before sunset."></strong></p>
+    <pre><code>fn main() {
+    println!("writing by the sea");
+}</code></pre>
+    <p class="formula">f(x) = ∫<sub>0</sub><sup>∞</sup> e<sup>−t²</sup> dt</p>
+    <table>
+      <thead><tr><th data-zh="时间" data-en="Time"></th><th data-zh="地点" data-en="Place"></th><th data-zh="记下的事" data-en="Note"></th></tr></thead>
+      <tbody><tr><td>06:20</td><td data-zh="灯塔" data-en="Lighthouse"></td><td data-zh="潮水开始退去" data-en="The tide began to fall"></td></tr></tbody>
+    </table>
+  </main>
+  <script>
+    for (const element of document.querySelectorAll("[data-zh][data-en]")) {
+      element.textContent = element.dataset[language];
+    }
+  </script>
+</body>
+</html>

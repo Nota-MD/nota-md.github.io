@@ -1,0 +1,118 @@
+* { box-sizing: border-box; }
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--doc-bg, #fff);
+  color: var(--doc-fg, #222);
+}
+
+.ProseMirror {
+  width: min(760px, calc(100% - 96px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 84px 0 64px;
+  font-family: var(--font-doc, Georgia, serif);
+  font-size: var(--doc-font-size, 1em);
+  line-height: var(--doc-line-height, 1.75);
+}
+
+.ProseMirror > * + * { margin-top: 0.85em; }
+.ProseMirror > h1:first-child { margin-top: 0; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p { margin-bottom: 0; }
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
+strong { font-weight: 700; }
+blockquote { margin-inline: 0; }
+
+pre {
+  overflow: hidden;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--border, #ddd);
+  border-radius: var(--radius, 6px);
+  background: var(--bg-subtle, #f4f4f4);
+  color: var(--fg, #222);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.84em;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+
+th,
+td {
+  padding: 0.55em 0.7em;
+  border: 1px solid var(--border, #ddd);
+  text-align: left;
+}
+
+.formula {
+  padding: 0.7em 0;
+  text-align: center;
+  font-family: var(--font-math, "New Computer Modern", "Latin Modern Math", serif);
+  font-size: 1.15em;
+}
+
+body.large .ProseMirror {
+  width: min(820px, calc(100% - 128px));
+  padding-top: 68px;
+  padding-bottom: 68px;
+}
+
+body.compact .ProseMirror {
+  width: calc(100% - 62px);
+  min-height: 100vh;
+  padding-top: 42px;
+  padding-bottom: 40px;
+  font-size: 13px;
+}
+
+body.compact .ProseMirror > * + * { margin-top: 0.58em; }
+body.compact pre { padding: 12px 14px; font-size: 11px; }
+
+html[data-theme="cde"] body .ProseMirror {
+  font-family: "WQY Original Web", "Nota WenQuanYi Bitmap Song",
+    "WenQuanYi Bitmap Song 16px", "文泉驿点阵宋体16px",
+    "Noto Serif CJK SC", serif !important;
+  font-size: 16px;
+  line-height: 1.65;
+  font-synthesis: none;
+}
+
+@font-face {
+  font-family: "WQY Original Web";
+  src: url("./assets/WenQuanYi.Bitmap.Song.16px.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}

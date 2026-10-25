@@ -1,191 +1,184 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Nota 是一款本地优先、所见即所得，并用 Lua 扩展的 Markdown 编辑器。">
-    <meta name="theme-color" content="#e95420">
-    <meta property="og:title" content="Nota — 写下 Markdown，也看见最终文档">
-    <meta property="og:description" content="一款本地优先、所见即所得的 Markdown 编辑器。">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/nota-yaru.png">
-    <title>Nota — 写下 Markdown，也看见最终文档</title>
-    <link rel="icon" href="assets/nota.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <header class="site-header">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nota 是一款本地优先、所见即所得的 Markdown 编辑器。">
+  <meta name="theme-color" content="#f7f5ee">
+  <meta property="og:title" content="Nota — 不打断写作的 Markdown 编辑器">
+  <meta property="og:description" content="打开文件就能写；格式在输入时出现，光标离开后回到干净的排版。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/nota-typing-en-poster.png">
+  <title>Nota — 不打断写作的 Markdown 编辑器</title>
+  <link rel="icon" href="assets/nota-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <p class="availability">适用于 Linux 与 Windows。0.9.0 Beta 现已发布。</p>
+    <div class="bar">
       <a class="brand" href="zh-CN.html" aria-label="Nota 首页">
-        <img src="assets/nota.svg" alt="" width="34" height="34">
-        <span>Nota</span>
+        <img class="brand-icon" src="assets/nota-icon.svg" alt="">
+        <img class="brand-wordmark" src="assets/nota-wordmark.svg" alt="Nota">
       </a>
-      <nav class="site-nav" aria-label="主导航">
-        <a href="#features">特性</a>
+      <nav aria-label="主导航">
+        <a href="#writing">写作</a>
+        <a href="#features">功能</a>
         <a href="#themes">主题</a>
-        <a href="#extensions">拓展</a>
-        <a href="docs/">文档</a>
-        <a href="#download">下载</a>
+        <a href="#downloads">下载</a>
         <a href="index.html" lang="en">English</a>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换明暗主题">
-          <span aria-hidden="true" data-theme-icon>◐</span>
-        </button>
       </nav>
-    </header>
+      <a class="button small" href="#downloads">获取 Nota</a>
+    </div>
+  </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">本地优先的 Markdown 编辑器</p>
-          <h1>写下 Markdown。<br><span>也看见最终文档。</span></h1>
-          <p class="lead">
-            Nota 在输入位置直接呈现排版，同时把每一份笔记保存为普通、可移植的
-            Markdown。克制的写作界面、原生桌面安装包，以及按需安装的 Lua 拓展。
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/Nota-MD/Nota/releases">下载 0.8.0 Beta</a>
-            <a class="button" href="https://github.com/Nota-MD/Nota">查看源码</a>
-          </div>
-          <p class="release-note">免费开源 · BSD-2-Clause · Linux 与 Windows</p>
-        </div>
-        <a class="hero-shot" href="assets/nota-yaru.png" aria-label="打开 Nota 截图">
-          <img src="assets/nota-yaru.png" alt="展示 Markdown 文档、大纲与排版结果的 Nota">
+  <main>
+    <section class="hero shell">
+      <img class="hero-icon" src="assets/nota-icon.svg" alt="">
+      <p class="eyebrow">Markdown · 所见即所得 · 本地文件</p>
+      <h1>一个不打断写作的<br>Markdown 编辑器。</h1>
+      <p class="lead">
+        没有账号，也没有需要学习的编辑器。打开文件就能写；
+        格式在输入时出现，光标离开后回到干净的排版。
+      </p>
+      <div class="actions">
+        <a class="button primary" href="#downloads">下载 Nota</a>
+        <a class="text-link" href="https://github.com/Nota-MD/Nota/releases/tag/v0.9.0-beta">
+          查看 0.9.0 更新 <span>↗</span>
         </a>
-      </section>
-
-      <section class="statement" aria-label="产品说明">
-        <p>Markdown 应该在 Nota、别的编辑器，以及 Git diff 里都同样清楚。</p>
-      </section>
-
-      <section class="section" id="features">
-        <div class="section-heading">
-          <p class="eyebrow">把基础能力做好</p>
-          <h2>一个写作界面，不是预览工作流。</h2>
-        </div>
-        <div class="feature-grid">
-          <article class="feature">
-            <span class="feature-index">01</span>
-            <h3>原位排版</h3>
-            <p>标题、强调、列表、引用、代码、公式与图表都在输入位置直接呈现。</p>
-          </article>
-          <article class="feature">
-            <span class="feature-index">02</span>
-            <h3>文件保持纯文本</h3>
-            <p>每份文档都是标准 Markdown。没有数据库，也没有私有文档层。</p>
-          </article>
-          <article class="feature">
-            <span class="feature-index">03</span>
-            <h3>完整写作工作区</h3>
-            <p>标签页、文件树、大纲、自动保存、外部修改检测与写作模式协同工作。</p>
-          </article>
-          <article class="feature">
-            <span class="feature-index">04</span>
-            <h3>用 Lua 扩展</h3>
-            <p>只安装需要的能力。官方 AI、Git、演示与统计拓展均独立发布。</p>
-          </article>
-          <article class="feature">
-            <span class="feature-index">05</span>
-            <h3>两条独立主题轴</h3>
-            <p>界面外壳与正文分别控制。主题可以携带自己的 CSS、图标和字体。</p>
-          </article>
-          <article class="feature">
-            <span class="feature-index">06</span>
-            <h3>原生桌面分发</h3>
-            <p>Linux 与 Windows 安装包由同一套 Rust 和 React 代码构建。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section section-split" id="themes">
-        <div>
-          <p class="eyebrow">界面主题与文档主题</p>
-          <h2>默认 Yaru，也能成为任何样子。</h2>
-          <p class="section-copy">
-            Nota 把应用外壳与写作纸面分开。界面主题控制控件、间距、图标和字体；
-            文档主题只影响正文，不会泄漏到工作区。
-          </p>
-          <div class="inline-links">
-            <a href="https://github.com/Nota-MD/Nota-themes">浏览 Nota-themes</a>
-            <a href="https://github.com/Nota-MD/Nota/blob/main/docs/04-ui-map.md">主题架构</a>
-          </div>
-        </div>
-        <div class="theme-gallery">
-          <figure>
-            <img src="assets/nota-settings.png" alt="Yaru 界面主题下的 Nota 设置" loading="lazy">
-            <figcaption>Yaru</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/nota-cde.png" alt="使用 CDE 风格外置主题的 Nota" loading="lazy">
-            <figcaption>CDE 风格外置主题</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="section" id="extensions">
-        <div class="section-heading">
-          <p class="eyebrow">默认保持精简</p>
-          <h2>边界明确的拓展系统。</h2>
-          <p class="section-copy">
-            官方拓展独立安装。Lua 拓展只能获得清单中明确声明并获准的能力。
-          </p>
-        </div>
-        <div class="extension-grid">
-          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
-            <span>AI</span>
-            <strong>AI 助手</strong>
-            <small>使用你自行配置的 API 进行对话</small>
-          </a>
-          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
-            <span>Git</span>
-            <strong>版本控制</strong>
-            <small>查看状态、历史与文档差异</small>
-          </a>
-          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
-            <span>Slidev</span>
-            <strong>演示文稿</strong>
-            <small>在工作区内预览 Markdown 幻灯片</small>
-          </a>
-          <a class="extension" href="https://github.com/Nota-MD/Nota-plugins">
-            <span>Stats</span>
-            <strong>写作统计</strong>
-            <small>长期活动与本轮写作数据</small>
-          </a>
-        </div>
-      </section>
-
-      <section class="download" id="download">
-        <div>
-          <p class="eyebrow">Nota 0.8.0 Beta</p>
-          <h2>从一份纯 Markdown 文件开始。</h2>
-          <p class="section-copy">
-            从 GitHub Releases 选择适合当前系统的安装包。Windows 版本尚属新增支持，
-            当前测试范围有限，欢迎提交兼容性问题和改进建议。
-          </p>
-        </div>
-        <div class="download-actions">
-          <a class="button button-primary" href="https://github.com/Nota-MD/Nota/releases">全部下载</a>
-          <a class="button" href="https://github.com/Nota-MD/Nota/issues">提交意见</a>
-          <span class="platforms">Linux · Windows</span>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-brand">
-        <img src="assets/nota.svg" alt="" width="28" height="28">
-        <span>Nota</span>
       </div>
-      <nav aria-label="页脚导航">
-        <a href="https://github.com/Nota-MD/Nota">源码</a>
-        <a href="https://github.com/Nota-MD/Nota-plugins">拓展</a>
-        <a href="https://github.com/Nota-MD/Nota-themes">主题</a>
-        <a href="docs/">文档</a>
-        <a href="https://github.com/Nota-MD/Nota/blob/main/LICENSE">许可证</a>
-        <a href="index.html" lang="en">English</a>
-      </nav>
-    </footer>
-  </body>
+      <p class="meta">Debian · RPM · AppImage · Windows</p>
+    </section>
+
+    <section class="writing-section shell" id="writing">
+      <p class="eyebrow">坐下来，开始写</p>
+      <h2>格式就在文字里，<br>不需要离开页面。</h2>
+      <p class="lead">
+        标题、强调、引用和代码都在输入时直接成形。文字仍然是普通的 Markdown，
+        随时可以交给任何工具继续处理。
+      </p>
+      <figure class="typing-figure">
+        <div class="typing-frame">
+          <video
+            id="typing-video"
+            src="assets/nota-typing-en.webm"
+            poster="assets/nota-typing-en-poster.png"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Nota 输入 Markdown 并实时排版的演示"></video>
+        </div>
+        <figcaption>
+          <span>输入时即时排版</span>
+          <span>源码标记只在需要时出现</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="feature-section shell" id="features">
+      <article>
+        <span class="feature-number">01</span>
+        <div>
+          <h3>文件一直是你的</h3>
+          <p>每份笔记都是普通 Markdown 文件。没有专有数据库，也没有无法带走的内容。</p>
+        </div>
+      </article>
+      <article>
+        <span class="feature-number">02</span>
+        <div>
+          <h3>结构跟着光标出现</h3>
+          <p>平时看到排版结果；需要修改时，标题、强调与代码的源码标记才安静出现。</p>
+        </div>
+      </article>
+      <article>
+        <span class="feature-number">03</span>
+        <div>
+          <h3>桌面应用的速度</h3>
+          <p>原生窗口与本地文件读写。启动、切换文档和打开大文件不依赖浏览器标签页。</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="theme-section shell wide" id="themes">
+      <div class="theme-section-head">
+        <div>
+          <p class="eyebrow">Nota Themes</p>
+          <h2>换一套纸面，<br>不换你的文字。</h2>
+        </div>
+        <div>
+          <p>
+            界面主题改变工作台，文档主题改变纸面。两套主题都只由 CSS
+            与同目录资源组成，这里展示的是仓库中的实时主题。
+          </p>
+          <a class="text-link" href="https://github.com/Nota-MD/Nota-themes">查看完整主题目录 <span>↗</span></a>
+        </div>
+      </div>
+
+      <div class="theme-compare">
+        <article class="mini-theme-panel">
+          <header>
+            <div>
+              <span class="mini-kicker">界面主题</span>
+              <strong id="home-ui-name">Adwaita</strong>
+            </div>
+            <div class="mini-swatches" role="radiogroup" aria-label="切换界面主题">
+              <button class="ui-pill active" data-ui="adwaita" data-name="Adwaita" style="--pill:#3584e4" aria-label="Adwaita" aria-checked="true"></button>
+              <button class="ui-pill" data-ui="ghub" data-name="GitHub" style="--pill:#0969da" aria-label="GitHub" aria-checked="false"></button>
+              <button class="ui-pill" data-ui="plasma" data-name="Breeze / Plasma" style="--pill:#1d7fb8" aria-label="Breeze / Plasma" aria-checked="false"></button>
+              <button class="ui-pill" data-ui="macos" data-name="macOS" style="--pill:#007aff" aria-label="macOS" aria-checked="false"></button>
+              <button class="ui-pill" data-ui="windows" data-name="Windows 11" style="--pill:#0067c0" aria-label="Windows 11" aria-checked="false"></button>
+              <button class="ui-pill" data-ui="windows10" data-name="Windows 10" style="--pill:#0078d7" aria-label="Windows 10" aria-checked="false"></button>
+              <button class="ui-pill" data-ui="yaru" data-name="Yaru" style="--pill:#e95420" aria-label="Yaru" aria-checked="false"></button>
+              <button class="ui-pill" data-ui="cde" data-name="CDE-inspired" style="--pill:#eda870" aria-label="CDE-inspired" aria-checked="false"></button>
+            </div>
+          </header>
+          <div class="mini-frame">
+            <iframe id="home-ui-preview" src="ui-theme.html?theme=adwaita&amp;lang=zh" title="Adwaita 界面主题预览"></iframe>
+          </div>
+        </article>
+
+        <article class="mini-theme-panel">
+          <header>
+            <div>
+              <span class="mini-kicker">文档主题</span>
+              <strong id="home-doc-name">Adwaita</strong>
+            </div>
+            <div class="mini-swatches" role="radiogroup" aria-label="切换文档主题">
+              <button class="doc-pill active" data-theme="adwaita" data-name="Adwaita" style="--pill:#2670c4" aria-label="Adwaita" aria-checked="true"></button>
+              <button class="doc-pill" data-theme="adwaita-dark" data-name="Adwaita Dark" style="--pill:#3584e4" aria-label="Adwaita Dark" aria-checked="false"></button>
+              <button class="doc-pill" data-theme="minimal" data-name="Minimal" style="--pill:#1a1a1a" aria-label="Minimal" aria-checked="false"></button>
+              <button class="doc-pill" data-theme="minimal-dark" data-name="Minimal Dark" style="--pill:#d7d6d2" aria-label="Minimal Dark" aria-checked="false"></button>
+              <button class="doc-pill" data-theme="latex" data-name="LaTeX" style="--pill:#8a1c1c" aria-label="LaTeX" aria-checked="false"></button>
+              <button class="doc-pill" data-theme="latex-dark" data-name="LaTeX Dark" style="--pill:#d4695f" aria-label="LaTeX Dark" aria-checked="false"></button>
+              <button class="doc-pill" data-theme="cde" data-name="CDE-inspired" style="--pill:#eda870" aria-label="CDE-inspired" aria-checked="false"></button>
+              <button class="doc-pill" data-theme="vellum" data-name="Vellum" style="--pill:#8b3026" aria-label="Vellum" aria-checked="false"></button>
+            </div>
+          </header>
+          <div class="mini-frame">
+            <iframe id="home-doc-preview" src="doc-theme.html?theme=adwaita&amp;compact=1&amp;lang=zh" title="Adwaita 文档主题预览"></iframe>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="closing shell" id="downloads">
+      <img class="closing-icon" src="assets/nota-icon.svg" alt="">
+      <p class="eyebrow">0.9.0 Beta</p>
+      <h2>把下一段话写下来。</h2>
+      <p class="lead narrow">下载适用于你的安装包，或阅读文档后从源码构建。</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/Nota-MD/Nota/releases/tag/v0.9.0-beta">前往 Release</a>
+        <a class="text-link" href="docs/">阅读文档 <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>© 2026 Nota</span>
+    <span><a href="https://github.com/Nota-MD/Nota">源码</a> · <a href="index.html" lang="en">English</a></span>
+  </footer>
+</body>
 </html>

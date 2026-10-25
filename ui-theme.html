@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="ui-frame.css">
+  <script>
+    const params = new URLSearchParams(location.search);
+    const theme = params.get("theme") || "adwaita";
+    const language = params.get("lang") === "en" ? "en" : "zh";
+    document.documentElement.lang = language === "en" ? "en" : "zh-CN";
+    document.documentElement.dataset.uiStyle = theme;
+    document.documentElement.dataset.uiMode = "light";
+
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = `./themes/ui/${theme}/theme.css`;
+    document.head.append(link);
+  </script>
+</head>
+<body>
+  <div class="app">
+    <header class="toolbar">
+      <nav class="menubar" aria-label="menubar">
+        <span class="menu-title" data-zh="文件" data-en="File"></span>
+        <span class="menu-title" data-zh="编辑" data-en="Edit"></span>
+        <span class="menu-title" data-zh="段落" data-en="Paragraph"></span>
+        <span class="menu-title" data-zh="格式" data-en="Format"></span>
+        <span class="menu-title" data-zh="视图" data-en="View"></span>
+        <span class="menu-title" data-zh="主题" data-en="Themes"></span>
+        <span class="menu-title" data-zh="拓展" data-en="Extensions"></span>
+        <span class="menu-title" data-zh="帮助" data-en="Help"></span>
+      </nav>
+      <span class="toolbar-spacer"></span>
+      <span class="toolbar-dock-toggle" data-zh="拓展" data-en="Extensions"></span>
+    </header>
+    <div class="tabs-bar">
+      <div class="tab tab-active"><span class="tab-label" data-zh="海边的早晨" data-en="Morning by the Sea"></span></div>
+      <div class="tab"><span class="tab-label" data-zh="写作计划" data-en="Writing Plan"></span></div>
+    </div>
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <nav class="sidebar-tabs">
+            <button class="sidebar-tab sidebar-tab-active" type="button" data-zh="文件" data-en="Files"></button>
+            <button class="sidebar-tab" type="button" data-zh="大纲" data-en="Outline"></button>
+          </nav>
+        </div>
+        <div class="sidebar-body">
+          <div class="workspace-row"><span>NOTA / WRITING</span><span>•••</span></div>
+          <div class="file-row file-row-active"><i class="file-icon"></i><span data-zh="海边的早晨.md" data-en="Morning by the Sea.md"></span></div>
+          <div class="file-row"><i class="file-icon"></i><span data-zh="写作计划.md" data-en="Writing Plan.md"></span></div>
+          <div class="file-row"><i class="file-icon"></i><span data-zh="海岸笔记.md" data-en="Coast Notes.md"></span></div>
+          <div class="workspace-row"><span data-zh="资料" data-en="RESOURCES"></span></div>
+          <div class="file-row"><i class="file-folder"></i><span data-zh="图片" data-en="Images"></span></div>
+          <div class="file-row"><i class="file-folder"></i><span data-zh="草稿" data-en="Drafts"></span></div>
+        </div>
+        <div class="sidebar-footer" data-zh="写作" data-en="Writing"></div>
+      </aside>
+      <main class="app-main">
+        <div class="editor-scroll">
+          <article class="editor-pane">
+            <h1 data-zh="海边的早晨" data-en="Morning by the Sea"></h1>
+            <p data-zh="潮水退下去以后，黑色的礁石一层层露出来。风比昨天轻，适合沿着海岸慢慢走。" data-en="After the tide went out, the dark rocks appeared one layer at a time. The wind was lighter than yesterday, just right for a walk along the coast."></p>
+            <p data-zh="远处有人收起昨夜留下的渔网，白色的绳结在晨光里一闪一闪。" data-en="In the distance, someone gathered the nets left out overnight. Their white knots caught the morning light."></p>
+            <h2 data-zh="潮声从远处回来" data-en="The tide returns from afar"></h2>
+            <blockquote data-zh="把重要的句子留下来，其余交给空白。" data-en="Keep the sentences that matter; leave the rest to whitespace."></blockquote>
+            <p data-zh="回程时经过旧书店。门还没有开，窗台上放着一盆薄荷，叶子上都是昨夜的水。" data-en="On the way back I passed the old bookshop. It was not open yet; a pot of mint stood on the sill, leaves still wet from the night."></p>
+            <p><strong data-zh="今天的计划只有一件：在日落前写完这一页。" data-en="There is only one plan today: finish this page before sunset."></strong></p>
+            <pre><code>fn main() {
+    println!("writing by the sea");
+}</code></pre>
+            <p class="formula">f(x) = ∫₀<sup>∞</sup> e<sup>−t²</sup> dt</p>
+          </article>
+        </div>
+      </main>
+    </div>
+    <footer class="statusbar">
+      <button class="status-btn" type="button" aria-label="toggle sidebar"><span class="status-circle"></span></button>
+      <button class="status-btn" type="button" aria-label="source mode">&lt;/&gt;</button>
+      <span class="status-count" data-zh="276 字符" data-en="276 characters"></span>
+      <button class="status-btn status-close" type="button" aria-label="close">×</button>
+    </footer>
+  </div>
+  <script>
+    for (const element of document.querySelectorAll("[data-zh][data-en]")) {
+      element.textContent = element.dataset[language];
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+/*
+ * 「LaTeX」—— 模仿 LaTeX 的 `article` 那一系的排印观感。
+ *
+ * 用户 2026-09-26 点名的三套之一，原话是「LaTeX（模仿LaTeX官方的主题）」。
+ * 模仿的是**排版规则**，不是某个模板的皮肤，四处落点：
+ *
+ *   · **衬线正文**       `--font-doc` 先试 Latin Modern / Computer Modern，
+ *                        没装就一路退到中文衬线、Georgia、Times；
+ *   · **居中标题**       h1 / h2 居中（`amsart` 那一路的分节标题就是居中的），
+ *                        h3 以下靠左、加粗；
+ *   · **段落首行缩进**   `text-indent: 1.5em`，而且段与段之间**没有**空档
+ *                        ——LaTeX 靠缩进分段，不靠空行（见下面"段落"那一段）；
+ *   · **`\hline` 细横线** 表格只有横线、没有竖线，列距靠 `padding` 撑开；
+ *   · **脚注式引用**     `blockquote` 字小一档、左外侧一条短竖线。
+ *
+ * # ⛔ 不下载、不内嵌任何字体
+ *
+ * `docs/07` 里那条"不内置第三方资源"的线同样管字体：**不许**把 Computer
+ * Modern / Latin Modern 的 `.woff2` 打进包里（那是另一份许可证，而且体积
+ * 不小）。这里只用**系统上已经装了的**字体栈，装了就长成 LaTeX、没装就
+ * 优雅退化——所以下面那一串回退**每一档都要是能用的衬线**，别删中间几档。
+ *
+ * # 写法约定
+ *
+ * 与 `minimal.css` 完全一样（不带作用域前缀、不定义界面变量、每套自带
+ * `--code-*`），理由写在那边文件头。**本套是唯一大量使用 `.ProseMirror`
+ * 的一套**，因为它整套的观感就建立在"段与段之间没有空档"上，而那条属性
+ * （`editor.css` 的 `> * + *`，权重 0,2,0）**只有 `.ProseMirror xxx` 压得过**
+ * ——守卫照样会挂上 `.editor-pane`，写成 (0,2,1)。详见下面"段落"那一段。
+ */
+
+:root {
+  /* ── 纸面：纯白 + 近黑。LaTeX 就是黑白两色，几乎没有灰阶分层可言 ── */
+  --doc-bg: #ffffff;
+  --doc-fg: #141414;
+  --fg: #141414;
+  --fg-muted: #4a4a4a;
+  /* 块标记（## / > / 1.）与任务项方框。`#767676` 在白纸上 4.54:1，过 AA
+     ——门槛的来历见 `minimal.css` 里 `--fg-faint` 那条注释。 */
+  --fg-faint: #767676;
+  --border: #c9c9c9;
+  --border-strong: #8a8a8a;
+  --bg-subtle: #f5f5f5; /* 代码块底 */
+  --bg-raised: #ebebeb; /* 代码块右上角那排按钮 */
+  --bg-hover: rgba(0, 0, 0, 0.05);
+  --bg-active: rgba(0, 0, 0, 0.09);
+  --radius: 0; /* LaTeX 里没有"圆角"这种东西，一处都不要给 */
+  --radius-sm: 0;
+  --accent: #8a1c1c; /* 暗红：`hyperref` 那种"链接是有颜色的"的味道 */
+  --accent-fg: #ffffff;
+
+  /* ── 排版 ──
+     ⚠️ 这一串**不许精简**：前两档是 LaTeX 自己的字体（装了才有），
+     中间两档是中文衬线（不写它，中文会掉到最后一档的 Times，
+     而 Times 没有汉字，最后交给系统随便挑一个——那就不是这套的主题了），
+     后面两档才是"什么年代什么机器上都有的"兜底。 */
+  --font-doc: "Latin Modern Roman", "Computer Modern", "CMU Serif",
+    "Noto Serif CJK SC", "Source Han Serif SC", Georgia, "Times New Roman",
+    "Songti SC", serif;
+  --doc-font-size: 1.04em;
+  /* ⚠️ LaTeX 的 `\baselineskip` 其实是字号的 1.2 倍，比这里紧得多；
+     但屏幕上的正文列有 760px 宽，1.2 会挤成一团黑——1.68 是"看得出是
+     LaTeX、又能在屏幕上读"的那个折中，别照抄纸上的那个数。 */
+  --doc-line-height: 1.68;
+  /* 标题的六级字号 ＋ 字重/行高。⚠️ 下面 `h1`~`h6` 那几条**读的就是这里**：
+     一套数值只此一份，别无第二处抄一遍。
+     ⚠️ **2026-09-30 起 `marks.css` 不再读这组变量了**：那里原先有一条
+     `.nota-lax-heading`（让宽松档 `#你好` 的正文按标题字号排），已被用户
+     当天那句「回车变成标题」推翻——现在"没按回车只加粗、按了回车才是真
+     标题块"，而真标题块走的正是下面 `h1`~`h6`。见 `editor/heading-on-enter.ts`
+     文件头「这一版推翻了什么」。
+     ⚠️ `em` 的基准是**正文**（`h1` 的父元素就是 `.ProseMirror`）。
+     ⚠️ 这一套的 h5 与 h6 **同号**（都是 1em），两个变量仍各写一格——标题块
+     按级取号（`#` 取 h1 … `######` 取 h6），合并掉 h6 那一格就取不到了。 */
+  --doc-h-weight: 700;
+  --doc-h-line-height: 1.3;
+  --doc-h1-size: 1.55em;
+  --doc-h2-size: 1.28em;
+  --doc-h3-size: 1.1em;
+  --doc-h4-size: 1em;
+  --doc-h5-size: 1em;
+  --doc-h6-size: 1em;
+
+  /* ── 选中文字 ── */
+  --select-text-bg-color: #d8d8d8;
+  --select-text-font-color: #141414;
+
+  /* ── 代码高亮：纸面那一套没有彩色代码，取一组压得很暗的"墨水色" ── */
+  --code-comment: #6b6b6b;
+  --code-keyword: #7a1f1f;
+  --code-string: #1f4a1f;
+  --code-number: #7a3f0f;
+  --code-function: #3a2a7a;
+  --code-attr: #7a3f0f;
+  --code-tag: #1f4a6b;
+}
+
+/* ── 标题 ─────────────────────────────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: var(--doc-h-line-height);
+  color: #000000;
+  font-weight: var(--doc-h-weight);
+}
+
+/* h1 / h2 居中（`amsart` 的分节标题），h3 以下靠左——这个"上重下轻"的
+   层级差正是 LaTeX 论文的样子。⚠️ **标题底下一条线都不加**：LaTeX 的
+   标题靠字号和空白分隔，不靠下划线（那条线是网页编辑器的习惯）。 */
+h1 {
+  font-size: var(--doc-h1-size);
+  font-weight: 400;
+  text-align: center;
+}
+
+h2 {
+  font-size: var(--doc-h2-size);
+  text-align: left;
+}
+
+h3 {
+  font-size: var(--doc-h3-size);
+}
+
+h4 {
+  font-size: var(--doc-h4-size);
+}
+
+/* ⚠️ h5 与 h6 **同号**，但这里还是分成两条：字号各从自己那一格变量取
+   （宽松标题按级取号，见 `:root` 里那段）。字重/字色两边一样。 */
+h5 {
+  font-size: var(--doc-h5-size);
+  font-weight: var(--doc-h-weight);
+  color: var(--fg-muted);
+}
+
+h6 {
+  font-size: var(--doc-h6-size);
+  font-weight: var(--doc-h-weight);
+  font-style: italic;
+  color: var(--fg-muted);
+}
+
+/* LaTeXTypora / LaTeX article numbering: h1 is the unnumbered title,
+   h2 starts section numbering, and h3/h4 form the 1.1 / 1.1.1 levels. */
+.ProseMirror {
+  counter-reset: nota-latex-section;
+}
+.ProseMirror > h2 {
+  counter-increment: nota-latex-section;
+  counter-reset: nota-latex-subsection;
+}
+.ProseMirror > h3 {
+  counter-increment: nota-latex-subsection;
+  counter-reset: nota-latex-subsubsection;
+}
+.ProseMirror > h4 {
+  counter-increment: nota-latex-subsubsection;
+}
+.ProseMirror > h2::before {
+  content: counter(nota-latex-section) "\2003";
+}
+.ProseMirror > h3::before {
+  content: counter(nota-latex-section) "." counter(nota-latex-subsection) "\2003";
+}
+.ProseMirror > h4::before {
+  content: counter(nota-latex-section) "." counter(nota-latex-subsection) "."
+    counter(nota-latex-subsubsection) "\2003";
+}
+
+/* 标题上边距。⚠️ `.ProseMirror` 的由来见 `minimal.css` 文件头——不写它，
+   标题上下的空档会被 `editor.css` 那条 0.85em 抹平，而这一套的观感
+   恰恰建立在"标题前后松、段落之间紧"这个反差上。 */
+.ProseMirror h1 {
+  margin-top: 2.6em;
+}
+.ProseMirror h2 {
+  margin-top: 2.2em;
+}
+.ProseMirror h3 {
+  margin-top: 1.8em;
+}
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  margin-top: 1.6em;
+}
+
+/* ── 段落：首行缩进 + 段间无空档 ─────────────────────────────────────────
+ *
+ * 这一条是"像不像 LaTeX"最关键的一处：**LaTeX 的段落之间没有空行**，
+ * 分段靠的是**首行缩进**。而 `editor.css` 给每个块都垫了 0.85em 的上边距
+ * （`.editor-mount .ProseMirror > * + *`，权重 (0,2,0)），裸选择器压不过它，
+ * 所以这里写成 `.ProseMirror p + p`——守卫会把它挂成
+ * `.editor-pane .ProseMirror p + p`（(0,2,1)），**刚好压过那一条**，
+ * 而界面与"含样式导出"两条路都成立。
+ *
+ * ⚠️ 只压**段接段**那一处，不是把 `p` 的 margin 全清掉：标题后面、列表
+ * 后面、代码块后面那些空档照旧（LaTeX 里那些地方也确实是要空的）。
+ *
+ * ⚠️ 这里跟随 LaTeXTypora 的 `justify` + `hyphens:auto`，而不是另写一套左对齐
+ * 规则；用户要比较的正是 Typora 的成品。 */
+p {
+  margin: 0;
+  text-align: justify;
+  text-indent: 1.5em;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.ProseMirror p + p {
+  margin-top: 0;
+}
+
+/* 缩进的例外。LaTeX 里**紧跟标题的第一段不缩进**（`\@afterheading` 干的活），
+   列表项、引用、表格单元格里的段落也不缩进。
+   ⚠️ 这几条是**裸选择器**：`.editor-pane h2 + p` 的权重 (0,1,2) 已经压过
+   `.editor-pane p`（(0,1,1)），够用，用不着 `.ProseMirror`。 */
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+li p,
+blockquote p,
+th p,
+td p {
+  text-indent: 0;
+}
+
+/* ── 行内 ─────────────────────────────────────────────────────────────── */
+
+/* 链接：暗红 + 下划线（`hyperref` 把链接染色的那一路）。 */
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+strong {
+  font-weight: 700;
+  /* ⚠️ 不写颜色（原 `#000000`，2026-10-16 改，同 `minimal.css` 那一条）。 */
+  color: inherit;
+}
+
+em {
+  font-style: italic; /* LaTeX 的 `\emph` 就是斜体，这一条不用改 */
+}
+
+del {
+  color: var(--fg-muted);
+}
+
+/* 行内代码：`\texttt`。⚠️ **方角、无边框**，只有一层极淡的底
+   （`\verb` 在纸上是没有底的，屏幕上给一点底是为了跟正文分开）。 */
+code {
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-sm);
+  background: #f4f4f4;
+  color: var(--fg);
+  font-size: 0.92em;
+}
+
+/* ── 引用：脚注的观感（字小一档、左外侧一条短竖线）───────────────────── */
+
+/* ⚠️ 不用斜体：中文的"斜体"是浏览器硬斜的，读起来只是歪，不是强调。
+   ⚠️ `margin-left: 1.5em` 是**这一套的特例**：LaTeX 的 `quote` 环境本来就
+   在左右两侧各缩进一档，所以这里**故意**不让那条竖线跟正文左缘对齐
+   ——那是 LaTeX 引用"陷在版心里"的样子。（另两套是齐左的。）
+   左右两条外边距还有一个作用：清掉浏览器 UA 那句 `margin: 1em 40px`。 */
+blockquote {
+  margin: 1.2em 0 1.2em 1.5em;
+  padding: 0.5em 0 0.5em 1em;
+  /* ⚠️ **两条都别硬编码**（2026-10-16 改）：`#000` 的竖线与 `#3a3a3a` 的字
+     在深色纸面上一个是"看不见的线"、一个是"黑字压深底"——正是 `strong` 那条
+     同一个病灶。竖线改用正文色（浅色下几乎看不出差别），字色跟着正文继承。 */
+  border-left: 2px solid currentColor;
+  font-size: 0.94em;
+  color: inherit;
+}
+
+blockquote > :first-child {
+  margin-top: 0;
+}
+
+/* ── 列表 ─────────────────────────────────────────────────────────────── */
+
+ul,
+ol {
+  padding-left: 1.6em;
+}
+
+/* ⚠️ 用 `--fg-muted` 而不是别处那档 `--fg-faint`：LaTeX 的圆点/序号
+   和正文一样黑，这里只压一档，别让它淡成"没画出来"。 */
+li::marker {
+  color: var(--fg-muted);
+}
+
+/* ── 分隔线 ───────────────────────────────────────────────────────────────
+ *
+ * `\hrule` / `\rule{\linewidth}{…}`：**满宽、纯黑**。LaTeX 的 `\hrule`
+ * 其实很细（0.4pt，屏幕上不到一个像素），但它是**纯黑**，所以白纸上
+ * 清清楚楚。这里取 2px：用户 2026-09-26 抱怨过"分割线不明显"，而 1px
+ * 在缩放后会掉成半透明——颜色已经是最黑的那一档了，就只剩粗细可调。
+ *
+ * ⚠️ **不写 `width`**：`hr` 是块级元素，本来就占满一整行；写死宽度反而
+ * 会在正文列宽变化时对不上（用户报过"只画了左边一小截"，成因还没查到）。
+ * `display: block` 是明写的，同时也是对那个怪毛病的一层保险。
+ * `margin` 必须带 `.ProseMirror` 才生效（见 `minimal.css` 文件头）。 */
+hr {
+  display: block;
+  height: 0;
+  border: 0;
+  border-top: 2px solid #000000;
+}
+
+.ProseMirror hr {
+  margin: 2.2em 0;
+}
+
+/* ── 表格：`\hline` 那一路（只有横线，没有竖线）──────────────────────────
+ *
+ * ⚠️ 这套表格**故意不画竖线**：LaTeX 的 `tabular` 默认就没有竖线，列与列
+ * 之间靠 `padding` 那 1em 的空档分开——这是"一眼看出是 LaTeX"最明显的一处。
+ * 横向三条线则一条都不省（表头上下、每行之间、末行收尾），所以它并不比
+ * 别的主题"看不清"，只是"看得清的方式不同"。
+ *
+ * ⚠️ 不写 `width: 100%`：宽度归 `prosemirror-tables` 的行内样式管
+ * （见 `editor.css` 表格那一段）。 */
+table {
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+th,
+td {
+  padding: 0.45em 1em;
+  border: 0;
+  text-align: left;
+}
+
+th {
+  border-top: 2px solid #000000;
+  border-bottom: 1px solid #000000;
+  font-weight: 700;
+}
+
+td {
+  border-bottom: 1px solid #b9b9b9;
+}
+
+/* 表格底部那条收尾的横线（`\hline` 在最后一行之后）。 */
+tbody tr:last-child > td,
+tbody tr:last-child > th {
+  border-bottom: 2px solid #000000;
+}
+
+/* ⚠️ `video` 和 `img` 并列（2026-09-28，图片语法指向视频那颗播放器）：
+   编辑区里那颗播放器的样式在 `src/styles/video.css`，而**导出**那条路会把
+   `nota-` 开头的类名全摘掉（`editor/export.ts`），那边的视频只认得元素选择器
+   ——所以尺寸这条必须在**文档主题**里也写一遍。三份主题都有这一条。 */
+img,
+video {
+  border-radius: var(--radius-sm);
+  max-width: 100%;
+}
+
+/* ── New Computer Modern 字体包 ───────────────────────────────────────────
+   与 LaTeXTypora 相同的三族字体；许可证和上游说明在 assets/fonts/。 */
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-Book.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-BookItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-BoldItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Sans";
+  src: url("./assets/fonts/NewCMSans10-Book.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Sans";
+  src: url("./assets/fonts/NewCMSans10-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Sans";
+  src: url("./assets/fonts/NewCMSans10-BookOblique.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Mono";
+  src: url("./assets/fonts/NewCMMono10-Book.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Mono";
+  src: url("./assets/fonts/NewCMMono10-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Mono";
+  src: url("./assets/fonts/NewCMMono10-BookItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --font-doc: "New Computer Modern", "Noto Serif CJK SC",
+    "Source Han Serif SC", "Songti SC", serif;
+  --font-mono: "New Computer Modern Mono", "Noto Sans Mono CJK SC", monospace;
+}

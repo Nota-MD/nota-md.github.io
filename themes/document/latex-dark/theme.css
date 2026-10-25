@@ -1,0 +1,115 @@
+/*
+ * 「LaTeX」的**深色那一档**（2026-10-16）。
+ *
+ * ⚠️ 这一份是**颜色补丁**，不是完整主题——拼法与理由写在
+ * `themes/dark/minimal.css` 头上（`themes.rs` 把两份 `concat!` 起来）。
+ *
+ * ⚠️ 纸面选**偏暖的暗色**（`#1b1a17`）而不是中性的灰：这一套的性格是
+ * "油墨印在纸上的论文"，配冷灰会变成"终端里的一份文档"——那是另一套主题。
+ * ⚠️ 强调色那条红（浅色那份是 `#8a1c1c`）在暗底上**要提亮**（否则读不出来）：
+ * 这就是"颜色是挑的、不是算的"最直接的例子。
+ */
+:root {
+  --doc-bg: #1b1a17;
+  --doc-fg: #e4e0d7;
+  --fg: #e4e0d7;
+  --fg-muted: #aba69b;
+  --fg-faint: #8b8679;
+  --border: #3b3830;
+  --border-strong: #5c584d;
+  --bg-subtle: #232220;
+  --bg-raised: #2d2b27;
+  --bg-hover: rgba(255, 255, 255, 0.06);
+  --bg-active: rgba(255, 255, 255, 0.1);
+  --accent: #d4695f;
+  --accent-fg: #1b1a17;
+  --select-text-bg-color: #4a4033;
+  --select-text-font-color: #ffffff;
+  --code-comment: #7d786c;
+  --code-keyword: #e08b7f;
+  --code-string: #94c08a;
+  --code-number: #d8ab6b;
+  --code-function: #a292d8;
+  --code-attr: #d8ab6b;
+  --code-tag: #86bcc8;
+}
+
+/* 浅色那份在这六个上写死了 `color: #000000`。 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #f3efe6;
+}
+
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-Book.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-BookItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern";
+  src: url("./assets/fonts/NewCM10-BoldItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Sans";
+  src: url("./assets/fonts/NewCMSans10-Book.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Sans";
+  src: url("./assets/fonts/NewCMSans10-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Mono";
+  src: url("./assets/fonts/NewCMMono10-Book.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Mono";
+  src: url("./assets/fonts/NewCMMono10-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Computer Modern Mono";
+  src: url("./assets/fonts/NewCMMono10-BookItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --font-doc: "New Computer Modern", "Noto Serif CJK SC",
+    "Source Han Serif SC", "Songti SC", serif;
+  --font-mono: "New Computer Modern Mono", "Noto Sans Mono CJK SC", monospace;
+}

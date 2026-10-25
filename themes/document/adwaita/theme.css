@@ -1,0 +1,278 @@
+/*
+ * 「Adwaita」—— 参考 GNOME 那套原生主题的**风格取向**：浅色、系统无衬线、
+ * 克制的圆角、用灰阶而不是线来分层。
+ *
+ * # ⚠️ 这份 CSS 是**自己写的**，不是抄的
+ *
+ * libadwaita / Adwaita 的样式表是 LGPL-3，随包分发它属于侵权（`themes.rs`
+ * 文件头那条"不内置任何第三方主题"的线）。所以这里：**没有**复制它的
+ * 任何一个色值或任何一段规则，只是照着它的**取向**配了一套自己的浅色方案
+ * ——白纸面、近黑正文、浅灰分层、一个克制的蓝作强调色。认得出是那个味道，
+ * 但一行都不是它的。要改配色就在下面 `:root` 里改，别去别处找"原版值"。
+ *
+ * ⚠️ 只做**浅色**一套：用户没要深色，而三套内置主题摆在一起时深浅要一致
+ * 才好对比（深色要另开一套，做法与 `themes.rs` 里那条清单不变）。
+ *
+ * # 写法约定
+ *
+ * 与 `minimal.css` 完全一样（不带作用域前缀、不定义界面变量、每套自带
+ * `--code-*`），那三条的正文与理由写在 `minimal.css` 的文件头，这里不重复
+ * ——包括那条"连注释里也别写出界面变量名"的提醒。
+ * 只补这一套独有的一条：
+ *
+ * **块间距与标题上边距**：裸选择器压不过 `editor.css` 那条 `> * + *`
+ * （权重 0,2,0），所以标题上边距和 `hr` 外边距这两处写成 `.ProseMirror xxx`
+ * ——守卫照样会挂上 `.editor-pane`。理由同样见 `minimal.css` 文件头。
+ */
+
+:root {
+  /* ── 纸面：白底 + 灰阶分层（分层靠底色，不靠线） ── */
+  --doc-bg: #ffffff;
+  --doc-fg: #24272a;
+  --fg: #24272a;
+  --fg-muted: #565a60;
+  /* 块标记（## / > / 1.）与任务项方框：比 muted 再淡一档，但仍要读得清。
+     `#71757b` 在白纸上是 4.63:1，过 WCAG AA —— 门槛的来历见 `minimal.css`
+     里 `--fg-faint` 那条注释，三套口径一致。 */
+  --fg-faint: #71757b;
+  --border: #d6d6d6;
+  --border-strong: #b0b0b0;
+  --bg-subtle: #f4f4f3; /* 代码块底：比纸面低一档的灰 */
+  --bg-raised: #e9e9e8; /* 代码块右上角那排按钮：再低一档 */
+  --bg-hover: rgba(0, 0, 0, 0.05);
+  --bg-active: rgba(0, 0, 0, 0.09);
+  /* ⚠️ "适当圆角"就是这两条：8 / 5，够看出来是圆的，又不至于变成气泡。
+     别调到 12px 以上——那是卡片的圆角，正文里的框用不着那么圆。 */
+  --radius: 8px;
+  --radius-sm: 5px;
+  --accent: #2670c4; /* 自己配的蓝（白字压在上面刚好 5.0:1，过 AA 的 4.5） */
+  --accent-fg: #ffffff;
+
+  /* ── 排版 ── */
+  /* Adwaita 的正文字是**无衬线**（GNOME 的界面与文档都不用衬线），
+     所以这里和「极简」「LaTeX」正好相反。系统字体优先，中文落 Noto Sans。 */
+  --font-doc: system-ui, "Cantarell", "Noto Sans CJK SC", "Source Han Sans SC",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  --doc-font-size: 1.02em;
+  --doc-line-height: 1.75;
+  /* 标题的六级字号 ＋ 字重/行高。⚠️ 下面 `h1`~`h6` 那几条**读的就是这里**：
+     一套数值只此一份，别无第二处抄一遍。
+     ⚠️ **2026-09-30 起 `marks.css` 不再读这组变量了**：那里原先有一条
+     `.nota-lax-heading`（让宽松档 `#你好` 的正文按标题字号排），已被用户
+     当天那句「回车变成标题」推翻——现在"没按回车只加粗、按了回车才是真
+     标题块"，而真标题块走的正是下面 `h1`~`h6`。见 `editor/heading-on-enter.ts`
+     文件头「这一版推翻了什么」。
+     ⚠️ `em` 的基准是**正文**（`h1` 的父元素就是 `.ProseMirror`），复制到段落里
+     那段文字上算出来一模一样。⚠️ 这一套标题是 **700**（另两套是 600）。 */
+  --doc-h-weight: 700;
+  --doc-h-line-height: 1.3;
+  --doc-h1-size: 1.8em;
+  --doc-h2-size: 1.45em;
+  --doc-h3-size: 1.22em;
+  --doc-h4-size: 1.08em;
+  --doc-h5-size: 1em;
+  --doc-h6-size: 0.92em;
+
+  /* ── 选中文字 ── */
+  --select-text-bg-color: #cfe0f5;
+  --select-text-font-color: #14171a;
+
+  /* ── 代码高亮：自己配的一套，深色 + 低饱和，和上面那几档灰不打架 ── */
+  --code-comment: #6e7175;
+  --code-keyword: #9c2a5c;
+  --code-string: #1f6b3a;
+  --code-number: #8a4b00;
+  --code-function: #5b3fa8;
+  --code-attr: #8a4b00;
+  --code-tag: #1a6488;
+}
+
+/* ── 标题 ─────────────────────────────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--doc-h-weight);
+  line-height: var(--doc-h-line-height);
+  color: #16191c;
+}
+
+/* h1 底下那条浅灰线是这一套里唯一的"标题装饰"。⚠️ 用 `--border-strong`
+   （2.17:1）而不是 `--border`（1.45:1）：后者在白纸上只是一点灰影，
+   而这条线的作用正是"让 h1 和 h2 一眼分得开"（用 `--fg` 又太重）。 */
+h1 {
+  font-size: var(--doc-h1-size);
+  padding-bottom: 0.32em;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+h2 {
+  font-size: var(--doc-h2-size);
+}
+
+h3 {
+  font-size: var(--doc-h3-size);
+}
+
+h4 {
+  font-size: var(--doc-h4-size);
+}
+
+h5 {
+  font-size: var(--doc-h5-size);
+}
+
+h6 {
+  font-size: var(--doc-h6-size);
+  color: var(--fg-muted);
+}
+
+/* 标题上边距。⚠️ `.ProseMirror` 的由来见 `minimal.css` 文件头：
+   不写它就是死代码，标题与正文之间会跟段间距一样都是 0.85em。 */
+.ProseMirror h1 {
+  margin-top: 2em;
+}
+.ProseMirror h2 {
+  margin-top: 1.8em;
+}
+.ProseMirror h3 {
+  margin-top: 1.6em;
+}
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  margin-top: 1.4em;
+}
+
+/* ── 正文与行内 ───────────────────────────────────────────────────────── */
+
+p {
+  margin: 0;
+  text-align: left;
+}
+
+/* 链接：GNOME 的文档里链接就是"强调色 + 下划线"。用 `text-decoration`
+   而不是 `border-bottom`——它不占盒子，不会让行高或行宽动一下。 */
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+strong {
+  font-weight: 700;
+  /* ⚠️ 不写颜色（原 `#16191c`，2026-10-16 改，同 `minimal.css` 那一条）：
+     硬编码的颜色在深色那一档会变成"黑字压深底"，而深色补丁只盖了标题那六个。 */
+  color: inherit;
+}
+
+em {
+  font-style: italic;
+}
+
+del {
+  color: var(--fg-muted);
+}
+
+/* 行内代码：一块浅灰圆角小底（GNOME 文档里 `code` 也是这么长的）。 */
+code {
+  padding: 0.12em 0.36em;
+  border-radius: var(--radius-sm);
+  background: #f0f0ef;
+  color: var(--fg);
+  font-size: 0.92em;
+}
+
+/* ── 引用：左边一条强调色 + 圆角灰底，像一个"卡片" ────────────────────── */
+
+blockquote {
+  /* ⚠️ 左右两条外边距是必需的：不写它，浏览器 UA 那句
+     `blockquote { margin: 1em 40px }` 会生效，卡片就缩进 40px、
+     左边那条强调色跟正文和 `hr` 的左边缘对不齐。 */
+  margin: 1.2em 0;
+  padding: 0.7em 1em;
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm); /* 只圆左边两角：右边没有边框 */
+  background: #f6f6f5;
+  color: #4c4f54;
+}
+
+blockquote > :first-child {
+  margin-top: 0;
+}
+
+/* ── 列表 ─────────────────────────────────────────────────────────────── */
+
+ul,
+ol {
+  padding-left: 1.5em;
+}
+
+li::marker {
+  color: var(--fg-faint);
+}
+
+/* ── 分隔线 ───────────────────────────────────────────────────────────────
+ *
+ * 用户 2026-09-26 抱怨「分割线什么的分别不明显」，所以这一条**不学 Adwaita
+ * 的分隔线**：GNOME 自己的分隔线是 15% 左右的灰，在那个界面里够用，
+ * 但在一张白纸上太弱。这里取 `--fg-faint`（4.63:1）＋ 2px：看得清，
+ * 又不至于像「极简」那条近黑的分割线那么重——两套的性格差别正好落在
+ * 这一条上。（⚠️ 顺带说明：`--border-strong` 在浅色下只有 2.17:1，
+ * 拿它画分隔线仍然偏弱，那是留给按钮描边和弹层边框的一档，别混用。）
+ *
+ * ⚠️ **不写 `width`**（理由见 `minimal.css` 里 `hr` 那一段）；
+ * `margin` 必须带 `.ProseMirror` 才生效。
+ */
+hr {
+  display: block;
+  height: 0;
+  border: 0;
+  border-top: 2px solid var(--fg-faint);
+}
+
+.ProseMirror hr {
+  margin: 2.2em 0;
+}
+
+/* ── 表格 ─────────────────────────────────────────────────────────────── */
+
+/* ⚠️ 不写 `width: 100%`：宽度归 `prosemirror-tables` 的行内样式管
+   （见 `editor.css` 表格那一段）。 */
+table {
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+th,
+td {
+  padding: 0.55em 0.8em;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+th {
+  background: #f0f0ef;
+  color: #16191c;
+  font-weight: 700;
+}
+
+/* 隔行浅底。⚠️ `:nth-child(even)`：表头占掉第一行，从偶数行起步才不会让
+   第一行数据跟表头同色（这条与 `editor.css` 里那份兜底是同一个口径）。 */
+tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* ⚠️ `video` 和 `img` 并列（2026-09-28，图片语法指向视频那颗播放器）：
+   编辑区里那颗播放器的样式在 `src/styles/video.css`，而**导出**那条路会把
+   `nota-` 开头的类名全摘掉（`editor/export.ts`），那边的视频只认得元素选择器
+   ——所以尺寸这条必须在**文档主题**里也写一遍。三份主题都有这一条。 */
+img,
+video {
+  border-radius: var(--radius-sm);
+  max-width: 100%;
+}

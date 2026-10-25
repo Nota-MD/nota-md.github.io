@@ -1,0 +1,325 @@
+/*
+ * Vellum — a warm writing surface for long-form notes and manuscript drafts.
+ *
+ * Latin text uses Special Elite; Chinese text falls through to Huiwen Mincho
+ * GBK. Both fonts ship inside this theme package with their source notices.
+ * The layout is deliberately quiet: paper, ink, a thin rule, and one restrained
+ * rubric-red accent.
+ */
+
+@font-face {
+  font-family: "Vellum Special Elite";
+  src: url("./assets/fonts/SpecialElite-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-Latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-2E7F, U+AC00-D7AF;
+}
+
+/* Huiwen Mincho is large. Nota inlines theme assets with an 8 MiB per-file cap,
+   so split the family into Unicode ranges below that limit while preserving the
+   complete GBK coverage. */
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-2000.woff2") format("woff2");
+  unicode-range: U+2E80-2FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-3000.woff2") format("woff2");
+  unicode-range: U+3000-3FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-4000.woff2") format("woff2");
+  unicode-range: U+4000-4FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-5000.woff2") format("woff2");
+  unicode-range: U+5000-57FF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-5800.woff2") format("woff2");
+  unicode-range: U+5800-5FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-6000.woff2") format("woff2");
+  unicode-range: U+6000-67FF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-6800.woff2") format("woff2");
+  unicode-range: U+6800-6FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-7000.woff2") format("woff2");
+  unicode-range: U+7000-77FF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-7800.woff2") format("woff2");
+  unicode-range: U+7800-7FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-8000.woff2") format("woff2");
+  unicode-range: U+8000-87FF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-8800.woff2") format("woff2");
+  unicode-range: U+8800-8FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-9000.woff2") format("woff2");
+  unicode-range: U+9000-97FF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-9800.woff2") format("woff2");
+  unicode-range: U+9800-9FFF;
+}
+@font-face {
+  font-family: "Vellum Mincho";
+  src: url("./assets/fonts/Huiwen-MinchoGBK-CJK-5.woff2") format("woff2");
+  unicode-range: U+A000-FAFF, U+FE00-FFFF;
+}
+
+:root {
+  --doc-bg: #f4ecd9;
+  --doc-fg: #30271f;
+  --fg: #30271f;
+  --fg-muted: #66584b;
+  --fg-faint: #78695a;
+  --border: #cdbfa8;
+  --border-strong: #a99579;
+  --bg-subtle: #eee3cd;
+  --bg-raised: #f8f1e2;
+  --bg-hover: rgb(92 63 37 / 8%);
+  --bg-active: rgb(92 63 37 / 14%);
+  --radius: 3px;
+  --radius-sm: 2px;
+  --accent: #8b3026;
+  --accent-fg: #fff8eb;
+
+  --font-doc: "Vellum Special Elite", "Vellum Mincho",
+    "Huiwen-MinchoGBK", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+  /* Vellum treats code as typed manuscript rather than modern editor chrome:
+     use the same typewriter-first family for Latin and Ming fallback for CJK. */
+  --font-mono: "Vellum Special Elite", "Vellum Mincho",
+    "Huiwen-MinchoGBK", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+  --font-math: "KaTeX_Main", "Latin Modern Math", "Vellum Mincho",
+    "Huiwen-MinchoGBK", "Noto Serif CJK SC", serif;
+  --doc-font-size: 1.04em;
+  --doc-line-height: 1.8;
+
+  --doc-h-weight: 400;
+  --doc-h-line-height: 1.25;
+  --doc-h1-size: 1.9em;
+  --doc-h2-size: 1.46em;
+  --doc-h3-size: 1.2em;
+  --doc-h4-size: 1.06em;
+  --doc-h5-size: 1em;
+  --doc-h6-size: 0.92em;
+
+  --select-text-bg-color: #ddc9a7;
+  --select-text-font-color: #241c16;
+  --mark-bg: #ead58f;
+  --mark-fg: #2b2118;
+
+  --code-comment: #756759;
+  --code-keyword: #7c3028;
+  --code-string: #3f6246;
+  --code-number: #8a5629;
+  --code-function: #5b466f;
+  --code-attr: #8a5629;
+  --code-tag: #365f68;
+}
+
+/* The writing column is intentionally narrower than a web article. */
+.ProseMirror {
+  max-width: 38em;
+  margin-inline: auto;
+  padding-top: 4.5rem;
+  font-variant-ligatures: common-ligatures;
+}
+
+/* A small ink rule under the document title, like a manuscript heading. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #241c16;
+  font-family: var(--font-doc);
+  font-weight: var(--doc-h-weight);
+  line-height: var(--doc-h-line-height);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--doc-h1-size);
+  margin-bottom: 1.9rem;
+  padding-bottom: 0.55rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+h2 {
+  font-size: var(--doc-h2-size);
+  margin-top: 2.2rem;
+}
+
+h3 {
+  font-size: var(--doc-h3-size);
+  margin-top: 1.8rem;
+}
+
+h4,
+h5,
+h6 {
+  margin-top: 1.5rem;
+}
+
+h5,
+h6 {
+  color: var(--fg-muted);
+}
+
+.ProseMirror h1 {
+  margin-top: 1.2rem;
+}
+
+p {
+  margin: 0;
+  text-align: justify;
+  text-indent: 1.65em;
+  text-justify: inter-ideograph;
+}
+
+.ProseMirror p + p {
+  margin-top: 0.42em;
+}
+
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+li p,
+blockquote p,
+th p,
+td p {
+  text-indent: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+strong {
+  color: inherit;
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+}
+
+del {
+  color: var(--fg-muted);
+}
+
+code {
+  padding: 0.1em 0.34em;
+  border-radius: var(--radius-sm);
+  background: #eadfc9;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+blockquote {
+  margin: 1.35em 1.2em;
+  padding: 0.2em 0 0.2em 1.15em;
+  border-left: 2px solid #a67c52;
+  color: var(--fg-muted);
+}
+
+blockquote > :first-child {
+  margin-top: 0;
+}
+
+ul,
+ol {
+  padding-left: 1.8em;
+}
+
+li {
+  margin-bottom: 0.28em;
+}
+
+li::marker {
+  color: #8b3026;
+}
+
+hr {
+  display: block;
+  height: 0;
+  margin: 2.4em 0;
+  border: 0;
+  border-top: 1px solid var(--border-strong);
+}
+
+table {
+  width: auto;
+  max-width: 100%;
+  margin: 1.8rem auto;
+  border-collapse: collapse;
+  border-top: 2px solid #584839;
+  border-bottom: 2px solid #584839;
+  font-size: 0.95em;
+}
+
+th,
+td {
+  padding: 0.46em 0.8em;
+  border: 0;
+}
+
+th {
+  border-bottom: 1px solid #8e7a62;
+  font-weight: 400;
+}
+
+img,
+video {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* Keep generated content on the same paper, including math and fences. */
+.nota-math,
+.nota-code-wrap,
+.nota-code-math-preview,
+.nota-code-preview {
+  --vg-paper: var(--doc-bg);
+}

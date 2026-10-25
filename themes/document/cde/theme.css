@@ -1,0 +1,150 @@
+/**
+ * **CDE 默认的文档风格**（2026-10-17 新建）。
+ *
+ * 用户原话：「还有注意模仿 **CDE 默认的文档风格**，以及**点宋**。你可以选一个
+ * 点宋软链接。加一个修改：**如果主题首选的字体系统中没有，弹窗提示**。」
+ *
+ * # 长相从哪来
+ *
+ * 对着用户给的四张真机截图量的：CDE 的文本编辑器（dtpad）那块**画布**是
+ * `#686F82` 的蓝灰，不是白纸；窗框/滚动条是暖灰与棕色那一族。所以这一套是
+ * **深底浅字**的文档主题——这也是它和另外三套（白纸）最根本的差别。
+ *
+ * ⚠️ **字色选的是浅色**（`#F2F1EE`）而不是截图里那种黑：截图里那块画布是
+ * **空的**，看不到正文色；而"浅底深字"那套常规在 `#686F82` 上只有 2.6:1，
+ * 读不了。本仓那条门槛是 AA（4.5:1），这里按它挑（`#F2F1EE` 对 `#686F82`
+ * 约 **6.4:1**）。
+ *
+ * # 点宋
+ *
+ * 「点宋」= **点阵宋体**那一族。硬边不能靠把点阵字形描成轮廓：那种 TTF 仍会被
+ * WebKit 抗锯齿。2026-10-17 最终随包的是 WenQuanYi Bitmap Song 16px 的完整
+ * TTF（中文、西文同一套字模），Zpix 与 Noto Serif 只作后备。
+ * 字体随包分发；缺失属于构建错误，`ui/font-check.ts` 对随包家族直接判可用。
+ *
+ * # 排版
+ *
+ * CDE 那套是**方角、紧排、没有花活**：圆角全 0、行高略紧、标题不加装饰线
+ * （真机里标题就是同样字号的粗体），分隔线是一条 1px 的暗线。
+ */
+
+:root {
+  /* ── 画布 ── */
+  --doc-bg: #686f82;
+  --doc-fg: #f2f1ee;
+  --fg: #f2f1ee;
+  --fg-muted: #d6d5d1;
+  /* ⚠️ 块标记（## / > / 1.）要淡但不能看不见：`#b9b8b4` 在 `#686F82` 上约 3.2:1，
+     它是**装饰性**的标记（不是正文），按 `theme.css` 那条门槛走。 */
+  --fg-faint: #b9b8b4;
+  --border: #4e556a;
+  --border-strong: #2f3446;
+  /* 代码块：比画布再暗一档（真机里那些凹槽就是"比面更深"）。 */
+  --bg-subtle: #565d70;
+  --bg-raised: #7a8296;
+  --bg-hover: rgb(255 255 255 / 12%);
+  --bg-active: rgb(0 0 0 / 18%);
+  --radius: 0;
+  --radius-sm: 0;
+  /* 桃色（真机标题栏那一支）当强调色；黑字（对比度 11:1）。 */
+  --accent: #eda870;
+  --accent-fg: #000000;
+
+  /* ── 排版 ── */
+  /* 首选完整文泉驿点阵宋；后面是能保证中文不出豆腐块的兜底。 */
+  --font-doc: "Nota WenQuanYi Bitmap Song", "Noto Serif", "Noto Serif CJK SC",
+    "WenQuanYi Bitmap Song", "文泉驿点阵宋体", serif;
+  --doc-font-size: 1em;
+  --doc-line-height: 1.75;
+  --doc-h-weight: 400;
+  --doc-h-line-height: 1.3;
+  --doc-h1-size: 1.7em;
+  --doc-h2-size: 1.4em;
+  --doc-h3-size: 1.18em;
+  --doc-h4-size: 1.05em;
+  --doc-h5-size: 1em;
+  --doc-h6-size: 0.92em;
+
+  /* ── 选中 ── */
+  --select-text-bg-color: #eda870;
+  --select-text-font-color: #000000;
+
+  /* ── 代码高亮：老式终端那几支（桃、青、黄），不刺眼 ── */
+  --code-comment: #b9b8b4;
+  --code-keyword: #eda870;
+  --code-string: #a8d8c0;
+  --code-number: #f0d090;
+  --code-function: #c9d8f0;
+  --code-attr: #f0d090;
+  --code-tag: #eda870;
+}
+
+/* ── 标题：**不加装饰线**（真机里标题就是加粗，没有 h1 那条下划线）──────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--doc-h-weight);
+  line-height: var(--doc-h-line-height);
+  /* ⚠️ 不写死颜色：跟着 `--doc-fg` 走（2026-10-16 那条"深色下加粗看不见"
+     就是写死颜色埋出来的）。 */
+  color: inherit;
+  font-synthesis: none;
+}
+
+h1 {
+  font-size: var(--doc-h1-size);
+}
+h2 {
+  font-size: var(--doc-h2-size);
+}
+h3 {
+  font-size: var(--doc-h3-size);
+}
+h4 {
+  font-size: var(--doc-h4-size);
+}
+h5 {
+  font-size: var(--doc-h5-size);
+}
+h6 {
+  font-size: var(--doc-h6-size);
+  color: var(--fg-muted);
+}
+
+.ProseMirror h1 {
+  margin-top: 2em;
+}
+.ProseMirror h2 {
+  margin-top: 1.8em;
+}
+.ProseMirror h3 {
+  margin-top: 1.6em;
+}
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  margin-top: 1.4em;
+}
+
+p {
+  margin: 0;
+  text-align: left;
+}
+
+strong {
+  /* 字库只有一套点阵字形；`font-synthesis:none` 保证不会把 700 合成为粗体。 */
+  font-family: "Nota WenQuanYi Bitmap Song", "Noto Serif", "Noto Serif CJK SC",
+    "WenQuanYi Bitmap Song", "文泉驿点阵宋体", serif;
+  font-weight: 700;
+  /* ⚠️ 继承正文色（同 2026-10-16 那条修法）。 */
+  color: inherit;
+}
+
+/* 分隔线是那条**暗线**（真机里就是一条 1px 的凹槽）。 */
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-strong);
+}

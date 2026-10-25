@@ -1,0 +1,47 @@
+/*
+ * 「Adwaita」的**深色那一档**（2026-10-16）。
+ *
+ * ⚠️ 这一份是**颜色补丁**，不是完整主题——拼法与理由写在
+ * `themes/dark/minimal.css` 头上（`themes.rs` 把两份 `concat!` 起来）。
+ *
+ * ⚠️ 颜色照 **GNOME 官方的 Adwaita Dark** 那一套挑的（`#242424` / `#ffffff` /
+ * `#3584e4` 那几个就是它自己的值）：这一套的名字既然叫 Adwaita，深色那一档
+ * 就该是**它**，而不是"随便一个好看的深色"。用户在这两档之间来回切的时候，
+ * 认得出这是同一套主题的两个明暗档。
+ */
+:root {
+  --doc-bg: #242424;
+  --doc-fg: #ffffff;
+  --fg: #ffffff;
+  --fg-muted: #b9b9b9;
+  --fg-faint: #929292;
+  --border: #3d3d3d;
+  --border-strong: #5e5e5e;
+  --bg-subtle: #2e2e2e;
+  --bg-raised: #393939;
+  --bg-hover: rgba(255, 255, 255, 0.08);
+  --bg-active: rgba(255, 255, 255, 0.12);
+  /* ⚠️ 强调色**不翻**成浅蓝：Adwaita Dark 里那个蓝还是 `#3584e4`
+     （深色下它照样够亮），翻浅了反而不像这一套了。 */
+  --accent: #3584e4;
+  --accent-fg: #ffffff;
+  --select-text-bg-color: #1d5a9e;
+  --select-text-font-color: #ffffff;
+  --code-comment: #8b8f94;
+  --code-keyword: #f29cbc;
+  --code-string: #6fd08c;
+  --code-number: #f5b26b;
+  --code-function: #b9a3f5;
+  --code-attr: #f5b26b;
+  --code-tag: #71c7f0;
+}
+
+/* 浅色那份在这六个上写死了 `color: #16191c`。 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #ffffff;
+}

@@ -1,0 +1,304 @@
+/*
+ * 「极简」—— 白底、衬线正文、细线方角。内置三套里的**第一套**（菜单第一项）。
+ *
+ * 用户 2026-09-26 点名的三套之一，原话是「极简（白色Serif文艺，等线框方角）」。
+ * 四样都落在属性上，不是感觉：
+ *
+ *   · **白**       `--doc-bg: #ffffff`，代码块那几层的底也只压到 `#ededed`–`#f7f7f7`
+ *                  （代码块 `#f7f7f7`、行内代码 `#f2f2f2`、块上那排按钮 `#ededed`）
+ *   · **Serif**    `--font-doc` 走衬线栈：拉丁先 Georgia，中文落 Noto Serif CJK
+ *   · **细线方角**  `--radius` / `--radius-sm` 都是 **0**，框线一律 1px
+ *                  （**分隔线例外**，那条是 2px——它得在满屏细线里认得出来）
+ *   · **留白**      正文行高 1.9，标题上边距 1.5–2.4em（见下面标题那一段）
+ *
+ * # 写文档主题的三条约定（另两套也照这个来）
+ *
+ * ① **不带作用域前缀。** 本文件按普通文档 CSS 写，注入时由
+ *    `src/styles/doc-theme.ts` 把每条选择器统一挂到编辑区之下：这里的 `h1`
+ *    实际是 `.editor-pane h1`。**别在这里写 `.editor-pane` 或 `#xxx`**——
+ *    那会绕过那道统一守卫。
+ * ② **不定义界面变量**（界面字体、侧栏/顶栏那些尺寸、弹层阴影，`--ui-*` 那一批）。
+ *    `themes.rs` 里有一条回归闸（`内置主题不碰界面变量`）会当场报错。
+ *    ⚠️ 连**注释里**都别把那些变量名原样写出来——那条闸是 `contains()`
+ *    逐条查的，注释里出现同样算命中（写这份文件时就踩过一次）。
+ * ③ **每个主题自带一套 `--code-*`**：代码块底色是主题挑的，沿用界面那套
+ *    会出现"浅底配浅字"。
+ *
+ * 一个文档主题就两部分：
+ *   ① `:root` 里**改 token** —— 纸面、边框、圆角、代码块底、选中色、正文
+ *      字体与行高。编辑区骨架（`editor.css`）吃的是这一批，改 token 就能连
+ *      骨架一起换，不用跟 `editor.css` 抢选择器权重；
+ *   ② 写 `editor.css` **没有覆盖过**的那部分排版 —— 标题、链接、引用、列表、
+ *      表格、分隔线。
+ *
+ * # ⚠️ 块间距不归主题管：要动就得写 `.ProseMirror`
+ *
+ * `editor.css` 里 `.editor-mount .ProseMirror > * + * { margin-top: 0.85em }`
+ * 的权重是 **(0,2,0)**（`*` 不贡献权重，那里只有两个 class），而主题的裸
+ * 选择器最高只到 (0,1,2)——**压不过它**。所以主题里写 `h1 { margin-top: 2em }`
+ * 是死代码：真正生效的仍是那 0.85em，整篇的块间距会一模一样。
+ * 本文件只在**标题上边距**和**分隔线外边距**这两处写成 `.ProseMirror xxx`：
+ * 它**照样会被守卫挂上 `.editor-pane`**（守卫只放过含 `.editor-pane` 的选择器，
+ * 见 `doc-theme.ts` 文件头第 1 条），权重变成 (0,2,1)，刚好压过那一条；
+ * 界面上和"含样式导出"两条路都成立。别处一律裸写。
+ */
+
+:root {
+  /* ── 纸面 ── */
+  --doc-bg: #ffffff;
+  --doc-fg: #1a1a1a;
+  --fg: #1a1a1a;
+  --fg-muted: #55565a;
+  /* 块标记（## / > / 1.）与任务项方框的颜色：淡，但不许看不见。
+     ⚠️ `#767676` 在白纸上是 4.54:1——刚好过 WCAG AA。**别往下调**：
+     `theme.css` 给界面那档 `--fg-faint` 定的门槛就是这条线（那边写过
+     "读不清不是设计得淡，是不合格"），文档主题没有理由更松。 */
+  --fg-faint: #767676;
+  --border: #c8c8c8; /* 表格与代码块的框线走它——**别调淡**：1px 的线是这套的骨架 */
+  --border-strong: #8f9095;
+  --bg-subtle: #f7f7f7; /* 代码块底色 */
+  --bg-raised: #ededed; /* 代码块右上角那排按钮的底 */
+  --bg-hover: rgba(0, 0, 0, 0.05);
+  --bg-active: rgba(0, 0, 0, 0.09);
+  --radius: 0; /* ⚠️ 方角是这套名字里就有的（"等线框方角"），别顺手给圆角 */
+  --radius-sm: 0;
+  --accent: #1a1a1a; /* 强调色就是墨色：任务项那个勾是黑底白勾，最"极简"的一档 */
+  --accent-fg: #ffffff;
+
+  /* ── 排版 ── */
+  --font-doc: Georgia, "Iowan Old Style", "Palatino Linotype", "Noto Serif CJK SC",
+    "Source Han Serif SC", "Songti SC", "Times New Roman", serif;
+  --doc-font-size: 1.06em;
+  --doc-line-height: 1.9;
+  /* 标题的六级字号 ＋ 字重/行高。⚠️ 下面 `h1`~`h6` 那几条**读的就是这里**
+     （不是各写一份数值）：一套数值只此一份。
+     ⚠️ **2026-09-30 起 `marks.css` 不再读这组变量了**：那里原先有一条
+     `.nota-lax-heading`（让宽松档 `#你好` 的正文按标题字号排），已被用户
+     当天那句「回车变成标题」推翻——现在"没按回车只加粗、按了回车才是真
+     标题块"，而真标题块走的正是下面 `h1`~`h6`。见 `editor/heading-on-enter.ts`
+     文件头「这一版推翻了什么」。
+     ⚠️ 单位是 `em`，基准是**正文**（`h1` 的父元素就是 `.ProseMirror`），
+     所以复制到段落里那段文字上时算出来**一模一样**。 */
+  --doc-h-weight: 600;
+  --doc-h-line-height: 1.3;
+  --doc-h1-size: 1.9em;
+  --doc-h2-size: 1.45em;
+  --doc-h3-size: 1.2em;
+  --doc-h4-size: 1.06em;
+  --doc-h5-size: 1em;
+  --doc-h6-size: 0.92em;
+
+  /* ── 选中文字 ── */
+  --select-text-bg-color: #dcdcdc;
+  --select-text-font-color: #1a1a1a;
+
+  /* ── 代码高亮：近单色（文艺那一路不要花花绿绿），但七档要分得出来 ── */
+  --code-comment: #9a9a9a;
+  --code-keyword: #1a1a1a;
+  --code-string: #4a6b52;
+  --code-number: #6b4a2a;
+  --code-function: #3a4a6b;
+  --code-attr: #6b4a2a;
+  --code-tag: #3a4a6b;
+}
+
+/* ── 标题 ─────────────────────────────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--doc-h-weight);
+  line-height: var(--doc-h-line-height);
+  color: #000000;
+}
+
+/* h1 底下的那条细线是"这一篇从哪儿开始"的记号，也是标题层级里唯一一条线。
+   ⚠️ 用 `--border-strong`（3.19:1）而不是 `--fg`：它是**细线**，不是分隔线
+   ——分隔线（`hr`）才是近黑的那一条，两者别混成一个粗细；
+   也不用 `--border`（1.67:1），那一条在白纸上几乎只是一点灰影。 */
+h1 {
+  font-size: var(--doc-h1-size);
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+h2 {
+  font-size: var(--doc-h2-size);
+}
+
+h3 {
+  font-size: var(--doc-h3-size);
+}
+
+h4 {
+  font-size: var(--doc-h4-size);
+}
+
+h5 {
+  font-size: var(--doc-h5-size);
+}
+
+h6 {
+  font-size: var(--doc-h6-size);
+  color: var(--fg-muted);
+}
+
+/* 标题的上边距。⚠️ 为什么带 `.ProseMirror`：见文件头那一段——不写它，
+   这几条就是死代码，"标题和上一段离得远一些"这个层级感根本不会出现。 */
+.ProseMirror h1 {
+  margin-top: 2.4em;
+}
+.ProseMirror h2 {
+  margin-top: 2em;
+}
+.ProseMirror h3 {
+  margin-top: 1.7em;
+}
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  margin-top: 1.5em;
+}
+
+/* ── 正文与行内 ───────────────────────────────────────────────────────── */
+
+/* ⚠️ `margin: 0`：段与段之间的空档由 `editor.css` 那条 `> * + *`（0.85em）
+   统一给，主题不掺和——两处各给一半会让间距随"哪条权重高"变来变去。
+   `text-align: left` 是明写的：不给的话继承到的对齐方式会在极窄列里露出来。 */
+p {
+  margin: 0;
+  text-align: left;
+}
+
+/* 链接：**不引强调色**，就是正文色 + 一条下划线（书里的脚注链接那一路）。
+   hover 只换下划线的颜色，**不换粗细**——换粗细会让整行文字横跳 1px。 */
+a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+a:hover {
+  border-bottom-color: var(--fg);
+}
+
+strong {
+  font-weight: 700;
+  /* ⚠️ **不写颜色**（原来写的是 `#000000`，2026-10-16 改）——见文件头那条
+     「配色别硬编码」：深色那份只盖了 `h1..h6`，而这一条漏在外面，于是深色纸面上
+     加粗的字是**黑的压黑底、当场看不见**（用户那张截图就是它）。
+     `inherit` 拿的是正文色（`--doc-fg`），浅色下与原来的 `#000` 几乎看不出差别，
+     深色下自动跟着变亮。 */
+  color: inherit;
+}
+
+em {
+  font-style: italic;
+}
+
+del {
+  color: var(--fg-muted);
+}
+
+/* 行内代码。代码块里的 `code` 归 `editor.css` 管（那条权重更高），不会打到。 */
+code {
+  padding: 0.12em 0.34em;
+  border-radius: var(--radius-sm);
+  background: #f2f2f2;
+  color: var(--fg);
+  font-size: 0.92em;
+}
+
+/* ── 引用 ─────────────────────────────────────────────────────────────── */
+
+/* 左边一条 3px 的墨线 + 字色压一档。⚠️ **不给底色**：白纸上再铺一层灰，
+   就跟代码块"长得一样"了，而这两样在极简这一套里必须一眼分得开。
+   ⚠️ `margin: 1.2em 0` 里的**左右两条是必需的**：不写它，浏览器 UA 那句
+   `blockquote { margin: 1em 40px }` 会生效，左边线就缩进 40px、跟正文和
+   `hr` 的左边缘对不齐（上边距那半边仍归 `editor.css` 的 `> * + *` 管）。 */
+blockquote {
+  margin: 1.2em 0;
+  padding: 0.6em 0 0.6em 1.1em;
+  border-left: 3px solid var(--fg);
+  color: var(--fg-muted);
+}
+
+blockquote > :first-child {
+  margin-top: 0;
+}
+
+/* ── 列表 ─────────────────────────────────────────────────────────────── */
+
+ul,
+ol {
+  padding-left: 1.5em;
+}
+
+li::marker {
+  color: var(--fg-faint);
+}
+
+/* ── 分隔线 ───────────────────────────────────────────────────────────────
+ *
+ * 用户 2026-09-26 的抱怨里点名了它：「分割线什么的分别不明显」。原来那六套
+ * 写的是 `1px solid var(--border)`，而浅色下 `--border` 只有 8% 的黑
+ * （见 `theme.css` 里那条"别再往下压"）——在白纸上几乎看不见。这里三条一起改：
+ *
+ *   · **颜色**：用正文色（`--fg`，白纸上是 17.4:1），不用 `--border`；
+ *   · **粗细**：2px（1px 在缩放/高分屏下会掉成半透明）；
+ *   · **间距**：`margin: 2.4em 0`，⚠️ 必须带 `.ProseMirror`，否则和标题那几条
+ *     一样是死代码（见文件头）。
+ *
+ * ⚠️ **不写 `width`**：`hr` 是块级元素，本来就占满一整行；写死宽度反而会在
+ * 正文列宽变化时对不上（用户报过"只画了左边一小截"，成因还没查到——
+ * 与其拿 `width` 去猜，不如让它保持块级元素的默认行为）。
+ * `display: block` 是明写的：这一条同时也是对上面那个怪毛病的一个保险。
+ */
+hr {
+  display: block;
+  height: 0;
+  border: 0;
+  border-top: 2px solid var(--fg);
+}
+
+.ProseMirror hr {
+  margin: 2.4em 0;
+}
+
+/* ── 表格 ─────────────────────────────────────────────────────────────── */
+
+/* ⚠️ 这里**不写 `width: 100%`**：表格的宽度由 `prosemirror-tables` 的行内样式
+   决定，主题里写了也不生效（见 `editor.css` 表格那一段的实测记录）。
+   想"满宽"得去跟它抢行内样式，代价是列宽拖动跟着变形——不是主题该干的事。 */
+table {
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+th,
+td {
+  padding: 0.55em 0.8em;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+/* 表头只给底灰、不给隔行底色：细线方框这一路，格线已经足够把行分开，
+   再叠斑马纹就花了。（要斑马纹的是 Adwaita 那套。） */
+th {
+  background: #f7f7f7;
+  color: #000000;
+  font-weight: 700;
+}
+
+/* ⚠️ `video` 和 `img` 并列（2026-09-28，图片语法指向视频那颗播放器）：
+   编辑区里那颗播放器的样式在 `src/styles/video.css`，而**导出**那条路会把
+   `nota-` 开头的类名全摘掉（`editor/export.ts`），那边的视频只认得元素选择器
+   ——所以尺寸这条必须在**文档主题**里也写一遍。三份主题都有这一条。 */
+img,
+video {
+  border-radius: var(--radius-sm);
+  max-width: 100%;
+}

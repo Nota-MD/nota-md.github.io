@@ -1,0 +1,357 @@
+@font-face {
+  font-family: "WQY Original Web";
+  src: url("./assets/WenQuanYi.Bitmap.Song.16px.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font: inherit; }
+
+.app {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.toolbar {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex: 0 0 var(--toolbar-height, 28px);
+  align-items: stretch;
+  min-height: var(--toolbar-height, 28px);
+  max-height: var(--toolbar-height, 28px);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-subtle);
+  box-shadow: var(--toolbar-shadow, none);
+}
+
+.menubar {
+  display: flex;
+  min-width: 0;
+  align-items: stretch;
+  padding-left: 4px;
+}
+
+.menu-title {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--radius-sm, 4px);
+  color: var(--toolbar-fg, var(--fg));
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.menu-title:first-child { box-shadow: inset 0 -2px 0 var(--accent); }
+.toolbar-spacer { flex: 1; }
+
+.toolbar-dock-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  color: var(--toolbar-fg, var(--fg));
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.tabs-bar {
+  display: flex;
+  flex: 0 0 34px;
+  align-items: end;
+  gap: 1px;
+  padding: 4px 8px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-subtle);
+}
+
+.tab {
+  display: inline-flex;
+  height: 29px;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: var(--radius-sm, 4px) var(--radius-sm, 4px) 0 0;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+.tab-active {
+  border-color: var(--border);
+  background: var(--bg-raised);
+  color: var(--fg);
+}
+
+.tab-label::before {
+  display: inline-block;
+  width: 9px;
+  height: 11px;
+  margin-right: 7px;
+  border: 1px solid currentColor;
+  border-radius: 1px;
+  content: "";
+  opacity: 0.62;
+}
+
+.app-body {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+}
+
+.sidebar {
+  display: flex;
+  flex: 0 0 210px;
+  min-width: 0;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  background: var(--bg-subtle);
+  color: var(--fg-muted);
+}
+
+.sidebar-head {
+  display: flex;
+  flex: 0 0 34px;
+  align-items: center;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-tabs {
+  display: flex;
+  width: 100%;
+  gap: 3px;
+}
+
+.sidebar-tab {
+  height: 25px;
+  flex: 1;
+  padding: 0 7px;
+  border: 0;
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: var(--fg-muted);
+  font-family: var(--font-ui);
+  font-size: 12px;
+}
+
+.sidebar-tab-active {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+
+.sidebar-body {
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.workspace-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 11px 8px;
+  color: var(--fg-faint);
+  font-size: 11px;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.file-row {
+  display: flex;
+  height: 29px;
+  align-items: center;
+  gap: 8px;
+  margin: 1px 6px;
+  padding: 0 8px;
+  border-radius: var(--radius-sm, 4px);
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+.file-row-active {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+
+.file-icon {
+  width: 12px;
+  height: 14px;
+  border: 1px solid currentColor;
+  border-radius: 1px;
+  opacity: 0.58;
+}
+
+.file-folder {
+  width: 14px;
+  height: 10px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  opacity: 0.52;
+}
+
+.sidebar-footer {
+  display: flex;
+  flex: 0 0 33px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 10px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+}
+
+.sidebar-footer::before {
+  width: 8px;
+  height: 8px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: "";
+}
+
+.app-main {
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+  background: var(--doc-bg, var(--bg));
+}
+
+.editor-scroll {
+  height: 100%;
+  overflow: hidden;
+  padding: 38px 0;
+}
+
+.editor-pane {
+  width: min(610px, calc(100% - 100px));
+  margin: 0 auto;
+  color: var(--doc-fg, var(--fg));
+  font-family: "Adwaita Sans", "Noto Sans CJK SC", sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.editor-pane h1 {
+  margin: 0 0 11px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.28;
+}
+
+.editor-pane h2 {
+  margin: 25px 0 10px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.editor-pane p { margin: 0 0 10px; }
+
+.editor-pane blockquote {
+  margin: 14px 0;
+  padding: 9px 13px;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, currentColor 4.5%, transparent);
+  color: var(--fg-muted);
+}
+
+.editor-pane pre {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: var(--radius, 6px);
+  background: color-mix(in srgb, currentColor 3.5%, transparent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.62;
+}
+
+.editor-pane .formula {
+  margin-top: 19px;
+  text-align: center;
+  font-family: "New Computer Modern", "Latin Modern Math", serif;
+  font-size: 14px;
+}
+
+.statusbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex: 0 0 32px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 7px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-subtle);
+  color: var(--fg-muted);
+  font-family: var(--font-ui);
+  font-size: 11px;
+}
+
+.status-btn {
+  display: inline-flex;
+  height: 24px;
+  min-width: 24px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 0;
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: inherit;
+}
+
+.status-circle {
+  width: 10px;
+  height: 10px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.status-count { margin-left: auto; }
+.status-close { width: 20px; padding: 0; color: var(--fg-faint); font-size: 15px; }
+
+html[data-ui-style="cde"] body,
+html[data-ui-style="cde"] body * {
+  font-family: "WQY Original Web", "Nota WenQuanYi Bitmap Song",
+    "WenQuanYi Bitmap Song 16px", "文泉驿点阵宋体16px",
+    "Noto Serif CJK SC", serif !important;
+}
+
+html[data-ui-style="cde"] body { font-size: 16px; }
+html[data-ui-style="cde"] .menu-title,
+html[data-ui-style="cde"] .sidebar-tab,
+html[data-ui-style="cde"] .file-row,
+html[data-ui-style="cde"] .statusbar { font-size: 16px; }
+html[data-ui-style="cde"] .toolbar { background: var(--bg-subtle); }
+html[data-ui-style="cde"] .sidebar { background: var(--bg); }
+html[data-ui-style="cde"] .tab-active { background: var(--accent); color: var(--accent-fg); }
+html[data-ui-style="cde"] .editor-pane { font-family: var(--font-ui); }

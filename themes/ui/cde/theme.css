@@ -1,0 +1,798 @@
+/**
+ * CDE 组件的**最后一层覆盖**（2026-10-17）。
+ *
+ * 四张真机图里，窗口不是靠“圆角 + 阴影”分层，而是靠两条硬边：
+ * 外面一条棕线、里面一条奶油亮线；按键是青绿面上的一道 1px 凸起，
+ * 按下去就把亮暗对调。这种关系跨越菜单、侧栏、面板、状态栏和对话框，
+ * 变量本身说不清“哪一条边压在哪一个元素上”，因此集中在这个最后加载的文件。
+ *
+ * ⚠️ **必须排在 `main.tsx` 的最后一批样式之后**：`theme/extras.css` 虽然也叫
+ * “变量表达不了的事”，但它经 `theme.css` 在 `app.css` / `dock.css` / `bars.css`
+ * **之前**加载；这里若也放在那里，`dock.css` 后写的栏头颜色会把它盖回去。
+ *
+ * 全部选择器带 `[data-ui-style="cde"]`；其他七档不会命中。
+ */
+
+/*
+ * 点阵字体随这份主题包分发。运行时使用由同一份 TTF 无损转成的 WOFF2：
+ * 中文与西文来自同一套 16×16 字模，并带 EBDT/EBLC 1-bit strike。
+ * WOFF2 只改变传输容器，不改变字模；体积从 2.1 MB 降到约 653 KB，
+ * 冷启动时主题 CSS 的内联与 WebView 解析都显著缩短。
+ * 许可证是 GPL-2.0 with font embedding exception，完整版权与例外正文
+ * 放在 `assets/fonts/`，与两种字体容器同目录。TTF 保留为可编辑源文件。
+ */
+@font-face {
+  font-family: "Nota WenQuanYi Bitmap Song";
+  src: url("./assets/fonts/Nota-WenQuanYi-Bitmap-Song-EBDT-16px.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Nota WenQuanYi Bitmap Song";
+  src: url("./assets/fonts/Nota-WenQuanYi-Bitmap-Song-EBDT-16px.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+}
+
+/*
+ * 菜单专用：优先使用系统安装的原版文泉驿点阵宋，只接管 CJK 字形。
+ * 西文快捷键与数字继续落到随主题分发的适配版，避免原版西文的基线和轮廓问题。
+ * 原版不随包分发；系统没有时整族回退到适配版。
+ */
+@font-face {
+  font-family: "Nota WenQuanYi Menu Original";
+  src: local("WenQuanYi Bitmap Song 16px"), local("文泉驿点阵宋体16px");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  unicode-range:
+    U+2E80-9FFF,
+    U+3000-303F,
+    U+FF00-FFEF,
+    U+20000-2FA1F;
+}
+
+/* 窗口最外框。右下角的深蓝灰属于真机画布，外框本身仍是棕 + 奶油两道。 */
+[data-ui-style="cde"] .app {
+  border: 1px solid var(--frame-dark);
+  box-shadow: inset 1px 1px 0 var(--frame-light);
+  /* WebKitGTK 实际会忽略这两条，真正生效的是 EBDT 字模；保留它们是为了
+     在支持字体平滑开关的 Windows WebView2 上别把 1-bit 边缘再洗成灰阶。 */
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  /* 点阵字体只有 400/700 两档；禁止 WebKit 把 600 之类的字重“合成加粗”。 */
+  font-synthesis: none;
+}
+
+/*
+ * 界面字重统一压到 Regular。
+ *
+ * 这份字库只有一套 Medium 点阵字形。显式写了 600/700 的标题、卡片标题和
+ * 按钮若继续请求粗体，浏览器会合成加粗，结果就是用户截图里的“中文发粗、
+ * 西文字宽忽宽忽窄”。CDE 的位图界面没有现代字重层级，统一 400 才接近原机。
+ */
+[data-ui-style="cde"] .app *:not(.ProseMirror, .ProseMirror *) {
+  font-weight: 400;
+}
+
+/* ── CDE 图标集 ────────────────────────────────────────────────────────
+ *
+ * 主题只声明“图标 ID → 图片地址”，`Icon` 自己把逻辑名拼成
+ * `--icon-<逻辑名>`。这条约束不绑定文件夹名，用户可以把资源放在风格目录下的
+ * 任意相对位置，甚至让多个风格共享同一棵 assets 目录。
+ *
+ * 这份主题包的自绘图标全部是 16 格、整数坐标、硬边，不复制第三方图标。
+ */
+[data-ui-style="cde"] {
+  --icon-folio-document-open-symbolic: url("./assets/icons/document-open.svg");
+  --icon-folio-document-new-symbolic: url("./assets/icons/document-new.svg");
+  --icon-folio-document-save-symbolic: url("./assets/icons/document-save.svg");
+  --icon-folio-document-save-as-symbolic: url("./assets/icons/document-save.svg");
+  --icon-folio-close-symbolic: url("./assets/icons/close.svg");
+  --icon-folio-configure-symbolic: url("./assets/icons/configure.svg");
+  --icon-nota-plugin-symbolic: url("./assets/icons/plugin.svg");
+  --icon-folio-window-symbolic: url("./assets/icons/window.svg");
+  --icon-folio-insert-image-symbolic: url("./assets/icons/image.svg");
+  --icon-folio-insert-code-symbolic: url("./assets/icons/code.svg");
+  --icon-folio-insert-link-symbolic: url("./assets/icons/link.svg");
+  --icon-folio-columns-symbolic: url("./assets/icons/columns.svg");
+  --icon-nota-spellcheck-symbolic: url("./assets/icons/spellcheck.svg");
+  --icon-folio-format-text-bold-symbolic: url("./assets/icons/format-bold.svg");
+  --icon-folio-format-text-italic-symbolic: url("./assets/icons/format-italic.svg");
+  --icon-folio-format-text-underline-symbolic: url("./assets/icons/format-underline.svg");
+  --icon-folio-view-list-bullet-symbolic: url("./assets/icons/list-bullet.svg");
+  --icon-folio-view-list-ordered-symbolic: url("./assets/icons/list-ordered.svg");
+  --icon-nota-quote-symbolic: url("./assets/icons/quote.svg");
+  --icon-nota-task-symbolic: url("./assets/icons/task.svg");
+  --icon-nota-unfold-more-symbolic: url("./assets/icons/unfold-more.svg");
+  --icon-nota-sidebar-collapse-symbolic: url("./assets/icons/sidebar-collapse.svg");
+  --icon-nota-sidebar-toggle-symbolic: url("./assets/icons/sidebar-toggle.svg");
+}
+
+/* 顶栏：桃色硬帽、连续青绿菜单带，底缘按真机压“暗青 → 桃色 → 画布”。 */
+[data-ui-style="cde"] .toolbar {
+  height: 30px;
+  padding: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--bevel-dark);
+  background: var(--bg);
+  box-shadow: none;
+}
+
+[data-ui-style="cde"] .menubar {
+  gap: 0;
+  height: 100%;
+  padding: 0;
+  background: #4992a7;
+  box-shadow: none;
+}
+
+/* Motif 的菜单栏条目占满整条 bar；弹层从 bar 的底边开始，而不是从文字盒开始。 */
+[data-ui-style="cde"] .menu-root {
+  height: 100%;
+}
+
+[data-ui-style="cde"] :is(.menubar, .menu-popup, .menu-sub) {
+  font-family:
+    "Nota WenQuanYi Menu Original",
+    "Nota WenQuanYi Bitmap Song",
+    "WenQuanYi Bitmap Song 16px",
+    sans-serif;
+}
+
+[data-ui-style="cde"] .toolbar-dock-toggle {
+  height: 24px;
+  margin: 0 0 0 auto;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--title-fg);
+}
+
+[data-ui-style="cde"] .toolbar-dock-toggle:hover:not(:disabled) {
+  background: transparent;
+}
+
+[data-ui-style="cde"] .toolbar-dock-toggle.btn-on {
+  background: var(--bg-subtle);
+  box-shadow: var(--bevel-sunken);
+}
+
+/*
+ * 弹层按 Motif `XmRowColumn` 的 pulldown 默认几何收口：
+ *
+ * - `RowColumn.c`：pulldown / popup 的 `XmNmarginWidth`、`XmNmarginHeight`
+ *   缺省都是 **0**（只有普通 RowColumn 才补 3）；
+ * - `LabelG.c`：菜单标签 `marginWidth` / `marginHeight` 缺省都是 **2**；
+ * - 外框与条目斜面由 `XmPrimitive` 的 1px shadow 负责，没有外投影。
+ *
+ * 所以这里不能保留现代菜单那圈 5px 内边距、224px 最小宽度和奶油色外投影。
+ * `width: max-content` 让每栏按自己的最长标签＋Motif 的 15px accelerator pad
+ * 自然定宽；同一父栏里的条目仍由 flex 拉成等宽。
+ */
+[data-ui-style="cde"] :is(.menu-popup, .menu-sub, .context-menu, .context-sub) {
+  min-width: 0;
+  width: max-content;
+  max-width: calc(100vw - 8px);
+  padding: 0;
+  border: 1px solid var(--bevel-dark);
+  border-radius: 0;
+  background: var(--bg);
+  box-shadow: none;
+  animation: none;
+  transform: none;
+}
+
+[data-ui-style="cde"] .menu-popup {
+  top: 100%;
+}
+
+[data-ui-style="cde"] .tab-menu-anchor .menu-popup {
+  top: calc(100% + 5px);
+}
+
+[data-ui-style="cde"] .status-menu-anchor .menu-popup {
+  top: auto;
+  bottom: calc(100% + 5px);
+}
+
+[data-ui-style="cde"] .menu-item {
+  height: 20px;
+  gap: 0;
+  padding: 0 6px;
+  border-radius: 0;
+  color: var(--title-fg);
+  font-size: 16px;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  letter-spacing: 0;
+}
+
+[data-ui-style="cde"] .menu-item:hover:not(:disabled),
+[data-ui-style="cde"] .menu-item-open:not(:disabled) {
+  background: var(--bg-active);
+  color: var(--title-fg);
+  box-shadow: var(--bevel-sunken);
+}
+
+/* Motif 不预留现代菜单那个空白图标列。只有真的勾选时才画出标记。 */
+[data-ui-style="cde"] .menu-check:empty,
+[data-ui-style="cde"] .menu-arrow:empty {
+  display: none;
+}
+
+[data-ui-style="cde"] .menu-check:not(:empty) {
+  width: auto;
+  margin-right: 4px;
+  color: var(--title-fg);
+}
+
+/* `LabelG.c::LABELG_ACC_PAD` 是 15px；快捷键字号与菜单正文同为 16px 点阵。 */
+[data-ui-style="cde"] .menu-accel {
+  padding-left: 15px;
+  color: var(--title-fg);
+  font-size: 1em;
+}
+
+[data-ui-style="cde"] .menu-arrow:not(:empty) {
+  width: 10px;
+  color: var(--title-fg);
+}
+
+[data-ui-style="cde"] .menu-heading {
+  padding: 3px 7px;
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+[data-ui-style="cde"] .menu-search {
+  margin: 0;
+  padding: 5px 7px;
+  border: 0;
+  border-radius: 0;
+  background: var(--bg-sunken);
+  color: var(--title-fg);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .menu-sep {
+  height: 1px;
+  margin: 0;
+  background: var(--bevel-dark);
+  box-shadow: 0 1px 0 var(--bevel-light);
+}
+
+/* 格式栏：图标键凸起，当前标记持续凹下，不随鼠标移开复原。 */
+[data-ui-style="cde"] .format-bar {
+  padding: 4px 6px;
+  border-top: 1px solid var(--bevel-light);
+  border-bottom: 2px solid var(--bevel-dark);
+  background: var(--bg-subtle);
+}
+
+[data-ui-style="cde"] .format-btn {
+  min-width: 26px;
+  height: 24px;
+  border: 0;
+  border-radius: 0;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] .format-btn:hover {
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] .format-btn:active,
+[data-ui-style="cde"] .format-btn[data-on="true"] {
+  background: var(--btn-bg-active);
+  color: var(--btn-fg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .format-sep {
+  width: 3px;
+  height: 18px;
+  margin: 0 4px;
+  background: transparent;
+  box-shadow:
+    inset 1px 0 0 var(--bevel-dark),
+    inset 2px 0 0 var(--bevel-light);
+}
+
+[data-ui-style="cde"] .format-bar-close {
+  height: 24px;
+  border: 0;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--bevel);
+}
+
+/* 当前页签：暖灰凹面；未选页签保持平铺文字。 */
+[data-ui-style="cde"] .sidebar-tab-active,
+[data-ui-style="cde"] .dock-tab[data-active="true"] {
+  border: 0;
+  background: var(--btn-bg-active);
+  color: var(--btn-fg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+/* 栏头承担真机窗口标题条的角色：桃色、白点阵字、右下棕线。 */
+[data-ui-style="cde"] .dock-head,
+[data-ui-style="cde"] .sidebar-head {
+  border-bottom: 1px solid var(--frame-dark);
+  background: var(--accent);
+  color: var(--title-fg);
+  box-shadow: inset 1px 1px 0 var(--frame-light);
+}
+
+[data-ui-style="cde"] :is(.dock-head .dock-title, .sidebar-head .sidebar-title) {
+  color: var(--title-fg);
+  text-shadow: 1px 1px 0 var(--frame-dark);
+}
+
+[data-ui-style="cde"] :is(.dock-close, .sidebar-close) {
+  border-left: 1px solid var(--frame-dark);
+  color: var(--title-fg);
+}
+
+/* 两栏与正文之间也是硬边，不用现代灰 hairline。 */
+[data-ui-style="cde"] .sidebar {
+  border-right: 2px solid var(--frame-dark);
+  background: var(--bg-raised);
+  box-shadow: inset -1px 0 0 var(--frame-light);
+}
+
+[data-ui-style="cde"] .plugin-dock {
+  border-left: 2px solid var(--frame-dark);
+  background: var(--bg-raised);
+  box-shadow: inset 1px 0 0 var(--frame-light);
+}
+
+/* 输入区、下拉、搜索框：左上暗、右下亮的真正凹槽。 */
+[data-ui-style="cde"] :is(input:not([type="checkbox"], [type="radio"]), textarea, select) {
+  border: 0;
+  border-radius: 0;
+  background: var(--bg-sunken);
+  color: var(--title-fg);
+  box-shadow: var(--bevel-sunken);
+}
+
+/* 原生 select / number spinner 在 WebKitGTK 里会盖回白底圆角现代外观。
+   这里必须真正关掉 `appearance`，否则上面那条 background 声明只写在原生皮肤下面。 */
+[data-ui-style="cde"] select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 24px;
+  background-color: var(--bg-sunken);
+  background-image:
+    linear-gradient(135deg, transparent 45%, var(--title-fg) 45% 55%, transparent 55%),
+    linear-gradient(45deg, transparent 45%, var(--title-fg) 45% 55%, transparent 55%);
+  background-position:
+    calc(100% - 12px) 50%,
+    calc(100% - 7px) 50%;
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+}
+
+[data-ui-style="cde"] select:focus-visible {
+  outline: 1px dotted var(--frame-light);
+  outline-offset: -3px;
+}
+
+[data-ui-style="cde"] select option {
+  background: var(--bg);
+  color: var(--title-fg);
+}
+
+[data-ui-style="cde"] input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+[data-ui-style="cde"] input[type="number"]::-webkit-inner-spin-button,
+[data-ui-style="cde"] input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+[data-ui-style="cde"] :is(input, textarea)::placeholder {
+  color: var(--fg-faint);
+}
+
+[data-ui-style="cde"] :is(input[type="checkbox"], input[type="radio"]) {
+  accent-color: var(--accent);
+}
+
+/* 按钮：悬停只换面，按下才翻斜面；面保持青绿，不用现代透明底。 */
+[data-ui-style="cde"] .btn:not(.toolbar-dock-toggle) {
+  border: 0;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] .btn:not(.toolbar-dock-toggle):hover:not(:disabled) {
+  background: var(--btn-bg);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] .btn:not(.toolbar-dock-toggle):is(:active, .btn-on, [data-on="true"], [aria-pressed="true"]) {
+  background: var(--btn-bg-active);
+  color: var(--btn-fg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+/* 状态栏：短而硬的凸起横带；小开关开着时持续凹下。 */
+[data-ui-style="cde"] .statusbar {
+  border-top: 1px solid var(--bevel-dark);
+  background: var(--bg-subtle);
+  color: var(--title-fg);
+  box-shadow: inset 0 1px 0 var(--bevel-light);
+}
+
+[data-ui-style="cde"] .status-btn {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 0;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] .status-btn:hover {
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] .status-btn[data-on] {
+  background: var(--btn-bg-active);
+  color: var(--btn-fg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .status-count {
+  padding: 1px 5px;
+  background: var(--bg-sunken);
+  color: var(--title-fg);
+  box-shadow: var(--bevel-sunken);
+}
+
+/* ── 从内置样式表迁出的 CDE 专用能力 ────────────────────────────────
+ * 这些规则只在安装并启用外部 CDE 界面主题时由用户样式注入，不进入 Nota 二进制。
+ */
+[data-ui-style="cde"] {
+  --radius-sm: 0;
+  --radius: 0;
+  --radius-lg: 0;
+  /* ⚠️ 这份 WQY 点阵字体的原生网格是 16px。让它跟随 20/21px 之类的界面字号，
+     WebKit 会把字形轮廓缩放并重新抗锯齿，西文尤其会变成普通细字。
+     其他风格仍完整服从 --ui-font-size；CDE 固定在原生网格，缩放交给界面缩放。 */
+  --ui-font-size: 16px !important;
+  /* ⚠️ 字体也是"长相"的一部分：CDE 那个年代是 **Helvetica**（X11 上退到
+     Nimbus Sans）。这里照样保留 CJK 兜底——中文不能因此变成豆腐块。 */
+  /* ⚠️ 2026-10-17：界面与正文共用完整的 WenQuanYi Bitmap Song 16px TTF。
+     它同时带正确的点阵中文与西文，不再靠 unicode-range 把西文推给 Noto。 */
+  --font-ui: "Nota WenQuanYi Bitmap Song", "Noto Sans", "Noto Sans CJK SC",
+    "DejaVu Sans", "WenQuanYi Bitmap Song 16px", sans-serif;
+  /* ⚠️ **2026-10-17 晚：2× 那版撤了**——用户目检：「放大之后字体变得大了很多，
+     已经超出那个框框的范围了」。整档放大不是要的东西；字号与控件回到 1×。 */
+  --control-height: 28px;
+  --toolbar-height: 30px;
+  --spacing: 6px;
+  --btn-font-weight: 400;
+  /* 凸起斜面：左上亮、右下暗。⚠️ 这两条颜色**写死在变量值里**是有意的——
+     它描述的是"斜面"这件形状，不是主题色；换明暗那两档时斜面照旧。 */
+  /* ⚠️ **1px**（2026-10-17 把真机按钮放大 6 倍数的）：Motif 的斜面是**一条**亮线
+     顶在左上、**一条**暗线压右下，中间就是面——**没有**外圈黑边。之前那版 2px 是
+     我按"粗粝"想当然，放大看真机并不是那样：2px 会变成"两圈描边"，反而不像。 */
+  --bevel:
+    inset 1px 1px 0 var(--bevel-light), inset -1px -1px 0 var(--bevel-dark);
+  /* ⚠️ **按下/开着那一档：把两个颜色对调**（左上变暗、右下变亮）＝凹下去。
+     用户 2026-10-16 的原话：「如果按钮按下去会有显示的变化（那种 90 年代电脑 UI
+     自带的粗粝简单的 3D），从突起到凹陷，**是持续的**而不是我鼠标一走就没了」
+     ——所以它不只挂在 `:active`（鼠标按住那一瞬间）上，还挂在**"这一颗现在是开着的"**
+     那几个标记上（`.btn-on` / `data-on` / `aria-pressed`）。裁在 `app.css` 的 `.btn` 那一族。 */
+  --bevel-sunken:
+    inset 1px 1px 0 var(--bevel-dark), inset -1px -1px 0 var(--bevel-light);
+  --toolbar-shadow: inset 0 1px 0 var(--bevel-light), inset 0 -1px 0 var(--bevel-dark);
+
+  /* 开关：34×18，滑块 14（比现代档都小一号）。行走 16px = 34 − 2 − 14 − 2。 */
+  --switch-w: 34px;
+  --switch-h: 18px;
+  --switch-knob: 14px;
+  --switch-travel: 16px;
+}
+
+/*
+ * CDE 只有一个经典配色。`ui_mode` 仍可能由全局外观设置写成 light 或 dark，
+ * 但这套外部主题不为暗色另画一套；两个属性值命中同一组颜色。
+ */
+[data-ui-style="cde"][data-ui-mode="light"],
+[data-ui-style="cde"][data-ui-mode="dark"] {
+  /* ⚠️ **这一档的取值不是照着一份 CSS 抄的，是从用户那张 CDE 截图里逐点量出来的**
+     （2026-10-16，`magick -format "%[pixel:p{x,y}]"`）：
+
+     | 量到的东西 | 值 | 落成 |
+     |---|---|---|
+     | 窗口与控件的主青绿面 | `#4B92A7` | `--bg` / `--bg-raised` / `--btn-bg` |
+     | 菜单栏与按下态 | `#3F8496` | `--bg-subtle` / 菜单规则 |
+     | 3D 斜面的**亮**边 | `#ADCED7` | `--bevel-light` |
+     | 3D 斜面的**暗**边 | `#244953` | `--bevel-dark` / `--border` |
+     | 调色板里那个桃子色块 | `#EDA870` | `--accent` |
+     | 列表里被选中的那一行 | `#C6B2A8` | `--btn-bg-active` 那一族 |
+     | 输入/终端的蓝灰凹槽 | `#686F82` | `--bg-sunken` |
+
+     ⚠️ **两份参考的先后**：用户先给了那份 Firefox 主题（几个 `rgb()`，我照它写了
+     第一版），随后补了这张**默认配色**的截图并说「参考我的配色，这是默认配色」——
+     所以**以截图为准**，那份 Firefox 主题不用了。两边其实同一路：都是 CDE 那套
+     青绿＋桃色。
+
+     真机里的窗口、菜单、侧栏和按钮同属青绿色体系；暖灰只作为被选中项和少数
+     输入面出现，不能铺满整个外壳。 */
+  --bg: #4b92a7;
+  /* 横条（菜单栏 / 状态栏）比面略深一档：真机截图里两者**同色**，靠一条阴刻的
+     凹槽分开；我们这里没有那条槽（布局不是要抄的东西），就用一档深浅代替。 */
+  --bg-subtle: #3f8496;
+  /* ⚠️ **弹层与对话框也是青绿**（真机截图 86/87 就是这样）：这一格是
+     `--bg-raised` 而不是白——把它留白就成了现代对话框了。 */
+  --bg-raised: #4b92a7;
+  /* 文本画布那种**蓝灰**（截图 84 的编辑区，量到 `#686F82`）：给"凹下去"的面用
+     （打印预览的底、下沉区域）。⚠️ 不拿它当文档纸面——那是白纸的事。 */
+  --bg-sunken: #686f82;
+  /* 青绿窗口面使用白字，暖灰选中面单独写深色字。
+     ⚠️ 如实记一条：白字对 `#4992A7` 只有约 **3.0:1**，达不到本仓别处的 AA 门槛——
+     但这就是真机菜单带的样子（而且它用的是**点阵字**，笔画粗、实际更好认）。
+     "像 CDE"与"过 AA"在这一档上冲突，选了像。 */
+  --fg: #ffffff;
+  --fg-muted: #e8f2f5;
+  --fg-faint: #cfe3e8;
+  /* 内部细线用暗青绿（真机里那些分组框的沟）；**外框是棕色**——截图 84 左缘
+     量到 `#7D593B`，那是整块面板的边，不是普通分隔线。 */
+  --border: #2c5f6d;
+  --border-strong: #7d593b;
+  /* 真机窗口的外框是两层：内侧浅奶油、外侧棕。它只服务 CDE 的组件规则
+     （标题条、侧栏、弹层的双色边），不参与通用的 `--border`，否则文件树、
+     输入框那些普通分隔线会一起变成棕色。 */
+  --frame-light: #adced7;
+  --frame-dark: #244953;
+  --title-fg: #ffffff;
+  --btn-fg: #ffffff;
+  /* 被选中/压下的按键是暖灰面，字转深青；这是真机列表选中行与按下键的配色。 */
+  --btn-fg-active: #173c45;
+  --accent: #eda870;
+  /* ⚠️ 桃色上写**黑字**（对比度 11:1）：CDE 的选中条就是黑字。 */
+  --accent-fg: #000000;
+  --btn-bg: #4b92a7;
+  --btn-bg-hover: #55a0b6;
+  --btn-bg-active: #c6b2a8;
+  /* ⚠️ **没有外圈线**（真机按钮只有两条 1px 斜面，面直接贴着背景）：
+     写 transparent 而不是删掉 border，盒子高度不变。 */
+  --btn-border: transparent;
+  --switch-off: #2f6674;
+  --switch-on: #eda870;
+  --switch-knob-bg: #adced7;
+  /* 斜面那两档（`--bevel` / `--bevel-sunken` 在 `shape.css` 里引）。 */
+  --bevel-light: #adced7;
+  --bevel-dark: #244953;
+  /* ⚠️ CDE 的菜单/弹层在青绿底上，悬停是**提亮**而不是加深（截图 85 里那一行
+     比周围亮）。基础那两条半透明黑在青绿上几乎看不出来。 */
+  --bg-hover: rgb(255 255 255 / 16%);
+  --bg-active: rgb(0 0 0 / 18%);
+  /* ⚠️ 硬阴影：那个年代没有"柔和投影"，一像素、不模糊，颜色是外框那支棕。 */
+  --shadow: 1px 1px 0 #7d593b;
+}
+
+[data-ui-style="cde"] .menu-title {
+  /* 真机里文字编辑器的那一排菜单**不是一排按钮**：它是一条连续青色菜单带，
+    文字直接铺在上面。只有鼠标停住或菜单打开时，那一格才换成一小块凹槽。
+    之前的逐项描边是照着“工具栏按钮”的直觉画的，和四张真机图都对不上。 */
+  height: 100%;
+  margin: 0;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--title-fg);
+}
+
+[data-ui-style="cde"] .menu-title:hover {
+  background: rgb(0 0 0 / 8%);
+  box-shadow: none;
+}
+
+/* 菜单已经开着时，跨到另一栏只移动指针；那一格不许抢先显出 armed 态。 */
+[data-ui-style="cde"] .menubar[data-menu-open="true"] .menu-title:hover:not(.menu-title-open) {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* F10 进入菜单栏后的键盘落点：与 Motif 的 active cascade 一样凹下。 */
+[data-ui-style="cde"] :is(.menu-title:focus-visible, .menu-title-keyboard) {
+  background: var(--bg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .menu-title-open {
+  background: var(--bg-active);
+  color: var(--title-fg);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .toolbar {
+  /* 底缘由 `theme/extras.css` 统一画成“暗线 → 桃色线 → 暗线”；
+     这里不再单独压一条，否则会与那三道叠成四道。 */
+  border-bottom: 1px solid var(--bevel-dark);
+}
+
+[data-ui-style="cde"] .tab-active {
+  background: var(--accent);
+  color: var(--title-fg);
+  box-shadow: inset 1px 1px 0 var(--frame-light);
+}
+
+[data-ui-style="cde"] .tab-active .tab-label {
+  color: var(--title-fg);
+  text-shadow: 1px 1px 0 var(--frame-dark);
+}
+
+[data-ui-style="cde"] ::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+  /* 真机滚动槽属于青绿窗框，暖灰只留给选中项。 */
+  background: var(--bg-subtle);
+}
+
+[data-ui-style="cde"] ::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+  /* 凹槽：左上暗、右下亮（和按钮相反）。 */
+  box-shadow: inset 1px 1px 0 var(--bevel-dark), inset -1px -1px 0 var(--bg-raised);
+}
+
+[data-ui-style="cde"] ::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border: 1px solid var(--border);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] ::-webkit-scrollbar-thumb:hover {
+  background: #f0b684;
+}
+
+[data-ui-style="cde"] ::-webkit-scrollbar-corner {
+  background: var(--bevel-light);
+}
+
+[data-ui-style="cde"] ::-webkit-scrollbar-button:vertical:decrement {
+  display: block;
+  height: 15px;
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--bevel);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13'%3E%3Cpath d='M3 9 L6.5 3.5 L10 9 Z' fill='%237d593b'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+[data-ui-style="cde"] ::-webkit-scrollbar-button:vertical:increment {
+  display: block;
+  height: 15px;
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--bevel);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13'%3E%3Cpath d='M3 4 L6.5 9.5 L10 4 Z' fill='%237d593b'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+[data-ui-style="cde"] .panel-hero-title {
+  font-weight: 400;
+  font-size: min(1em, 16px);
+  line-height: 1.5;
+}
+
+/*
+ * 关于窗里的正文、快捷键助记符、版本号与表格统一落在 16px 原生点阵网格。
+ * 这些元素在通用样式里用了 0.85/0.9em；16 × 0.85 = 13.6px，EBDT 字体没有
+ * 这个 strike，WebKit 会退回平滑系统字体——截图里 `(U)`、`Leo Lee`、版本号
+ * 与箭头混用的根因就在这里。
+ */
+[data-ui-style="cde"] .about-dialog,
+[data-ui-style="cde"] .about-dialog * {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+[data-ui-style="cde"] .about-dialog .about-name {
+  width: 111px;
+  height: 34px;
+}
+
+[data-ui-style="cde"] .about-dialog :is(.about-version, .about-row) {
+  border: 0;
+  border-radius: 0;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--bevel);
+}
+
+[data-ui-style="cde"] .about-dialog .about-version {
+  padding: 2px 8px;
+}
+
+[data-ui-style="cde"] .about-dialog .about-row {
+  padding: 4px 6px;
+}
+
+[data-ui-style="cde"] .about-dialog .about-row:hover {
+  background: var(--btn-bg-active);
+  color: var(--btn-fg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .about-dialog :is(.about-developer, .about-row-key, .about-mark) {
+  color: var(--fg-muted);
+}
+
+[data-ui-style="cde"] .about-dialog :is(.about-page-title, .about-sub, .about-item-name, .about-cell-name) {
+  font-weight: 400;
+}
+
+[data-ui-style="cde"] .about-dialog .about-back {
+  border-radius: 0;
+  color: var(--fg);
+}
+
+[data-ui-style="cde"] .about-dialog .about-back:hover {
+  background: var(--btn-bg-active);
+  color: var(--btn-fg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .panel-hero-sub,
+[data-ui-style="cde"] .panel-text,
+[data-ui-style="cde"] .panel-item,
+[data-ui-style="cde"] .panel-field {
+  /* 20px 的全局界面字号会把 16px 字模放大并让 AI 面板每行只剩几个字；
+     这里把密集面板压回原生 16px 点阵，外壳字号仍照用户设置。 */
+  font-size: min(1em, 16px);
+  line-height: 1.6;
+}
+
+[data-ui-style="cde"] .dock-tab {
+  border-radius: 0;
+}
+
+[data-ui-style="cde"] .dock-tab[data-active="true"] {
+  /* 真机的选中项是一块暖灰面、深青字，斜面反过来（凹下）；并不把当前页
+     画成另一颗普通凸按钮。这样一眼能分清“能点的页”和“正在看的页”。 */
+  border: 0;
+  background: var(--btn-bg-active);
+  color: var(--btn-fg-active);
+  box-shadow: var(--bevel-sunken);
+}
+
+[data-ui-style="cde"] .dock-head,
+[data-ui-style="cde"] .sidebar-head {
+  background: var(--accent);
+  color: var(--title-fg);
+  box-shadow: inset 1px 1px 0 var(--frame-light);
+}
+
+[data-ui-style="cde"] .dock-head .dock-title,
+[data-ui-style="cde"] .sidebar-head .sidebar-title {
+  color: var(--title-fg);
+  text-shadow: 1px 1px 0 var(--frame-dark);
+}

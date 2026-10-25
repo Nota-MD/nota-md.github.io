@@ -1,0 +1,14 @@
+Special Elite
+Copyright (c) Astigmatic / Brian J. Bonislawsky.
+
+Licensed under the Apache License, Version 2.0. The complete licence text is in
+SPECIAL-ELITE-APACHE-2.0.txt.
+
+Source file SHA-256:
+14780ea85064dcb150c23c9a87e2b870439c38668b6d8f1dad5c6db701ab9520
+
+WOFF2 SHA-256:
+3fcb64bf0e9b23b1184021f9776a9788dbce64f3006255759a646d3cb315c98b
+
+The WOFF2 file in this directory is a lossless web-font container conversion of
+the unmodified TTF. The glyphs and character map are unchanged.

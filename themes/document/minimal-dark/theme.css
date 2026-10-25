@@ -1,0 +1,51 @@
+/*
+ * 「极简」的**深色那一档**（2026-10-16）。
+ *
+ * ⚠️⚠️ **这不是一份完整的主题，是一层"盖在浅色那份上面的颜色补丁"**：
+ * 排版（衬线、行高、方角、标题字号）全在 `themes/minimal.css` 里，这里只改颜色。
+ * 两份由后端**拼在一起**发给前端——`themes.rs` 里那条
+ * `concat!(include_str!("minimal.css"), include_str!("dark/minimal.css"))`。
+ * 所以：**改排版去浅色那份，改颜色来这一份**，别在这边重写字号/字体。
+ *
+ * ⚠️ 为什么非得单独一份、不能"让深色自动反色"：颜色是**挑出来的**，不是算出来的
+ * ——白底黑字翻成黑底白字之后，`--border` 和 `--code-string` 那些中间色会一起
+ * 变成灰糊糊的一团（对比度全丢）。这一份里每个值都是照"深色纸面上还看得清"重挑的。
+ *
+ * ⚠️ **标题那个 `color: #000000` 必须在这里盖掉**：浅色那份在 `h1,h2,h3…`
+ * 上写死了纯黑（那是它的设计：纸黑字），深色纸面上就是**黑字黑底**——
+ * 那是"主题一深色就看不见标题"的病灶。
+ */
+:root {
+  --doc-bg: #17181b;
+  --doc-fg: #d7d6d2;
+  --fg: #d7d6d2;
+  --fg-muted: #a3a29e;
+  --fg-faint: #83827f;
+  --border: #3a3c41;
+  --border-strong: #5b5e65;
+  --bg-subtle: #1f2126;
+  --bg-raised: #292c31;
+  --bg-hover: rgba(255, 255, 255, 0.06);
+  --bg-active: rgba(255, 255, 255, 0.1);
+  --accent: #d7d6d2;
+  --accent-fg: #17181b;
+  --select-text-bg-color: #3a4250;
+  --select-text-font-color: #ffffff;
+  --code-comment: #6f7076;
+  --code-keyword: #d7d6d2;
+  --code-string: #8fbf9a;
+  --code-number: #d1a97a;
+  --code-function: #9db4dd;
+  --code-attr: #d1a97a;
+  --code-tag: #9db4dd;
+}
+
+/* 浅色那份在这六个上写死了 `color: #000000`（见文件头最后一条）。 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #f2f1ee;
+}
