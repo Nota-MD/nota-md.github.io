@@ -1,5 +1,7 @@
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
+const MAX_ARCHIVE_BYTES = 256 * 1024 * 1024;
+const MAX_ARCHIVE_ENTRIES = 20000;
 
 export function decodeText(bytes) {
   return textDecoder.decode(bytes);
@@ -37,14 +39,18 @@ async function gunzip(bytes) {
     throw new Error("This browser cannot decompress gzip streams.");
   }
   const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
-  return new Uint8Array(await new Response(stream).arrayBuffer());
+  const output = new Uint8Array(await new Response(stream).arrayBuffer());
+  if (output.length > MAX_ARCHIVE_BYTES) throw new Error("The decompressed package is larger than 256 MB.");
+  return output;
 }
 
 async function unxz(bytes) {
   const xz = globalThis["xz-decompress"]?.XzReadableStream;
   if (!xz) throw new Error("The XZ decoder did not load.");
   const stream = new xz(new Blob([bytes]).stream());
-  return new Uint8Array(await new Response(stream).arrayBuffer());
+  const output = new Uint8Array(await new Response(stream).arrayBuffer());
+  if (output.length > MAX_ARCHIVE_BYTES) throw new Error("The decompressed package is larger than 256 MB.");
+  return output;
 }
 
 function normalizePath(path) {
@@ -66,6 +72,7 @@ async function unzip(bytes) {
   if (eocd < 0) throw new Error("ZIP end-of-directory record was not found.");
 
   const count = u16(view, eocd + 10);
+  if (count > MAX_ARCHIVE_ENTRIES) throw new Error("The ZIP contains too many files.");
   let cursor = u32(view, eocd + 16);
   const entries = [];
   for (let i = 0; i < count; i++) {
@@ -73,6 +80,8 @@ async function unzip(bytes) {
     const flags = u16(view, cursor + 8);
     const method = u16(view, cursor + 10);
     const compressedSize = u32(view, cursor + 20);
+    const uncompressedSize = u32(view, cursor + 24);
+    if (uncompressedSize > MAX_ARCHIVE_BYTES) throw new Error(`ZIP entry is too large: ${name}`);
     const nameLength = u16(view, cursor + 28);
     const extraLength = u16(view, cursor + 30);
     const commentLength = u16(view, cursor + 32);
@@ -136,6 +145,7 @@ function untar(bytes) {
     const header = bytes.subarray(offset, offset + 512);
     if (header.every((byte) => byte === 0)) break;
     const size = octal(header, 124, 12);
+    if (size > MAX_ARCHIVE_BYTES) throw new Error("TAR entry is larger than 256 MB.");
     const type = String.fromCharCode(header[156] || 48);
     const dataStart = offset + 512;
     const data = bytes.subarray(dataStart, dataStart + size);
@@ -149,6 +159,7 @@ function untar(bytes) {
       longName = readCString(data, 0, data.length);
     } else {
       if (type !== "5" && name) entries.push({ path: normalizePath(name), data: data.slice() });
+      if (entries.length > MAX_ARCHIVE_ENTRIES) throw new Error("The TAR contains too many files.");
       longName = "";
       pax = {};
     }

@@ -240,6 +240,124 @@ nav a:hover {
   transform: translateX(-50%);
 }
 
+.hero-product {
+  position: relative;
+  width: min(980px, calc(100vw - 56px));
+  margin: 0 auto 52px;
+}
+
+.hero-product::before,
+.hero-product::after {
+  position: absolute;
+  z-index: -1;
+  width: 150px;
+  height: 150px;
+  border-radius: 34%;
+  background: color-mix(in srgb, var(--blue) 16%, transparent);
+  content: "";
+  transform: rotate(24deg);
+}
+
+.hero-product::before {
+  top: 24%;
+  left: -84px;
+}
+
+.hero-product::after {
+  right: -76px;
+  bottom: 15%;
+  width: 112px;
+  height: 112px;
+  transform: rotate(-18deg);
+}
+
+.hero-product-frame {
+  overflow: hidden;
+  padding: 8px;
+  border: 1px solid rgb(255 255 255 / 66%);
+  border-radius: 20px;
+  background: rgb(255 255 255 / 62%);
+  box-shadow:
+    0 34px 80px rgb(28 113 216 / 22%),
+    0 2px 0 rgb(255 255 255 / 70%) inset;
+  backdrop-filter: blur(12px);
+}
+
+.hero-product-frame img {
+  width: 100%;
+  border-radius: 13px;
+}
+
+.hero h1 {
+  max-width: 920px;
+  font-size: clamp(2.15rem, 4.1vw, 3.25rem);
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+}
+
+.hero > .lead {
+  max-width: 720px;
+  font-size: 1.03rem;
+}
+
+.hero-banners {
+  display: grid;
+  max-width: 790px;
+  gap: 18px;
+  margin: 34px auto 0;
+}
+
+.hero-banner {
+  display: flex;
+  min-height: 92px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: rgb(206 226 247 / 56%);
+  color: var(--fg);
+  text-align: left;
+  text-decoration: none;
+}
+
+.hero-banner:hover {
+  background: rgb(206 226 247 / 78%);
+  text-decoration: none;
+}
+
+.hero-banner > span:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.hero-banner strong {
+  font-size: 0.96rem;
+  font-weight: 750;
+}
+
+.hero-banner small {
+  color: var(--muted);
+  font-size: 0.79rem;
+  line-height: 1.45;
+}
+
+.hero-banner .button {
+  flex: 0 0 auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-product-frame {
+    border-color: rgb(255 255 255 / 14%);
+    background: rgb(255 255 255 / 6%);
+  }
+
+  .hero-banner,
+  .hero-banner:hover {
+    background: rgb(255 255 255 / 9%);
+  }
+}
+
 .hero-icon {
   width: 92px;
   height: 92px;
@@ -1067,7 +1185,26 @@ footer a {
   }
 
   .hero {
-    padding-top: 76px;
+    padding-top: 42px;
+  }
+
+  .hero-product {
+    width: 100%;
+    margin-bottom: 34px;
+  }
+
+  .hero-product::before,
+  .hero-product::after {
+    display: none;
+  }
+
+  .hero-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-banner .button {
+    width: 100%;
   }
 
   .hero-icon {
