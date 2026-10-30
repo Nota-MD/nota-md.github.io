@@ -21,9 +21,13 @@ Then open <http://localhost:8000/>.
 - `zh-CN.html` — Simplified Chinese
 - `ui-theme.html` — live interface-theme preview
 - `doc-theme.html` — live document-theme preview
+- `theme-converter.html` — local GNOME/GTK and KDE theme package converter
 
 Keep navigation, release links and previews synchronized between both pages.
 
 Theme files are copied into `themes/` so the deployed site does not depend on a
 CDN cache catching up with the theme repository. The Typing videos and their
 posters live in `assets/`.
+
+Release links use GitHub's `/releases/latest` endpoint so the website always
+points to the current release instead of a pinned version.

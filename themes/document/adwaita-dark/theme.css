@@ -45,3 +45,32 @@ h5,
 h6 {
   color: #ffffff;
 }
+
+/*
+ * 浅色主题里还有几处刻意写死的浅灰面：行内代码、引用和表格。它们不能只靠
+ * `--bg-subtle` 覆盖，否则深色纸面上会出现亮白色块。这里按 Adwaita Dark 的
+ * 分层重新给暗面，同时保留表头与正文之间的字重和边框关系。
+ */
+code {
+  background: #343434;
+  color: #f6f6f4;
+}
+
+blockquote {
+  background: #2d2d2d;
+  color: #c6c6c6;
+}
+
+th {
+  background: #333333;
+  color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+  background: #292929;
+}
+
+th,
+td {
+  border-color: #4a4a4a;
+}
