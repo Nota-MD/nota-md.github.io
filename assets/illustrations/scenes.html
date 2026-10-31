@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nota illustration scenes</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --stage: #4b82e7;
+      --stage-deep: #3367cc;
+      --stage-light: #8eb5f6;
+      --arrow: #8fbdfa;
+      --ink: #17131c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 1600px;
+      height: 720px;
+      margin: 0;
+      overflow: hidden;
+      background: #fbfbfb;
+      font-family: "Adwaita Sans", Inter, sans-serif;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 48%, rgb(225 238 255 / 54%), transparent 52%),
+        #fbfbfb;
+    }
+
+    .scene:target {
+      display: block;
+    }
+
+    .stage {
+      position: absolute;
+      width: 560px;
+      height: 430px;
+      border-radius: 58px;
+      background:
+        linear-gradient(145deg, rgb(255 255 255 / 10%), transparent 36%),
+        linear-gradient(135deg, var(--stage), var(--stage-deep));
+      box-shadow:
+        0 34px 54px rgb(39 88 177 / 20%),
+        inset 0 1px 0 rgb(255 255 255 / 22%);
+    }
+
+    .stage::after {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: inherit;
+      content: "";
+    }
+
+    .stage-a {
+      top: 128px;
+      left: 104px;
+      transform: rotate(-2deg);
+    }
+
+    .stage-b {
+      top: 112px;
+      left: 520px;
+      width: 560px;
+      height: 486px;
+      background:
+        linear-gradient(150deg, rgb(255 255 255 / 9%), transparent 34%),
+        linear-gradient(135deg, #5e91e7, #3e75dc);
+    }
+
+    .stage-c {
+      top: 152px;
+      left: 1002px;
+      transform: rotate(2deg);
+    }
+
+    .window {
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid rgb(36 31 49 / 10%);
+      border-radius: 19px;
+      background: #fff;
+      box-shadow:
+        0 24px 42px rgb(17 48 111 / 25%),
+        0 2px 5px rgb(17 48 111 / 15%);
+    }
+
+    .window img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .app {
+      top: 92px;
+      left: 472px;
+      width: 656px;
+      height: 430px;
+      border-radius: 23px;
+      transform: perspective(1800px) rotateX(1deg) rotateY(-1deg);
+    }
+
+    .app img {
+      object-fit: cover;
+      object-position: center 82%;
+      background: #fff;
+    }
+
+    .source-note,
+    .doc-note {
+      width: 292px;
+      height: 232px;
+      border-radius: 15px;
+      background: #fbfcff;
+      color: #2f3544;
+    }
+
+    .source-note {
+      top: 405px;
+      left: 96px;
+      transform: rotate(-6deg);
+    }
+
+    .doc-note {
+      top: 105px;
+      right: 76px;
+      transform: rotate(5deg);
+    }
+
+    .note-bar {
+      display: flex;
+      height: 34px;
+      align-items: center;
+      gap: 6px;
+      padding: 0 13px;
+      border-bottom: 1px solid #e8e8ec;
+      background: #f2f2f5;
+    }
+
+    .note-bar i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c7c8ce;
+    }
+
+    .note-bar span {
+      margin-left: auto;
+      color: #7b7d87;
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .source-body {
+      padding: 18px 20px;
+      font-family: "Adwaita Mono", ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .source-body b {
+      color: #a2398c;
+      font-weight: 600;
+    }
+
+    .source-body em {
+      color: #2472c8;
+      font-style: normal;
+    }
+
+    .doc-body {
+      padding: 20px 24px;
+      font-family: Georgia, serif;
+      line-height: 1.55;
+    }
+
+    .doc-body h3 {
+      margin: 0 0 10px;
+      color: #1d1a22;
+      font-family: "Adwaita Sans", sans-serif;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .doc-body p {
+      margin: 0 0 10px;
+      color: #4a4c54;
+      font-size: 12px;
+    }
+
+    .doc-body q {
+      display: block;
+      padding: 8px 11px;
+      border-left: 3px solid #4a86cf;
+      background: #f1f5fb;
+      color: #5e6270;
+      font-size: 11px;
+      quotes: none;
+    }
+
+    .arrow {
+      position: absolute;
+      z-index: 9;
+      overflow: visible;
+      filter: drop-shadow(0 4px 3px rgb(45 102 197 / 12%));
+    }
+
+    .arrow path {
+      fill: none;
+      stroke: var(--arrow);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 11;
+    }
+
+    .arrow .head {
+      fill: var(--arrow);
+      stroke: none;
+    }
+
+    .scene-label {
+      position: absolute;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px 10px 11px;
+      border: 1px solid #d9dee8;
+      border-radius: 999px;
+      background: rgb(255 255 255 / 92%);
+      box-shadow: 0 10px 24px rgb(33 58 102 / 12%);
+      color: #3c414e;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      backdrop-filter: blur(10px);
+    }
+
+    .scene-label i {
+      display: grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      border-radius: 50%;
+      background: #e5efff;
+      color: #2d6fd7;
+      font-style: normal;
+      font-size: 13px;
+    }
+
+    /* Themes */
+
+    .theme-stage {
+      position: absolute;
+      top: 108px;
+      left: 194px;
+      width: 1214px;
+      height: 508px;
+      border-radius: 64px;
+      background:
+        radial-gradient(circle at 50% 15%, rgb(255 255 255 / 12%), transparent 40%),
+        linear-gradient(135deg, #5c8fe6, #356bcb);
+      box-shadow: 0 38px 62px rgb(45 94 183 / 22%);
+    }
+
+    .theme-card {
+      position: absolute;
+      z-index: 3;
+      overflow: hidden;
+      border: 6px solid rgb(255 255 255 / 86%);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 22px 38px rgb(19 49 107 / 27%);
+    }
+
+    .theme-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .theme-adwaita {
+      top: 138px;
+      left: 122px;
+      width: 560px;
+      height: 390px;
+      transform: rotate(-4deg);
+    }
+
+    .theme-yaru {
+      top: 65px;
+      right: 105px;
+      width: 550px;
+      height: 382px;
+      transform: rotate(4deg);
+    }
+
+    .theme-cde {
+      right: 256px;
+      bottom: 71px;
+      width: 450px;
+      height: 312px;
+      transform: rotate(-2deg) translateZ(2px);
+    }
+
+    .theme-settings {
+      top: 235px;
+      left: 76px;
+      width: 390px;
+      height: 272px;
+      transform: rotate(6deg);
+    }
+
+    .theme-arrow-one {
+      top: 250px;
+      left: 615px;
+      width: 250px;
+      height: 150px;
+    }
+
+    .theme-arrow-two {
+      top: 170px;
+      right: 480px;
+      width: 210px;
+      height: 130px;
+      transform: rotate(2deg);
+    }
+
+    /* Desktop icons */
+
+    .icon-stage {
+      position: absolute;
+      top: 108px;
+      left: 260px;
+      width: 1080px;
+      height: 506px;
+      overflow: hidden;
+      border-radius: 72px;
+      background:
+        radial-gradient(circle at 45% 25%, rgb(255 255 255 / 16%), transparent 32%),
+        linear-gradient(135deg, #6e9ff0, #3c72d5);
+      box-shadow: 0 38px 62px rgb(45 94 183 / 22%);
+    }
+
+    .icon-stage::before,
+    .icon-stage::after {
+      position: absolute;
+      border-radius: 50%;
+      background: rgb(255 255 255 / 7%);
+      content: "";
+    }
+
+    .icon-stage::before {
+      top: -210px;
+      left: -80px;
+      width: 540px;
+      height: 540px;
+    }
+
+    .icon-stage::after {
+      right: -160px;
+      bottom: -270px;
+      width: 620px;
+      height: 620px;
+    }
+
+    .app-icon {
+      position: absolute;
+      z-index: 2;
+      filter: drop-shadow(0 20px 18px rgb(20 48 104 / 25%));
+    }
+
+    .nota-icon {
+      top: 140px;
+      left: 436px;
+      width: 230px;
+      height: 230px;
+      padding: 24px;
+      border: 2px solid rgb(255 255 255 / 80%);
+      border-radius: 56px;
+      background: linear-gradient(145deg, #fff, #eeeef1);
+      filter: drop-shadow(0 28px 28px rgb(17 45 100 / 27%));
+    }
+
+    .nota-icon img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .folder-icon {
+      top: 72px;
+      left: 138px;
+      width: 164px;
+      height: 130px;
+      border-radius: 22px 28px 24px 24px;
+      background: linear-gradient(145deg, #fafbfc, #dfe3e9);
+      transform: rotate(-8deg);
+    }
+
+    .folder-icon::before {
+      position: absolute;
+      top: -14px;
+      left: 18px;
+      width: 72px;
+      height: 32px;
+      border-radius: 12px 12px 0 0;
+      background: #eceff3;
+      content: "";
+    }
+
+    .folder-icon::after {
+      position: absolute;
+      top: 33px;
+      left: 31px;
+      width: 100px;
+      height: 62px;
+      border-radius: 13px;
+      background:
+        radial-gradient(circle at 28% 36%, #ffbe6b 0 14px, transparent 15px),
+        radial-gradient(circle at 58% 40%, #dc8add 0 14px, transparent 15px),
+        radial-gradient(circle at 44% 72%, #3584e4 0 14px, transparent 15px),
+        #f7f8fa;
+      content: "";
+    }
+
+    .calendar-icon {
+      top: 70px;
+      right: 136px;
+      width: 145px;
+      height: 155px;
+      overflow: hidden;
+      border-radius: 25px;
+      background: linear-gradient(#f9f9fa 0 45px, #fff 46px);
+      transform: rotate(7deg);
+    }
+
+    .calendar-icon::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 44px;
+      background: linear-gradient(145deg, #a267cb, #7e4ca8);
+      content: "";
+    }
+
+    .calendar-icon::after {
+      position: absolute;
+      inset: 60px 22px 22px;
+      background:
+        radial-gradient(circle, #7d4ca2 0 4px, transparent 5px) 0 0 / 30px 28px;
+      content: "";
+    }
+
+    .globe-icon {
+      left: 144px;
+      bottom: 46px;
+      width: 190px;
+      height: 190px;
+      overflow: hidden;
+      border: 2px solid rgb(255 255 255 / 80%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 32% 28%, #9be5ae 0 25%, transparent 26%),
+        radial-gradient(circle at 72% 30%, #72d9a3 0 25%, transparent 26%),
+        radial-gradient(circle at 48% 78%, #55c68f 0 34%, transparent 35%),
+        linear-gradient(145deg, #65c8fb, #2a8cdb);
+      transform: rotate(-5deg);
+    }
+
+    .globe-icon::after {
+      position: absolute;
+      inset: 8%;
+      border: 2px solid rgb(255 255 255 / 22%);
+      border-radius: 50%;
+      content: "";
+      box-shadow:
+        inset 38px 0 0 rgb(255 255 255 / 5%),
+        inset -38px 0 0 rgb(255 255 255 / 5%);
+    }
+
+    .photo-icon {
+      right: 100px;
+      bottom: 55px;
+      width: 208px;
+      height: 160px;
+      overflow: hidden;
+      border: 12px solid #f7f7f9;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 25% 34%, #ffd37b 0 26px, transparent 27px),
+        radial-gradient(circle at 66% 43%, #f49ac1 0 30px, transparent 31px),
+        linear-gradient(145deg, #83b8f7, #6861c9);
+      transform: rotate(8deg);
+    }
+
+    .photo-icon::after {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      width: 43px;
+      height: 43px;
+      border: 9px solid #5e5c66;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .search-icon {
+      top: 58px;
+      left: 544px;
+      width: 78px;
+      height: 78px;
+      border: 9px solid #2f2d36;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #b7d9ff, #4d7fda 58%, #292b48);
+      transform: rotate(-18deg);
+    }
+
+    .search-icon::after {
+      position: absolute;
+      right: -31px;
+      bottom: -37px;
+      width: 22px;
+      height: 82px;
+      border-radius: 999px;
+      background: #33313a;
+      content: "";
+      transform: rotate(-42deg);
+    }
+
+    .scene-caption {
+      position: absolute;
+      z-index: 6;
+      padding: 10px 16px;
+      border: 1px solid #d9dee8;
+      border-radius: 999px;
+      background: rgb(255 255 255 / 92%);
+      box-shadow: 0 10px 24px rgb(33 58 102 / 12%);
+      color: #3c414e;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+  </style>
+</head>
+<body>
+  <section class="scene" id="writing">
+    <div class="stage stage-a"></div>
+    <div class="stage stage-b"></div>
+    <div class="stage stage-c"></div>
+
+    <div class="window source-note">
+      <div class="note-bar"><i></i><i></i><i></i><span>morning-by-the-sea.md</span></div>
+      <div class="source-body">
+        <b>#</b> Morning by the Sea<br><br>
+        After the tide went out,<br>
+        the dark rocks appeared<br>
+        one layer at a time.<br><br>
+        <b>&gt;</b> Keep the sentences<br>
+        that matter.
+      </div>
+    </div>
+
+    <div class="window app">
+      <img src="nota-overview.png" alt="">
+    </div>
+
+    <div class="window doc-note">
+      <div class="note-bar"><i></i><i></i><i></i><span>Reading view</span></div>
+      <div class="doc-body">
+        <h3>Morning by the Sea</h3>
+        <p>After the tide went out, the dark rocks appeared one layer at a time.</p>
+        <q>Keep the sentences that matter;<br>leave the rest to whitespace.</q>
+      </div>
+    </div>
+
+    <svg class="arrow" style="left: 338px; top: 314px; width: 142px; height: 100px" viewBox="0 0 150 100" aria-hidden="true">
+      <path d="M8 52 C36 8, 94 8, 132 48"></path>
+      <path class="head" d="M137 52 L121 43 L124 61 Z"></path>
+    </svg>
+    <svg class="arrow" style="right: 226px; top: 264px; width: 144px; height: 100px" viewBox="0 0 160 100" aria-hidden="true">
+      <path d="M8 47 C47 8, 103 11, 143 53"></path>
+      <path class="head" d="M148 57 L131 48 L134 67 Z"></path>
+    </svg>
+
+    <div class="scene-label" style="bottom: 37px; left: 645px">
+      <i>✓</i> Plain Markdown, quietly rendered
+    </div>
+  </section>
+
+  <section class="scene" id="themes">
+    <div class="theme-stage"></div>
+    <div class="theme-card theme-adwaita"><img src="../nota-yaru.png" alt=""></div>
+    <div class="theme-card theme-yaru"><img src="../nota-cde.png" alt=""></div>
+    <div class="theme-card theme-cde"><img src="../nota-cde.png" alt=""></div>
+    <div class="theme-card theme-settings"><img src="../nota-settings.png" alt=""></div>
+
+    <svg class="arrow theme-arrow-one" viewBox="0 0 250 150" aria-hidden="true">
+      <path d="M10 94 C66 20, 158 20, 225 82"></path>
+      <path class="head" d="M231 87 L210 78 L215 101 Z"></path>
+    </svg>
+    <svg class="arrow theme-arrow-two" viewBox="0 0 210 130" aria-hidden="true">
+      <path d="M9 36 C63 105, 139 111, 194 66"></path>
+      <path class="head" d="M200 61 L180 65 L189 86 Z"></path>
+    </svg>
+
+    <div class="scene-label" style="left: 615px; bottom: 32px">
+      <i>◐</i> Interface and document themes
+    </div>
+  </section>
+
+  <section class="scene" id="desktop">
+    <div class="icon-stage">
+      <div class="app-icon folder-icon"></div>
+      <div class="app-icon calendar-icon"></div>
+      <div class="app-icon globe-icon"></div>
+      <div class="app-icon photo-icon"></div>
+      <div class="app-icon search-icon"></div>
+      <div class="app-icon nota-icon"><img src="../nota-icon.svg" alt=""></div>
+    </div>
+    <div class="scene-caption" style="left: 663px; bottom: 36px">
+      At home on your desktop
+    </div>
+  </section>
+</body>
+</html>

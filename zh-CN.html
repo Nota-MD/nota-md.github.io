@@ -8,7 +8,7 @@
   <meta property="og:title" content="Nota — 不打断写作的 Markdown 编辑器">
   <meta property="og:description" content="打开文件就能写；格式在输入时出现，光标离开后回到干净的排版。">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/nota-typing-en-poster.png">
+  <meta property="og:image" content="assets/illustrations/writing.png">
   <title>Nota — 不打断写作的 Markdown 编辑器</title>
   <link rel="icon" href="assets/nota-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -25,7 +25,7 @@
         <a href="#writing">写作</a>
         <a href="#features">功能</a>
         <a href="#themes">主题</a>
-        <a href="theme-converter.html?lang=zh">主题转换器</a>
+        <a href="https://nota-md.github.io/Nota-theme-converter/?lang=zh">主题转换器</a>
         <a href="#downloads">下载</a>
         <a href="index.html" lang="en">English</a>
       </nav>
@@ -35,10 +35,8 @@
 
   <main>
     <section class="hero shell">
-      <div class="hero-product">
-        <div class="hero-product-frame">
-          <img src="assets/nota-typing-en-poster.png" alt="Nota 输入并实时排版 Markdown">
-        </div>
+      <div class="hero-art">
+        <img src="assets/illustrations/writing.png" alt="Markdown 源码、Nota 编辑器与渲染后的页面由蓝色箭头连接" width="1600" height="720">
       </div>
       <h1>为每个人准备的本地优先 Markdown 编辑器。</h1>
       <p class="lead">
@@ -53,7 +51,7 @@
           </span>
           <span class="button primary">下载</span>
         </a>
-        <a class="hero-banner" href="theme-converter.html?lang=zh">
+        <a class="hero-banner" href="https://nota-md.github.io/Nota-theme-converter/?lang=zh">
           <span>
             <strong>带上一套桌面主题</strong>
             <small>把可安装的 GNOME/GTK 或 KDE 主题转换成 Nota 主题。</small>
@@ -73,16 +71,7 @@
       </p>
       <figure class="typing-figure">
         <div class="typing-frame">
-          <video
-            id="typing-video"
-            src="assets/nota-typing-en.webm"
-            poster="assets/nota-typing-en-poster.png"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            aria-label="Nota 输入 Markdown 并实时排版的演示"></video>
+          <img src="assets/nota-typing-en-poster.png" alt="Nota 正在编辑 Markdown 文档，页面中直接显示排版结果" width="1280" height="720">
         </div>
         <figcaption>
           <span>输入时即时排版</span>
@@ -91,19 +80,37 @@
       </figure>
     </section>
 
+    <section class="desktop-feature shell wide" id="desktop">
+      <div class="desktop-copy">
+        <p class="eyebrow">为桌面而生</p>
+        <h2>熟悉的地方更顺手，<br>其余时候保持安静。</h2>
+        <p>
+          Nota 以原生窗口运行，直接读写本地文件；紧凑的 GNOME 风格工作台，
+          也可以换上一套与桌面相配的主题。
+        </p>
+        <ul class="desktop-points">
+          <li>原生窗口与直接文件访问</li>
+          <li>键盘优先，界面不堆叠多余控件</li>
+          <li>界面与文档主题只由普通 CSS 组成</li>
+        </ul>
+      </div>
+      <figure class="illustration-frame">
+        <img src="assets/illustrations/desktop.png" alt="Nota 图标与文件、日历、浏览器、照片和搜索图标" width="1600" height="720" loading="lazy">
+      </figure>
+    </section>
+
     <section class="converter-teaser shell wide" id="theme-converter">
-      <div>
+      <figure class="converter-art">
+        <img src="assets/illustrations/themes.png" alt="排列在蓝色底板上的 GNOME 与桌面主题截图" width="1600" height="720" loading="lazy">
+      </figure>
+      <div class="converter-copy">
         <p class="eyebrow">主题工具</p>
         <h2>把桌面主题带到 Nota。</h2>
         <p>
           拖入可安装的 GNOME/GTK 或 KDE 主题包。转换器在本地读取配色和几何参数，
           生成可以直接导入 Nota 的界面主题目录。
         </p>
-        <a class="button primary" href="theme-converter.html?lang=zh">打开转换器</a>
-      </div>
-      <div class="converter-illustration" aria-hidden="true">
-        <div class="file-chip">Yaru-Dark.tar.gz</div>
-        <div class="theme-chip">Nota UI 主题</div>
+        <a class="button primary" href="https://nota-md.github.io/Nota-theme-converter/?lang=zh">打开转换器</a>
       </div>
     </section>
 

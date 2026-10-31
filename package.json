@@ -1,8 +1,0 @@
-{
-  "name": "@nota-md/website",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "test": "node tests/theme-converter.test.mjs"
-  }
-}

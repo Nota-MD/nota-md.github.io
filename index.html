@@ -8,7 +8,7 @@
   <meta property="og:title" content="Nota — A Markdown editor that stays out of the way">
   <meta property="og:description" content="Open a file and write. Formatting appears while you type and recedes into a calm page.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/nota-typing-en-poster.png">
+  <meta property="og:image" content="assets/illustrations/writing.png">
   <title>Nota — A Markdown editor that stays out of the way</title>
   <link rel="icon" href="assets/nota-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -25,7 +25,7 @@
         <a href="#writing">Writing</a>
         <a href="#features">Features</a>
         <a href="#themes">Themes</a>
-        <a href="theme-converter.html">Theme converter</a>
+        <a href="https://nota-md.github.io/Nota-theme-converter/">Theme converter</a>
         <a href="#downloads">Download</a>
         <a href="zh-CN.html" lang="zh-CN">中文</a>
       </nav>
@@ -35,10 +35,8 @@
 
   <main>
     <section class="hero shell">
-      <div class="hero-product">
-        <div class="hero-product-frame">
-          <img src="assets/nota-typing-en-poster.png" alt="Nota editing and rendering Markdown live">
-        </div>
+      <div class="hero-art">
+        <img src="assets/illustrations/writing.png" alt="Markdown source, the Nota editor and the rendered page connected by blue arrows" width="1600" height="720">
       </div>
       <h1>A local-first Markdown editor for everyone.</h1>
       <p class="lead">
@@ -53,7 +51,7 @@
           </span>
           <span class="button primary">Download</span>
         </a>
-        <a class="hero-banner" href="theme-converter.html">
+        <a class="hero-banner" href="https://nota-md.github.io/Nota-theme-converter/">
           <span>
             <strong>Bring your desktop theme</strong>
             <small>Convert an installable GNOME/GTK or KDE package for Nota.</small>
@@ -73,16 +71,7 @@
       </p>
       <figure class="typing-figure">
         <div class="typing-frame">
-          <video
-            id="typing-video"
-            src="assets/nota-typing-en.webm"
-            poster="assets/nota-typing-en-poster.png"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            aria-label="Nota typing and rendering Markdown live"></video>
+          <img src="assets/nota-typing-en-poster.png" alt="Nota editing a Markdown document with formatting visible in the page" width="1280" height="720">
         </div>
         <figcaption>
           <span>Formatting while typing</span>
@@ -91,19 +80,37 @@
       </figure>
     </section>
 
+    <section class="desktop-feature shell wide" id="desktop">
+      <div class="desktop-copy">
+        <p class="eyebrow">Made for the desktop</p>
+        <h2>Familiar where it matters.<br>Quiet everywhere else.</h2>
+        <p>
+          Nota opens as a native window with local file access, a compact
+          GNOME-style workspace and themes that can meet the rest of your desktop.
+        </p>
+        <ul class="desktop-points">
+          <li>Native windows and direct file access</li>
+          <li>Keyboard-first tools without a busy interface</li>
+          <li>Interface and document themes stored in plain CSS</li>
+        </ul>
+      </div>
+      <figure class="illustration-frame">
+        <img src="assets/illustrations/desktop.png" alt="Nota icon among files, calendar, browser, photos and search icons" width="1600" height="720" loading="lazy">
+      </figure>
+    </section>
+
     <section class="converter-teaser shell wide" id="theme-converter">
-      <div>
+      <figure class="converter-art">
+        <img src="assets/illustrations/themes.png" alt="GNOME and desktop theme screenshots arranged on a blue stage" width="1600" height="720" loading="lazy">
+      </figure>
+      <div class="converter-copy">
         <p class="eyebrow">Theme tools</p>
         <h2>Bring a desktop theme with you.</h2>
         <p>
           Drop an installable GNOME/GTK or KDE theme package. The converter reads its
           palette and geometry locally, then produces a theme folder ready for Nota.
         </p>
-        <a class="button primary" href="theme-converter.html">Open the converter</a>
-      </div>
-      <div class="converter-illustration" aria-hidden="true">
-        <div class="file-chip">Yaru-Dark.tar.gz</div>
-        <div class="theme-chip">Nota UI theme</div>
+        <a class="button primary" href="https://nota-md.github.io/Nota-theme-converter/">Open the converter</a>
       </div>
     </section>
 
