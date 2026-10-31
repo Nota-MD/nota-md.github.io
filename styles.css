@@ -242,7 +242,7 @@ nav a:hover {
 
 .hero-art {
   position: relative;
-  width: min(1260px, calc(100vw - 56px));
+  width: min(1120px, calc(100vw - 56px));
   margin: 0 auto 40px;
   overflow: hidden;
   border-radius: 30px;
@@ -253,6 +253,7 @@ nav a:hover {
 .hero-art img {
   display: block;
   width: 100%;
+  height: auto;
 }
 
 .hero h1 {
@@ -560,6 +561,7 @@ h3 {
 .converter-art img {
   display: block;
   width: 100%;
+  height: auto;
 }
 
 .converter-teaser {

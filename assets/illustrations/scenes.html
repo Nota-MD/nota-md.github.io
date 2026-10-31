@@ -260,6 +260,95 @@
       font-size: 13px;
     }
 
+    /* Hero: a calmer 16:9 composition with three distinct stages. */
+
+    #hero .stage-a {
+      top: 236px;
+      left: 78px;
+      width: 440px;
+      height: 440px;
+      border-radius: 54px;
+      transform: rotate(-3deg);
+    }
+
+    #hero .stage-b {
+      top: 146px;
+      left: 432px;
+      width: 736px;
+      height: 632px;
+      border-radius: 66px;
+      transform: rotate(0.5deg);
+    }
+
+    #hero .stage-c {
+      top: 236px;
+      left: 1082px;
+      width: 440px;
+      height: 440px;
+      border-radius: 54px;
+      transform: rotate(3deg);
+    }
+
+    #hero .app {
+      top: 140px;
+      left: 452px;
+      width: 696px;
+      height: 520px;
+      transform: perspective(1800px) rotateX(1deg) rotateY(-1deg);
+    }
+
+    #hero .app img {
+      position: absolute;
+      top: -67px;
+      left: 0;
+      width: 100%;
+      height: auto;
+      object-fit: initial;
+    }
+
+    #hero .source-note {
+      top: 430px;
+      left: 88px;
+    }
+
+    #hero .doc-note {
+      top: 290px;
+      right: 79px;
+    }
+
+    .hero-arrow-one {
+      left: 342px;
+      top: 366px;
+      width: 146px;
+      height: 112px;
+    }
+
+    .hero-arrow-two {
+      right: 338px;
+      top: 368px;
+      width: 144px;
+      height: 112px;
+    }
+
+    #hero .scene-label {
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #hero .hero-kicker {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      color: #727784;
+      font-family: "Adwaita Mono", ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transform: translateX(-50%);
+    }
+
     /* Themes */
 
     .theme-stage {
@@ -557,6 +646,51 @@
   </style>
 </head>
 <body>
+  <section class="scene" id="hero">
+    <span class="hero-kicker">Source · Write · Publish</span>
+    <div class="stage stage-a"></div>
+    <div class="stage stage-b"></div>
+    <div class="stage stage-c"></div>
+
+    <div class="window source-note">
+      <div class="note-bar"><i></i><i></i><i></i><span>notes.md</span></div>
+      <div class="source-body">
+        <b>#</b> Morning by the Sea<br><br>
+        After the tide went out,<br>
+        the dark rocks appeared<br>
+        one layer at a time.<br><br>
+        <b>&gt;</b> Keep the sentences<br>
+        that matter.
+      </div>
+    </div>
+
+    <div class="window app">
+      <img src="nota-overview.png" alt="">
+    </div>
+
+    <div class="window doc-note">
+      <div class="note-bar"><i></i><i></i><i></i><span>Reading view</span></div>
+      <div class="doc-body">
+        <h3>Morning by the Sea</h3>
+        <p>After the tide went out, the dark rocks appeared one layer at a time.</p>
+        <q>Keep the sentences that matter;<br>leave the rest to whitespace.</q>
+      </div>
+    </div>
+
+    <svg class="arrow hero-arrow-one" viewBox="0 0 150 100" aria-hidden="true">
+      <path d="M8 52 C36 8, 94 8, 132 48"></path>
+      <path class="head" d="M137 52 L121 43 L124 61 Z"></path>
+    </svg>
+    <svg class="arrow hero-arrow-two" viewBox="0 0 160 100" aria-hidden="true">
+      <path d="M8 52 C47 10, 106 12, 143 52"></path>
+      <path class="head" d="M148 56 L131 47 L134 66 Z"></path>
+    </svg>
+
+    <div class="scene-label">
+      <i>✓</i> Local files. Clear writing.
+    </div>
+  </section>
+
   <section class="scene" id="writing">
     <div class="stage stage-a"></div>
     <div class="stage stage-b"></div>
