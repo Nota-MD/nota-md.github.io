@@ -1648,6 +1648,12 @@ footer a {
     padding-top: 42px;
   }
 
+  .hero h1 {
+    font-size: clamp(1.85rem, 7.3vw, 2.1rem);
+    line-height: 1.18;
+    text-wrap: balance;
+  }
+
   .hero-art {
     width: 100%;
     margin-bottom: 34px;

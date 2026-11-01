@@ -22,7 +22,9 @@ Then open <http://localhost:8000/>.
 - `ui-theme.html` — live interface-theme preview
 - `doc-theme.html` — live document-theme preview
 - `theme-converter.html` — compatibility redirect to the independent
-  [Nota Theme Converter](https://nota-md.github.io/Nota-theme-converter/)
+  [Nota Theme Converter](https://nota-md.github.io/Nota-theme-converter/),
+  which converts Typora, GNOME/GTK and KDE Plasma themes
+- `theme-converter-typora.html` — compatibility redirect to the Typora pipeline
 
 Keep navigation, release links and previews synchronized between both pages.
 
