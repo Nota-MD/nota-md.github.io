@@ -32,5 +32,9 @@ Theme files are copied into `themes/` so the deployed site does not depend on a
 CDN cache catching up with the theme repository. Interface posters and the
 GNOME-style illustration scenes live in `assets/`.
 
+The bundled document themes include Adwaita, Minimal, LaTeX, CDE-inspired,
+Vellum and IBM Documentation. IBM Documentation ships IBM Plex Sans SC and IBM
+Plex Mono with their font licenses.
+
 Release links use GitHub's `/releases/latest` endpoint so the website always
 points to the current release instead of a pinned version.

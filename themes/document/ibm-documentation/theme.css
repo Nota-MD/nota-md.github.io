@@ -1,0 +1,291 @@
+/*
+ * IBM Documentation — Nota document theme
+ *
+ * A standalone Nota document theme inspired by IBM Documentation and the
+ * Carbon design language. IBM Plex fonts are bundled under assets/fonts and
+ * remain under the SIL Open Font License 1.1.
+ *
+ * The theme intentionally styles the writing surface only. It does not
+ * reproduce IBM site navigation, logos, feedback dialogs, or web chrome.
+ */
+
+@font-face {
+  font-family: "IBM Plex Sans SC";
+  src: url("assets/fonts/IBMPlexSansSC-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans SC";
+  src: url("assets/fonts/IBMPlexSansSC-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans SC";
+  src: url("assets/fonts/IBMPlexSansSC-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("assets/fonts/IBMPlexMono-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --doc-bg: #ffffff;
+  --doc-fg: #161616;
+  --fg: #161616;
+  --fg-muted: #525252;
+  --fg-faint: #6f6f6f;
+  --border: #d0d0d0;
+  --border-strong: #8d8d8d;
+  --bg-subtle: #f4f4f4;
+  --bg-raised: #ffffff;
+  --bg-hover: rgba(15, 98, 254, 0.08);
+  --bg-active: rgba(15, 98, 254, 0.14);
+  --radius: 0;
+  --radius-sm: 0;
+  --accent: #0f62fe;
+  --accent-fg: #ffffff;
+  --link-hover: #0043ce;
+
+  --font-doc: "IBM Plex Sans SC", "Noto Sans CJK SC", "Source Han Sans SC",
+    "Microsoft YaHei", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas,
+    "Liberation Mono", monospace;
+  --doc-font-size: 1em;
+  --doc-line-height: 1.72;
+  --doc-h-weight: 600;
+  --doc-h-line-height: 1.25;
+  --doc-h1-size: 2em;
+  --doc-h2-size: 1.5em;
+  --doc-h3-size: 1.25em;
+  --doc-h4-size: 1.08em;
+  --doc-h5-size: 1em;
+  --doc-h6-size: 0.92em;
+
+  --selection-bg: #a6c8ff;
+  --selection-ink: #161616;
+  --selection-outline: #0f62fe;
+  --select-text-bg-color: #a6c8ff;
+  --select-text-font-color: #161616;
+
+  --code-comment: #6f6f6f;
+  --code-keyword: #8a3ffc;
+  --code-string: #198038;
+  --code-number: #ba4e00;
+  --code-function: #0f62fe;
+  --code-attr: #9f1853;
+  --code-tag: #8a3ffc;
+}
+
+#write {
+  box-sizing: border-box;
+  color: var(--doc-fg);
+  background: var(--doc-bg);
+  font-family: var(--font-doc);
+  font-size: 1em;
+  line-height: 1.65;
+  word-wrap: break-word;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--doc-fg);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.65em;
+}
+
+h2 {
+  font-size: 1.65em;
+}
+
+h1,
+h2 {
+  padding-bottom: 0.32em;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 { font-size: var(--doc-h3-size); }
+h4 { font-size: var(--doc-h4-size); }
+h5 { font-size: var(--doc-h5-size); }
+h6 { font-size: var(--doc-h6-size); color: var(--fg-muted); }
+
+.ProseMirror h1 { margin-top: 2em; }
+.ProseMirror h2 { margin-top: 1.8em; }
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 { margin-top: 1.45em; }
+
+/* Text and links */
+p {
+  margin: 0;
+  text-align: left;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
+a:hover { color: var(--link-hover); }
+strong { color: inherit; font-weight: 700; }
+em { font-style: italic; }
+del { color: var(--fg-muted); }
+
+/* Inline code and block code */
+code {
+  padding: 0.12em 0.34em;
+  border-bottom: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  color: #161616;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+pre {
+  margin: 1em 0;
+  padding: 1.15em 1.5em;
+  overflow: auto;
+  border: 0;
+  border-radius: 0;
+  background: #262626;
+  color: #f4f4f4;
+  font-family: var(--font-mono);
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+
+/* IBM-like callout and quote treatment */
+blockquote {
+  margin: 1.15em 0;
+  padding: 0.8em 1em;
+  border: 1px solid #8ab7ff;
+  border-left: 4px solid var(--accent);
+  background: #e8f1ff;
+  color: var(--doc-fg);
+}
+
+blockquote > :first-child { margin-top: 0; }
+
+/* Lists */
+ul,
+ol { padding-left: 1.55em; }
+li::marker { color: var(--fg-muted); }
+
+/* Dividers */
+hr {
+  display: block;
+  height: 0;
+  border: 0;
+  border-top: 1px solid var(--border-strong);
+}
+
+.ProseMirror hr { margin: 2em 0; }
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+th,
+td {
+  padding: 0.62em 0.8em;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #e0e0e0;
+  color: var(--doc-fg);
+  font-weight: 700;
+}
+
+tbody tr:nth-child(even) { background: #f4f4f4; }
+
+img,
+video {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+input[type="checkbox"] { accent-color: var(--accent); }
+
+/* IBM Documentation provides an explicit dark mode. Keep the document theme
+   usable when Nota or the host exposes a dark color preference. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --doc-bg: #161616;
+    --doc-fg: #f4f4f4;
+    --fg: #f4f4f4;
+    --fg-muted: #c6c6c6;
+    --fg-faint: #a8a8a8;
+    --border: #525252;
+    --border-strong: #8d8d8d;
+    --bg-subtle: #262626;
+    --bg-raised: #393939;
+    --bg-hover: rgba(120, 169, 255, 0.14);
+    --bg-active: rgba(120, 169, 255, 0.22);
+    --accent: #78a9ff;
+    --accent-fg: #161616;
+    --link-hover: #a6c8ff;
+    --selection-bg: #78a9ff;
+    --selection-ink: #161616;
+    --selection-outline: #78a9ff;
+    --select-text-bg-color: #78a9ff;
+    --select-text-font-color: #161616;
+    --code-comment: #a8a8a8;
+    --code-keyword: #be95ff;
+    --code-string: #42be65;
+    --code-number: #ff832b;
+    --code-function: #78a9ff;
+    --code-attr: #ff7eb6;
+    --code-tag: #be95ff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 { color: var(--doc-fg); }
+
+  code {
+    background: var(--bg-subtle);
+    color: var(--doc-fg);
+    border-bottom-color: var(--border-strong);
+  }
+  pre { border-color: transparent; background: var(--bg-subtle); color: #f4f4f4; }
+  blockquote { border-color: #78a9ff; background: #393939; color: var(--doc-fg); }
+  th { background: var(--bg-raised); color: var(--doc-fg); }
+  tbody tr:nth-child(even) { background: #262626; }
+}
