@@ -9,10 +9,7 @@ IBM Documentation 风格的 Nota 文档主题。它参考 IBM Documentation 的�
 - 浅灰代码块、表格表头和辅助区域
 - 蓝色左侧引用线
 - 浅色与深色配色
-- 与 IBM/Carbon 蓝色一致、并带对比度兜底的文字与表格选区
 - 不包含 IBM 标志、网站导航、反馈控件或其他站点级 UI
-
-主题参考 IBM Documentation 与 Carbon Design System 的公开配色角色：白色/灰色文档层次、Carbon Blue 60/40 链接色、IBM Plex 字体和深浅两套中性色。主题只复现写作纸面，不复制站点外壳。
 
 ## 安装
 
