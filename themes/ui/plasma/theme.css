@@ -281,6 +281,10 @@
 
 /* shape.css: plasma */
 [data-ui-style="plasma"] {
+  --dialog-close-size: 28px;
+  --dialog-close-radius: 999px;
+  /* Figma Plasma 6 control text is predominantly 12–14px. */
+  --ui-font-size: 14px;
   --radius-sm: 3px;
   /* Figma Plasma 6 kit: settings rows/search fields settle at 26-32px high
      with 5px rounded selection rows. */
@@ -320,8 +324,10 @@
   --fg-faint: #657171;
   --border: #d3d3d3;
   --border-strong: #bcbcbc;
-  --accent: #1d7fb8;
-  --accent-fg: #ffffff;
+  /* Figma Plasma 6 accent: #3daee9. Use Plasma's dark glyph color on it
+     instead of white, which would only reach 2.5:1. */
+  --accent: #3daee9;
+  --accent-fg: #08202e;
   --btn-bg: #e8e8e8;
   --btn-bg-hover: #dcdcdc;
   --btn-bg-active: #cfcfcf;
@@ -395,4 +401,52 @@
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
+}
+
+
+/* Theme-native interface icons from breeze. */
+[data-ui-style="plasma"] {
+  --icon-folio-document-open-symbolic: url("./assets/icons-theme/document-open.svg");
+  --icon-folio-document-new-symbolic: url("./assets/icons-theme/document-new.svg");
+  --icon-folio-document-save-symbolic: url("./assets/icons-theme/document-save.svg");
+  --icon-folio-document-save-as-symbolic: url("./assets/icons-theme/document-save-as.svg");
+  --icon-folio-document-export-symbolic: url("./assets/icons-theme/document-export.svg");
+  --icon-folio-close-symbolic: url("./assets/icons-theme/close.svg");
+  --icon-folio-configure-symbolic: url("./assets/icons-theme/configure.svg");
+  --icon-nota-plugin-symbolic: url("./assets/icons-theme/plugin.svg");
+  --icon-folio-columns-symbolic: url("./assets/icons-theme/columns.svg");
+  --icon-folio-insert-image-symbolic: url("./assets/icons-theme/image.svg");
+  --icon-folio-insert-code-symbolic: url("./assets/icons-theme/code.svg");
+  --icon-nota-inline-code-symbolic: url("./assets/icons-theme/code.svg");
+  --icon-nota-code-block-symbolic: url("./assets/icons-theme/code-block.svg");
+  --icon-folio-insert-link-symbolic: url("./assets/icons-theme/link.svg");
+  --icon-folio-edit-find-symbolic: url("./assets/icons-theme/find.svg");
+  --icon-folio-edit-find-replace-symbolic: url("./assets/icons-theme/find-replace.svg");
+  --icon-folio-edit-copy-symbolic: url("./assets/icons-theme/copy.svg");
+  --icon-folio-edit-paste-symbolic: url("./assets/icons-theme/paste.svg");
+  --icon-folio-delete-symbolic: url("./assets/icons-theme/delete.svg");
+  --icon-folio-format-text-bold-symbolic: url("./assets/icons-theme/bold.svg");
+  --icon-folio-format-text-italic-symbolic: url("./assets/icons-theme/italic.svg");
+  --icon-folio-format-text-underline-symbolic: url("./assets/icons-theme/underline.svg");
+  --icon-folio-format-text-strikethrough-symbolic: url("./assets/icons-theme/strike.svg");
+  --icon-folio-format-text-superscript-symbolic: url("./assets/icons-theme/superscript.svg");
+  --icon-folio-format-text-subscript-symbolic: url("./assets/icons-theme/subscript.svg");
+  --icon-folio-view-list-bullet-symbolic: url("./assets/icons-theme/list-bullet.svg");
+  --icon-folio-view-list-ordered-symbolic: url("./assets/icons-theme/list-ordered.svg");
+  --icon-folio-view-more-horizontal-symbolic: url("./assets/icons-theme/more.svg");
+  --icon-nota-quote-symbolic: url("./assets/icons-theme/quote.svg");
+  --icon-nota-task-symbolic: url("./assets/icons-theme/task.svg");
+  --icon-nota-sidebar-collapse-symbolic: url("./assets/icons-theme/sidebar-collapse.svg");
+  --icon-nota-sidebar-toggle-symbolic: url("./assets/icons-theme/sidebar-toggle.svg");
+  --icon-nota-tree-file-symbolic: url("./assets/icons-theme/file.svg");
+  --icon-nota-tree-folder-symbolic: url("./assets/icons-theme/folder.svg");
+  --icon-nota-tree-folder-open-symbolic: url("./assets/icons-theme/folder-open.svg");
+  --icon-nota-force-focus-symbolic: url("./assets/icons-theme/focus.svg");
+  --icon-nota-doc-theme-symbolic: url("./assets/icons-theme/doc-theme.svg");
+  --icon-nota-keys-symbolic: url("./assets/icons-theme/keys.svg");
+  --icon-nota-update-symbolic: url("./assets/icons-theme/update.svg");
+  --icon-nota-spellcheck-symbolic: url("./assets/icons-theme/spellcheck.svg");
+  --nota-source-quote-icon: url("./assets/icons-theme/quote.svg");
+  --nota-source-bullet-icon: url("./assets/icons-theme/list-bullet.svg");
+  --nota-source-code-icon: url("./assets/icons-theme/code.svg");
 }

@@ -1,0 +1,373 @@
+/* Nota interface theme: IBM Carbon-inspired
+ * Carbon color and icon tokens retain their upstream Apache-2.0 licence.
+ * Nota does not claim affiliation with IBM.
+ */
+
+@font-face {
+  font-family: "Nota IBM Plex Sans";
+  src: url("./assets/fonts/IBMPlexSansSC-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nota IBM Plex Sans";
+  src: url("./assets/fonts/IBMPlexSansSC-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nota IBM Plex Sans";
+  src: url("./assets/fonts/IBMPlexSansSC-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nota IBM Plex Mono";
+  src: url("./assets/fonts/IBMPlexMono-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+[data-ui-style="carbon"] {
+  --ui-font-size: 14px;
+  --font-ui: "Nota IBM Plex Sans", "IBM Plex Sans", "Noto Sans CJK SC",
+    "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "Nota IBM Plex Mono", "IBM Plex Mono", "Noto Sans Mono CJK SC",
+    monospace;
+
+  --radius-sm: 0;
+  --radius: 0;
+  --radius-lg: 2px;
+  --control-height: 32px;
+  --toolbar-height: 40px;
+  --statusbar-height: 28px;
+  --tabbar-height: 32px;
+  --spacing: 8px;
+  --btn-font-weight: 400;
+  --press-scale: 1;
+  --toolbar-shadow: none;
+
+  --dialog-close-size: 32px;
+  --dialog-close-radius: 0;
+  --dialog-close-bg: transparent;
+  --dialog-close-border: transparent;
+
+  --switch-w: 48px;
+  --switch-h: 24px;
+  --switch-knob: 18px;
+  --switch-travel: 24px;
+
+  --material-bg: var(--bg-raised);
+  --material-blur: 0px;
+  --material-saturate: 100%;
+}
+
+[data-ui-style="carbon"][data-ui-mode="light"] {
+  --bg: #ffffff;
+  --bg-subtle: #f4f4f4;
+  --bg-raised: #ffffff;
+  --bg-hover: #e8e8e8;
+  --bg-active: #c6c6c6;
+  --fg: #161616;
+  --fg-muted: #525252;
+  --fg-faint: #6f6f6f;
+  --border: #e0e0e0;
+  --border-strong: #8d8d8d;
+  --accent: #0f62fe;
+  --accent-fg: #ffffff;
+  --link: #0f62fe;
+
+  --btn-bg: #f4f4f4;
+  --btn-bg-hover: #e8e8e8;
+  --btn-bg-active: #c6c6c6;
+  --btn-border: #8d8d8d;
+  --switch-on: #0f62fe;
+  --switch-off: #8d8d8d;
+  --switch-knob-bg: #ffffff;
+  --radio-on: #0f62fe;
+  --radio-on-fg: #ffffff;
+
+  --toolbar-surface: #ffffff;
+  --toolbar-border: #e0e0e0;
+  --toolbar-fg: #161616;
+  --toolbar-hover: #e8e8e8;
+  --toolbar-active: #c6c6c6;
+  --sidebar-surface: #f4f4f4;
+  --sidebar-selected-bg: #e0e0e0;
+  --format-bar-bg: #ffffff;
+  --format-bar-border: #e0e0e0;
+  --format-bar-radius: 0;
+  --menu-fill: #0f62fe;
+  --menu-fill-fg: #ffffff;
+
+  --find-hit: #fcf4d6;
+  --find-current: #fddc69;
+  --mark-bg: #d0e2ff;
+  --mark-fg: #161616;
+  --danger: #da1e28;
+  --warn: #8e6a00;
+  --success: #24a148;
+  --diff-del-bg: #ffd7d9;
+  --diff-add-bg: #a7f0ba;
+  --diff-hunk-fg: #0043ce;
+  --diff-meta-fg: #6f6f6f;
+
+  --shadow: 0 1px 3px rgba(22, 22, 22, 0.14);
+  --popup-shadow: 0 2px 6px rgba(22, 22, 22, 0.3);
+  --doc-bg: #ffffff;
+  --doc-fg: #161616;
+
+  --code-comment: #6f6f6f;
+  --code-keyword: #8a3ffc;
+  --code-string: #198038;
+  --code-number: #ba4e00;
+  --code-function: #0f62fe;
+  --code-attr: #9f1853;
+  --code-tag: #8a3ffc;
+}
+
+[data-ui-style="carbon"][data-ui-mode="dark"] {
+  --bg: #161616;
+  --bg-subtle: #262626;
+  --bg-raised: #393939;
+  --bg-hover: #333333;
+  --bg-active: #525252;
+  --fg: #f4f4f4;
+  --fg-muted: #c6c6c6;
+  --fg-faint: #a8a8a8;
+  --border: #393939;
+  --border-strong: #6f6f6f;
+  --accent: #78a9ff;
+  --accent-fg: #161616;
+  --link: #78a9ff;
+
+  --btn-bg: #262626;
+  --btn-bg-hover: #333333;
+  --btn-bg-active: #393939;
+  --btn-border: #6f6f6f;
+  --switch-on: #78a9ff;
+  --switch-off: #6f6f6f;
+  --switch-knob-bg: #ffffff;
+  --radio-on: #78a9ff;
+  --radio-on-fg: #161616;
+
+  --toolbar-surface: #161616;
+  --toolbar-border: #393939;
+  --toolbar-fg: #f4f4f4;
+  --toolbar-hover: #333333;
+  --toolbar-active: #525252;
+  --sidebar-surface: #262626;
+  --sidebar-selected-bg: #393939;
+  --format-bar-bg: #161616;
+  --format-bar-border: #393939;
+  --format-bar-radius: 0;
+  --menu-fill: #0f62fe;
+  --menu-fill-fg: #ffffff;
+
+  --find-hit: rgba(241, 194, 27, 0.24);
+  --find-current: rgba(241, 194, 27, 0.52);
+  --mark-bg: #0043ce;
+  --mark-fg: #ffffff;
+  --danger: #fa4d56;
+  --warn: #f1c21b;
+  --success: #42be65;
+  --diff-del-bg: #520408;
+  --diff-add-bg: #0e6027;
+  --diff-hunk-fg: #78a9ff;
+  --diff-meta-fg: #a8a8a8;
+
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+  --popup-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  --doc-bg: #161616;
+  --doc-fg: #f4f4f4;
+
+  --code-comment: #a8a8a8;
+  --code-keyword: #be95ff;
+  --code-string: #42be65;
+  --code-number: #ff832b;
+  --code-function: #78a9ff;
+  --code-attr: #ff7eb6;
+  --code-tag: #be95ff;
+}
+
+[data-ui-style="carbon"] .menu-popup,
+[data-ui-style="carbon"] .menu-sub,
+[data-ui-style="carbon"] .sidebar-context-menu,
+[data-ui-style="carbon"] .format-bar .menu-popup {
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  box-shadow: var(--popup-shadow);
+}
+
+[data-ui-style="carbon"] .menu-item,
+[data-ui-style="carbon"] .format-menu-item,
+[data-ui-style="carbon"] .sidebar-context-section button {
+  min-height: 32px;
+  border-radius: 0;
+}
+
+[data-ui-style="carbon"] .menu-item:hover:not(:disabled),
+[data-ui-style="carbon"] .format-menu-item:hover:not(:disabled),
+[data-ui-style="carbon"] .sidebar-context-section button:hover:not(:disabled) {
+  background: var(--bg-hover);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+[data-ui-style="carbon"] .menu-sep,
+[data-ui-style="carbon"] .sidebar-context-sep {
+  background: var(--border);
+}
+
+[data-ui-style="carbon"] .statusbar {
+  border-top-color: var(--border-strong);
+  background: var(--bg-subtle);
+}
+
+[data-ui-style="carbon"] .tab {
+  border-right-color: var(--border);
+  background: var(--bg-subtle);
+}
+
+[data-ui-style="carbon"] .tab-active {
+  background: var(--bg);
+  box-shadow: inset 0 2px 0 var(--accent);
+}
+
+[data-ui-style="carbon"] .tab-close,
+[data-ui-style="carbon"] .status-btn,
+[data-ui-style="carbon"] .format-btn {
+  border-radius: 0;
+}
+
+[data-ui-style="carbon"] .format-btn[data-on="true"] {
+  border-radius: 0;
+  background: var(--accent);
+}
+
+[data-ui-style="carbon"] .file-list-btn[aria-current="page"],
+[data-ui-style="carbon"] .tree-file-btn[aria-current="page"],
+[data-ui-style="carbon"] .tree-file-btn[data-active="true"],
+[data-ui-style="carbon"] .outline-item-active {
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+[data-ui-style="carbon"] .stg-select-trigger,
+[data-ui-style="carbon"] .stg-input,
+[data-ui-style="carbon"] .file-list-new,
+[data-ui-style="carbon"] .menu-search {
+  border: 1px solid transparent;
+  border-bottom-color: var(--border-strong);
+  border-radius: 0;
+  background: var(--bg-subtle);
+  box-shadow: none;
+}
+
+[data-ui-style="carbon"] .stg-select-trigger:hover:not(:disabled),
+[data-ui-style="carbon"] .stg-input:hover {
+  background: var(--bg-hover);
+}
+
+[data-ui-style="carbon"] .stg-select-trigger:focus-visible,
+[data-ui-style="carbon"] .stg-input:focus-visible,
+[data-ui-style="carbon"] .menu-search:focus-visible {
+  border-bottom-color: var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+[data-ui-style="carbon"] .stg-select-popup,
+[data-ui-style="carbon"] .command-palette {
+  border-color: var(--border-strong);
+  border-radius: 0;
+  box-shadow: var(--popup-shadow);
+}
+
+[data-ui-style="carbon"] .stg-select-option,
+[data-ui-style="carbon"] .command-palette-row {
+  border-radius: 0;
+}
+
+[data-ui-style="carbon"] .stg-select-option[data-active="true"],
+[data-ui-style="carbon"] .command-palette-row[data-active="true"] {
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+[data-ui-style="carbon"] .stg-switch {
+  border-radius: calc(var(--switch-h) / 2);
+}
+
+[data-ui-style="carbon"] .stg-switch-knob {
+  border-radius: 50%;
+}
+
+[data-ui-style="carbon"] .dialog-close {
+  border-radius: 0;
+}
+
+[data-ui-style="carbon"] button:focus-visible,
+[data-ui-style="carbon"] [role="button"]:focus-visible,
+[data-ui-style="carbon"] input:focus-visible,
+[data-ui-style="carbon"] select:focus-visible {
+  outline-color: var(--accent);
+}
+
+[data-ui-style="carbon"] {
+  --icon-folio-document-open-symbolic: url("./assets/icons-theme/document-open.svg");
+  --icon-folio-document-new-symbolic: url("./assets/icons-theme/document-new.svg");
+  --icon-folio-document-save-symbolic: url("./assets/icons-theme/document-save.svg");
+  --icon-folio-document-save-as-symbolic: url("./assets/icons-theme/document-save-as.svg");
+  --icon-folio-document-export-symbolic: url("./assets/icons-theme/document-export.svg");
+  --icon-folio-close-symbolic: url("./assets/icons-theme/close.svg");
+  --icon-folio-configure-symbolic: url("./assets/icons-theme/configure.svg");
+  --icon-nota-plugin-symbolic: url("./assets/icons-theme/plugin.svg");
+  --icon-folio-window-symbolic: url("./assets/icons-theme/window.svg");
+  --icon-folio-columns-symbolic: url("./assets/icons-theme/columns.svg");
+  --icon-folio-insert-image-symbolic: url("./assets/icons-theme/image.svg");
+  --icon-folio-insert-code-symbolic: url("./assets/icons-theme/code.svg");
+  --icon-nota-inline-code-symbolic: url("./assets/icons-theme/code.svg");
+  --icon-nota-code-block-symbolic: url("./assets/icons-theme/code-block.svg");
+  --icon-folio-insert-link-symbolic: url("./assets/icons-theme/link.svg");
+  --icon-folio-edit-find-symbolic: url("./assets/icons-theme/find.svg");
+  --icon-folio-edit-find-replace-symbolic: url("./assets/icons-theme/find-replace.svg");
+  --icon-folio-edit-copy-symbolic: url("./assets/icons-theme/copy.svg");
+  --icon-folio-edit-paste-symbolic: url("./assets/icons-theme/paste.svg");
+  --icon-folio-delete-symbolic: url("./assets/icons-theme/delete.svg");
+  --icon-folio-format-text-bold-symbolic: url("./assets/icons-theme/bold.svg");
+  --icon-folio-format-text-italic-symbolic: url("./assets/icons-theme/italic.svg");
+  --icon-folio-format-text-underline-symbolic: url("./assets/icons-theme/underline.svg");
+  --icon-folio-format-text-strikethrough-symbolic: url("./assets/icons-theme/strike.svg");
+  --icon-folio-format-text-subscript-symbolic: url("./assets/icons-theme/subscript.svg");
+  --icon-folio-format-text-superscript-symbolic: url("./assets/icons-theme/superscript.svg");
+  --icon-folio-view-list-bullet-symbolic: url("./assets/icons-theme/list-bullet.svg");
+  --icon-folio-view-list-ordered-symbolic: url("./assets/icons-theme/list-ordered.svg");
+  --icon-folio-view-more-horizontal-symbolic: url("./assets/icons-theme/more.svg");
+  --icon-folio-marker-symbolic: url("./assets/icons-theme/advanced.svg");
+  --icon-nota-quote-symbolic: url("./assets/icons-theme/quote.svg");
+  --icon-nota-task-symbolic: url("./assets/icons-theme/task.svg");
+  --icon-nota-unfold-more-symbolic: url("./assets/icons-theme/unfold.svg");
+  --icon-nota-sidebar-collapse-symbolic: url("./assets/icons-theme/sidebar-collapse.svg");
+  --icon-nota-sidebar-toggle-symbolic: url("./assets/icons-theme/sidebar-toggle.svg");
+  --icon-nota-tree-file-symbolic: url("./assets/icons-theme/file.svg");
+  --icon-nota-tree-folder-symbolic: url("./assets/icons-theme/folder.svg");
+  --icon-nota-tree-folder-open-symbolic: url("./assets/icons-theme/folder-open.svg");
+  --icon-nota-force-focus-symbolic: url("./assets/icons-theme/focus.svg");
+  --icon-nota-update-symbolic: url("./assets/icons-theme/update.svg");
+  --icon-nota-markdown-symbolic: url("./assets/icons-theme/markdown.svg");
+  --icon-nota-advanced-symbolic: url("./assets/icons-theme/advanced.svg");
+  --icon-nota-keys-symbolic: url("./assets/icons-theme/keys.svg");
+  --icon-nota-spellcheck-symbolic: url("./assets/icons-theme/spellcheck.svg");
+  --icon-nota-doc-theme-symbolic: url("./assets/icons-theme/doc-theme.svg");
+  --icon-nota-heading-1-symbolic: url("./assets/icons-theme/heading1.svg");
+  --icon-nota-heading-2-symbolic: url("./assets/icons-theme/heading2.svg");
+  --icon-nota-heading-3-symbolic: url("./assets/icons-theme/heading3.svg");
+  --nota-source-quote-icon: url("./assets/icons-theme/quote.svg");
+  --nota-source-bullet-icon: url("./assets/icons-theme/list-bullet.svg");
+  --nota-source-code-icon: url("./assets/icons-theme/code.svg");
+}
