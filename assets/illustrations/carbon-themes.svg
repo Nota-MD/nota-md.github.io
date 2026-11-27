@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720">
+  <rect width="1600" height="720" fill="#f4f4f4"/>
+  <text x="72" y="78" fill="#525252" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="3">THEME PIPELINE / LOCAL CSS</text>
+  <path d="M72 112H1528" stroke="#e0e0e0"/>
+
+  <g>
+    <rect x="72" y="168" width="430" height="424" fill="#ffffff" stroke="#8d8d8d"/>
+    <rect x="72" y="168" width="430" height="52" fill="#161616"/>
+    <text x="96" y="201" fill="#f4f4f4" font-family="IBM Plex Mono, monospace" font-size="17">01 / INPUT</text>
+    <text x="96" y="270" fill="#161616" font-family="IBM Plex Sans, sans-serif" font-size="30" font-weight="600">Bring a theme.</text>
+    <text x="96" y="312" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="17">Typora, GNOME/GTK or KDE.</text>
+    <rect x="96" y="356" width="370" height="72" fill="#f4f4f4"/>
+    <text x="118" y="400" fill="#0f62fe" font-family="IBM Plex Mono, monospace" font-size="17">DROP THEME PACKAGE</text>
+  </g>
+
+  <path d="M522 380H610" stroke="#0f62fe" stroke-width="4"/>
+  <path d="M592 364L616 380L592 396" fill="none" stroke="#0f62fe" stroke-width="4"/>
+
+  <g>
+    <rect x="640" y="168" width="360" height="424" fill="#161616"/>
+    <text x="664" y="201" fill="#f4f4f4" font-family="IBM Plex Mono, monospace" font-size="17">02 / TOKENS</text>
+    <g font-family="IBM Plex Mono, monospace" font-size="16">
+      <text x="664" y="274" fill="#78a9ff">--bg</text>
+      <text x="664" y="322" fill="#78a9ff">--fg</text>
+      <text x="664" y="370" fill="#78a9ff">--accent</text>
+      <text x="664" y="418" fill="#78a9ff">--radius</text>
+      <text x="664" y="466" fill="#78a9ff">--font-ui</text>
+    </g>
+    <g fill="#c6c6c6" font-family="IBM Plex Mono, monospace" font-size="16">
+      <text x="842" y="274">#161616</text>
+      <text x="842" y="322">#f4f4f4</text>
+      <text x="842" y="370">#0f62fe</text>
+      <text x="842" y="418">0</text>
+      <text x="842" y="466">PLEX</text>
+    </g>
+  </g>
+
+  <path d="M1020 380H1108" stroke="#0f62fe" stroke-width="4"/>
+  <path d="M1090 364L1114 380L1090 396" fill="none" stroke="#0f62fe" stroke-width="4"/>
+
+  <g>
+    <rect x="1138" y="168" width="390" height="424" fill="#ffffff" stroke="#161616" stroke-width="2"/>
+    <rect x="1138" y="168" width="390" height="52" fill="#0f62fe"/>
+    <text x="1162" y="201" fill="#ffffff" font-family="IBM Plex Mono, monospace" font-size="17">03 / NOTA THEME</text>
+    <rect x="1162" y="250" width="342" height="48" fill="#161616"/>
+    <text x="1180" y="280" fill="#f4f4f4" font-family="IBM Plex Sans, sans-serif" font-size="16">Menu</text>
+    <rect x="1162" y="314" width="112" height="190" fill="#f4f4f4"/>
+    <text x="1180" y="346" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="15">Files</text>
+    <text x="1180" y="378" fill="#0f62fe" font-family="IBM Plex Sans, sans-serif" font-size="15">Page</text>
+    <text x="1296" y="346" fill="#161616" font-family="IBM Plex Sans, sans-serif" font-size="24" font-weight="600">Imported.</text>
+    <text x="1296" y="378" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="16">Plain CSS.</text>
+    <text x="1296" y="408" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="16">Portable assets.</text>
+    <rect x="1296" y="442" width="178" height="34" fill="#0f62fe"/>
+    <text x="1310" y="465" fill="#ffffff" font-family="IBM Plex Mono, monospace" font-size="14">READY</text>
+  </g>
+
+  <text x="72" y="654" fill="#525252" font-family="IBM Plex Mono, monospace" font-size="18">PACKAGE → CSS VARIABLES → USABLE THEME</text>
+  <text x="1528" y="654" text-anchor="end" fill="#0f62fe" font-family="IBM Plex Mono, monospace" font-size="18">NO UPLOAD</text>
+</svg>

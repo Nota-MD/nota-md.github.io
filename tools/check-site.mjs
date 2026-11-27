@@ -70,6 +70,19 @@ for (const id of documentThemes) {
 requireFile("assets/interface-themes-light.png", "light interface gallery");
 requireFile("assets/interface-themes-dark.png", "dark interface gallery");
 requireFile("assets/document-themes.png", "document theme gallery");
+requireFile("ibm-carbon.css", "IBM Carbon site layer");
+requireFile("assets/illustrations/carbon-hero.png", "social preview artwork");
+requireFile("assets/illustrations/carbon-hero.svg", "Carbon hero artwork");
+requireFile("assets/illustrations/carbon-desktop.svg", "Carbon desktop artwork");
+requireFile("assets/illustrations/carbon-themes.svg", "Carbon theme artwork");
+for (const font of [
+  "IBMPlexSansSC-Regular.woff2",
+  "IBMPlexSansSC-SemiBold.woff2",
+  "IBMPlexSansSC-Bold.woff2",
+  "IBMPlexMono-Regular.woff2",
+]) {
+  requireFile(`assets/fonts/${font}`, "IBM Plex font");
+}
 
 const script = fs.readFileSync(path.join(root, "script.js"), "utf8");
 for (const pairing of [

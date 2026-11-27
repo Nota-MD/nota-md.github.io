@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f4f4f4"/>
+  <path d="M0 112H1600M0 788H1600" stroke="#e0e0e0"/>
+  <text x="80" y="74" fill="#525252" font-family="IBM Plex Mono, monospace" font-size="20" letter-spacing="3">NOTA / LOCAL-FIRST MARKDOWN</text>
+  <text x="1520" y="74" text-anchor="end" fill="#0f62fe" font-family="IBM Plex Mono, monospace" font-size="20" letter-spacing="3">01</text>
+
+  <g id="source">
+    <rect x="80" y="190" width="420" height="540" fill="#161616"/>
+    <rect x="80" y="190" width="420" height="56" fill="#262626"/>
+    <text x="108" y="227" fill="#f4f4f4" font-family="IBM Plex Mono, monospace" font-size="18">SOURCE.MD</text>
+    <g fill="#78a9ff" font-family="IBM Plex Mono, monospace" font-size="19">
+      <text x="108" y="296"># Nota</text>
+      <text x="108" y="338">Local-first writing.</text>
+      <text x="108" y="380">**Markdown**</text>
+      <text x="108" y="422">- Fast</text>
+      <text x="108" y="464">- Focused</text>
+      <text x="108" y="506">- Extensible</text>
+    </g>
+    <path d="M108 548H440M108 580H390M108 612H420" stroke="#525252" stroke-width="10"/>
+  </g>
+
+  <g id="arrows">
+    <path d="M500 460H584" stroke="#0f62fe" stroke-width="4"/>
+    <path d="M566 444L590 460L566 476" fill="none" stroke="#0f62fe" stroke-width="4"/>
+    <path d="M1052 460H1140" stroke="#0f62fe" stroke-width="4"/>
+    <path d="M1122 444L1146 460L1122 476" fill="none" stroke="#0f62fe" stroke-width="4"/>
+  </g>
+
+  <g id="editor">
+    <rect x="590" y="142" width="462" height="636" fill="#ffffff" stroke="#161616" stroke-width="2"/>
+    <rect x="590" y="142" width="462" height="56" fill="#161616"/>
+    <rect x="614" y="164" width="10" height="10" fill="#0f62fe"/>
+    <rect x="634" y="164" width="10" height="10" fill="#525252"/>
+    <text x="672" y="178" fill="#f4f4f4" font-family="IBM Plex Mono, monospace" font-size="17">NOTA / DOCUMENT</text>
+
+    <text x="630" y="252" fill="#161616" font-family="IBM Plex Sans, sans-serif" font-size="31" font-weight="600">Write the document.</text>
+    <text x="630" y="292" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="19">Formatting appears in place.</text>
+    <rect x="630" y="322" width="280" height="6" fill="#0f62fe"/>
+
+    <rect x="630" y="366" width="382" height="72" fill="#f4f4f4"/>
+    <text x="650" y="396" fill="#161616" font-family="IBM Plex Sans, sans-serif" font-size="18" font-weight="600">Markdown</text>
+    <text x="650" y="422" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="15">Portable source. A rendered document.</text>
+
+    <g fill="#161616" font-family="IBM Plex Sans, sans-serif" font-size="17">
+      <text x="650" y="486">01  Local files</text>
+      <text x="650" y="526">02  Keyboard first</text>
+      <text x="650" y="566">03  CSS themes</text>
+      <text x="650" y="606">04  Lua extensions</text>
+    </g>
+    <g fill="#0f62fe">
+      <rect x="630" y="470" width="4" height="18"/>
+      <rect x="630" y="510" width="4" height="18"/>
+      <rect x="630" y="550" width="4" height="18"/>
+      <rect x="630" y="590" width="4" height="18"/>
+    </g>
+  </g>
+
+  <g id="document">
+    <rect x="1140" y="240" width="380" height="440" fill="#ffffff" stroke="#8d8d8d"/>
+    <rect x="1140" y="240" width="380" height="48" fill="#f4f4f4"/>
+    <text x="1164" y="271" fill="#525252" font-family="IBM Plex Mono, monospace" font-size="16">READING VIEW</text>
+    <text x="1168" y="338" fill="#161616" font-family="IBM Plex Sans, sans-serif" font-size="28" font-weight="600">Nota</text>
+    <path d="M1168 358H1372" stroke="#0f62fe" stroke-width="4"/>
+    <text x="1168" y="400" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="17">Write Markdown.</text>
+    <text x="1168" y="430" fill="#525252" font-family="IBM Plex Sans, sans-serif" font-size="17">See the document.</text>
+    <g fill="#f4f4f4">
+      <rect x="1168" y="466" width="324" height="12"/>
+      <rect x="1168" y="494" width="286" height="12"/>
+      <rect x="1168" y="522" width="310" height="12"/>
+      <rect x="1168" y="576" width="222" height="42"/>
+    </g>
+    <text x="1184" y="603" fill="#0f62fe" font-family="IBM Plex Mono, monospace" font-size="15">PLAIN MARKDOWN</text>
+  </g>
+
+  <text x="80" y="850" fill="#525252" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">SOURCE → EDIT → DOCUMENT</text>
+  <text x="1520" y="850" text-anchor="end" fill="#0f62fe" font-family="IBM Plex Mono, monospace" font-size="18">NOTA</text>
+</svg>
