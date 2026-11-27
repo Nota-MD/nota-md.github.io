@@ -15,6 +15,7 @@ const uiThemes = [
   "yaru",
   "carbon",
   "cde",
+  "cde-solaris",
 ];
 const documentThemes = [
   "adwaita",
@@ -24,6 +25,7 @@ const documentThemes = [
   "latex",
   "latex-dark",
   "cde",
+  "cde-solaris",
   "vellum",
   "github",
   "github-dark",
@@ -74,6 +76,7 @@ for (const pairing of [
   'ghub: "github"',
   'carbon: "ibm-documentation"',
   'cde: "cde"',
+  '"cde-solaris": "cde-solaris"',
 ]) {
   if (!script.includes(pairing)) {
     console.error(`Missing UI/document pairing: ${pairing}`);

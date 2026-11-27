@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g fill="#000" shape-rendering="crispEdges">
+    <path fill-rule="evenodd" d="M1 2h14v12H1V2zm2 4v6h10V6H3z"/>
+    <path d="M2 3h12v2H2zM12 3h2v2h-2z"/>
+  </g>
+</svg>

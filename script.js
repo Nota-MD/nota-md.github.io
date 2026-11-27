@@ -9,6 +9,7 @@ const pairedDocumentTheme = {
   yaru: "adwaita",
   carbon: "ibm-documentation",
   cde: "cde",
+  "cde-solaris": "cde-solaris",
 };
 
 function activateSwatches(swatches, selected) {

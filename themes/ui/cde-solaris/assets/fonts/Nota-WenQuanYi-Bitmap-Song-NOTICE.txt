@@ -1,0 +1,37 @@
+Nota WenQuanYi Bitmap Song
+==========================
+
+This TTF is generated directly from the complete WenQuanYi Bitmap Song
+16px PCF, preserving both the ASCII and CJK 16x16 bitmap glyphs and embedding
+them as EBDT/EBLC strikes for use as the CDE interface and document font.
+
+Original glyph project:
+
+  WenQuanYi Bitmap Song 1.0 RC1
+  Copyright (C) 2004-2010, WenQuanYi Project Board of Trustees and
+  Qianqian Fang
+  https://sourceforge.net/projects/wqy/files/wqy-bitmapfont/
+  http://wenq.org/
+
+TTF transcription used by Nota:
+
+  AmusementClub/Wenquanyi-Bitmap-Song-TTF
+  https://github.com/AmusementClub/Wenquanyi-Bitmap-Song-TTF
+
+The distributed files are:
+
+  Nota-WenQuanYi-Bitmap-Song-EBDT-16px.ttf
+  Nota-WenQuanYi-Bitmap-Song-EBDT-16px.woff2
+
+The WOFF2 is a lossless container conversion of the TTF above. It preserves
+all cmap entries, EBDT/EBLC bitmap strikes and naming records; the TTF remains
+the editable source form.
+
+License:
+
+  GNU General Public License version 2, with the WenQuanYi font embedding
+  exception. The complete copyright notice is distributed next to this notice
+  as WQY-Bitmap-Song-COPYRIGHT.txt, and the full GPL-2.0 text is in
+  GPL-2.0.txt.
+
+Both containers are distributed with this notice and the same licence files.

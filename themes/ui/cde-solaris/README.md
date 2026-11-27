@@ -1,0 +1,25 @@
+# CDE Solaris Nota theme
+
+This directory is a self-contained external theme package. Nota does not compile,
+register, or load it as a built-in style.
+
+The interface uses the Solaris 10 Crimson palette while retaining the same
+Motif geometry, bitmap typography and bevel behavior as the classic CDE theme.
+The main window is `#AEB2C3`; the window frame and title surfaces are `#B24D7A`.
+
+## Install
+
+1. Open Nota and choose **Settings → Appearance → Styles folder…**.
+2. Copy `theme.css` and the complete `assets/` directory into that folder.
+3. Return to Nota and select **CDE Solaris** under **Interface style**.
+
+The stylesheet uses relative paths, so `assets/` must remain beside `theme.css`.
+Do not rename the asset directories.
+
+The package also includes pixel variants for the H1–H3 toolbar icons and for
+the quote, unordered-list and code-fence markers shown in the editor gutter.
+
+## Font license
+
+The bitmap font and its complete license texts are under `assets/fonts/`.
+The font is distributed with this theme package, not with the Nota application.
