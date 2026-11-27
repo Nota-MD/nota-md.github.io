@@ -79,6 +79,7 @@ for (const font of [
   "IBMPlexSansSC-Regular.woff2",
   "IBMPlexSansSC-SemiBold.woff2",
   "IBMPlexSansSC-Bold.woff2",
+  "IBMPlexSans-Light.ttf",
   "IBMPlexMono-Regular.woff2",
 ]) {
   requireFile(`assets/fonts/${font}`, "IBM Plex font");

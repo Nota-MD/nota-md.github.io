@@ -19,8 +19,8 @@
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="zh-CN.html" aria-label="Nota 首页">
-        <img class="brand-icon" src="assets/nota-icon.svg" alt="">
-        <img class="brand-wordmark" src="assets/nota-wordmark.svg" alt="Nota">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Nota</span>
       </a>
       <nav aria-label="主导航">
         <a href="#writing">写作</a>
@@ -36,32 +36,52 @@
   </header>
 
   <main>
-    <section class="hero shell">
-      <div class="hero-art">
-        <img src="assets/illustrations/carbon-hero.svg" alt="以 IBM Carbon 风格绘制的 Markdown 源码、编辑器和文档面板" width="1600" height="900">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Nota · 面向 Linux 与 Windows 的 Markdown 编辑器</p>
+          <h1>一款本地优先、极简的 Markdown 编辑器。</h1>
+          <p class="lead">
+            打开文件就开始写。格式在输入时出现，随后退回到安静的页面里。
+            不需要账号，也没有专有数据库。
+          </p>
+          <div class="hero-banners">
+            <a class="hero-banner hero-action" href="https://github.com/Nota-MD/Nota/releases/latest">
+              <strong>下载 Nota</strong><span aria-hidden="true">↓</span>
+            </a>
+            <a class="hero-banner hero-action secondary" href="https://nota-md.github.io/Nota-theme-converter/?lang=zh">
+              <strong>主题转换器</strong><span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div class="hero-tags">
+            <span>Debian</span><span>RPM</span><span>AppImage</span><span>Windows</span><span>本地文件</span>
+          </div>
+        </div>
+        <div class="hero-stage" aria-label="Nota 编辑器预览">
+          <div class="app-preview">
+            <div class="app-titlebar"><i></i><i></i><i></i><strong>notes.md</strong><span>— Nota</span></div>
+            <div class="app-panes">
+              <pre># Field notes
+
+Formatting is **part of the**
+**writing**.
+
+&gt; Source marks appear only
+&gt; when you need them.
+
+```sh
+nota notes.md
+```</pre>
+              <div class="app-rendered">
+                <h3>Field notes</h3>
+                <p>Formatting is <strong>part of the writing</strong>.</p>
+                <blockquote>Source marks appear only when you need them.</blockquote>
+                <code>nota notes.md</code>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Nota 是一款本地优先的极简 Markdown 编辑器。</h1>
-      <p class="lead">
-        打开文件就开始写。格式在输入时出现，随后退回到安静的页面里；
-        不需要账号，也没有专有数据库。
-      </p>
-      <div class="hero-banners">
-        <a class="hero-banner" href="https://github.com/Nota-MD/Nota/releases/latest">
-          <span>
-            <strong>Nota 已经可以开始写作</strong>
-            <small>下载适用于 Linux 或 Windows 的最新版本。</small>
-          </span>
-          <span class="button primary">下载</span>
-        </a>
-        <a class="hero-banner" href="https://nota-md.github.io/Nota-theme-converter/?lang=zh">
-          <span>
-            <strong>把正在使用的主题带到 Nota</strong>
-            <small>转换 Typora、GNOME/GTK 或 KDE 主题。</small>
-          </span>
-          <span class="button">主题转换器</span>
-        </a>
-      </div>
-      <p class="meta">Debian · RPM · AppImage · Windows · 本地文件</p>
     </section>
 
     <section class="writing-section shell" id="writing">

@@ -19,8 +19,8 @@
   <header class="site-header">
     <div class="bar">
       <a class="brand" href="index.html" aria-label="Nota home">
-        <img class="brand-icon" src="assets/nota-icon.svg" alt="">
-        <img class="brand-wordmark" src="assets/nota-wordmark.svg" alt="Nota">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Nota</span>
       </a>
       <nav aria-label="Primary navigation">
         <a href="#writing">Writing</a>
@@ -36,32 +36,52 @@
   </header>
 
   <main>
-    <section class="hero shell">
-      <div class="hero-art">
-        <img src="assets/illustrations/carbon-hero.svg" alt="Carbon-style source, editor and document panels connected by IBM blue arrows" width="1600" height="900">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Nota · Markdown editor for Linux and Windows</p>
+          <h1>A local first, minimalist Markdown editor.</h1>
+          <p class="lead">
+            Open a file and write. Formatting takes shape while you type,
+            then recedes into a calm page. No account. No proprietary database.
+          </p>
+          <div class="hero-banners">
+            <a class="hero-banner hero-action" href="https://github.com/Nota-MD/Nota/releases/latest">
+              <strong>Download Nota</strong><span aria-hidden="true">↓</span>
+            </a>
+            <a class="hero-banner hero-action secondary" href="https://nota-md.github.io/Nota-theme-converter/">
+              <strong>Theme converter</strong><span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div class="hero-tags">
+            <span>Debian</span><span>RPM</span><span>AppImage</span><span>Windows</span><span>Local files</span>
+          </div>
+        </div>
+        <div class="hero-stage" aria-label="Nota editor preview">
+          <div class="app-preview">
+            <div class="app-titlebar"><i></i><i></i><i></i><strong>notes.md</strong><span>— Nota</span></div>
+            <div class="app-panes">
+              <pre># Field notes
+
+Formatting is **part of the**
+**writing**.
+
+&gt; Source marks appear only
+&gt; when you need them.
+
+```sh
+nota notes.md
+```</pre>
+              <div class="app-rendered">
+                <h3>Field notes</h3>
+                <p>Formatting is <strong>part of the writing</strong>.</p>
+                <blockquote>Source marks appear only when you need them.</blockquote>
+                <code>nota notes.md</code>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Nota is a local first minimalist Markdown editor.</h1>
-      <p class="lead">
-        Open a file and write. Formatting takes shape while you type, then
-        recedes into a calm page — with no account and no proprietary database.
-      </p>
-      <div class="hero-banners">
-        <a class="hero-banner" href="https://github.com/Nota-MD/Nota/releases/latest">
-          <span>
-            <strong>Nota is ready to write</strong>
-            <small>Download the latest Linux or Windows release.</small>
-          </span>
-          <span class="button primary">Download</span>
-        </a>
-        <a class="hero-banner" href="https://nota-md.github.io/Nota-theme-converter/">
-          <span>
-            <strong>Bring your desktop theme</strong>
-            <small>Convert a Typora, GNOME/GTK or KDE theme for Nota.</small>
-          </span>
-          <span class="button">Theme converter</span>
-        </a>
-      </div>
-      <p class="meta">Debian · RPM · AppImage · Windows · Local files</p>
     </section>
 
     <section class="writing-section shell" id="writing">

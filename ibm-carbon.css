@@ -30,9 +30,17 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("./assets/fonts/IBMPlexSans-Light.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
-  --bg: #f4f4f4;
+  --bg: #ffffff;
   --surface: #ffffff;
   --surface-alt: #f4f4f4;
   --fg: #161616;
@@ -50,7 +58,7 @@
   --pill: 0;
   --page: 99rem;
   --narrow: 66rem;
-  --sans: "IBM Plex Sans SC", "IBM Plex Sans", "Noto Sans CJK SC",
+  --sans: "IBM Plex Sans", "IBM Plex Sans SC", "Noto Sans CJK SC",
     "Source Han Sans SC", "Microsoft YaHei", sans-serif;
   --mono: "IBM Plex Mono", "Noto Sans Mono CJK SC", "Cascadia Code", monospace;
   --shadow: none;
@@ -326,7 +334,7 @@ nav a[aria-current="page"] {
   color: var(--accent);
   font-family: var(--mono);
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: 0.32px;
 }
 
@@ -435,7 +443,7 @@ h3 {
   padding: 24px 32px;
   border: 0;
   border-radius: 0;
-  background: var(--surface);
+  background: var(--surface-alt);
 }
 
 .feature-section article:hover {
@@ -899,5 +907,339 @@ footer a {
 
   .theme-section {
     padding-top: 72px;
+  }
+}
+
+/* Editorial Carbon landing layout. */
+.brand {
+  gap: 10px;
+  border-right: 1px solid #393939;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+}
+
+.brand-mark {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: var(--accent);
+}
+
+.brand-name {
+  color: #ffffff;
+}
+
+nav {
+  margin-left: 0;
+}
+
+.bar > .button {
+  margin-left: auto;
+}
+
+.hero {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-alt);
+  text-align: left;
+}
+
+.hero-grid {
+  width: min(var(--page), calc(100% - 64px));
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  align-items: end;
+  padding-top: 0;
+}
+
+.hero-copy {
+  padding: 96px 48px 64px 0;
+}
+
+.hero h1 {
+  max-width: none;
+  margin: 0 0 24px;
+  font-size: clamp(2.75rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: 0;
+}
+
+.hero > .lead,
+.hero-copy .lead {
+  max-width: 34ch;
+  margin: 0 0 40px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.hero-banners {
+  display: flex;
+  max-width: none;
+  gap: 1px;
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+
+.hero-action {
+  display: inline-flex;
+  min-width: 200px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 0 16px;
+  border: 0;
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.hero-action:hover {
+  background: #0353e9;
+  color: #ffffff;
+}
+
+.hero-action.secondary {
+  background: #393939;
+}
+
+.hero-action.secondary:hover {
+  background: #4c4c4c;
+}
+
+.hero-action strong {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.hero-action span {
+  font-size: 16px;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.hero-tags span {
+  padding: 6px 10px;
+  border-radius: 24px;
+  background: #e8e8e8;
+  color: var(--fg);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.hero-stage {
+  min-width: 0;
+  padding-top: 64px;
+}
+
+.app-preview {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  background: var(--surface);
+}
+
+.app-titlebar {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  background: #e8e8e8;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.app-titlebar i {
+  width: 10px;
+  height: 10px;
+  background: var(--muted);
+  opacity: 0.5;
+}
+
+.app-titlebar strong {
+  margin-left: 4px;
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.app-panes {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  min-height: 384px;
+}
+
+.app-panes pre {
+  overflow: auto;
+  margin: 0;
+  padding: 20px;
+  border-right: 1px solid var(--line);
+  background: var(--surface-alt);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.8;
+  white-space: pre;
+}
+
+.app-rendered {
+  padding: 20px 24px 28px;
+  background: var(--surface);
+}
+
+.app-rendered h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.app-rendered p {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.app-rendered blockquote {
+  margin: 0 0 12px;
+  padding: 2px 0 2px 14px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.app-rendered code {
+  display: block;
+  padding: 10px 12px;
+  background: var(--surface-alt);
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+
+.writing-section {
+  width: min(var(--page), calc(100% - 64px));
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  column-gap: 32px;
+  padding-top: 80px;
+}
+
+.writing-section > .eyebrow,
+.writing-section > .typing-figure {
+  grid-column: 1 / -1;
+}
+
+.writing-section > h2 {
+  grid-column: 1;
+  margin: 0;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.writing-section > .lead {
+  grid-column: 2;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.typing-figure {
+  margin-top: 40px;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+}
+
+h3,
+h4 {
+  font-weight: 400;
+}
+
+.closing {
+  width: 100%;
+  padding: 80px max(32px, calc((100vw - var(--page)) / 2));
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.closing .eyebrow,
+.closing .lead {
+  color: #e5eeff;
+}
+
+.closing h2 {
+  color: #ffffff;
+}
+
+@media (max-width: 1055px) {
+  .hero-grid,
+  .writing-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    padding: 48px 0 40px;
+  }
+
+  .hero-stage {
+    padding: 0 0 32px;
+  }
+
+  .writing-section > .eyebrow,
+  .writing-section > h2,
+  .writing-section > .lead,
+  .writing-section > .typing-figure {
+    grid-column: 1;
+  }
+
+  .writing-section > .lead {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-grid,
+  .shell,
+  .shell.wide {
+    width: calc(100% - 32px);
+  }
+
+  .hero-copy {
+    padding-top: 40px;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-stage {
+    padding-bottom: 24px;
+  }
+
+  .app-panes {
+    grid-template-columns: 1fr;
+  }
+
+  .app-panes pre {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-banners {
+    flex-direction: column;
+  }
+
+  .hero-action {
+    width: 100%;
   }
 }
